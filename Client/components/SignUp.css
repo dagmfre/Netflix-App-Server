@@ -1,0 +1,96 @@
+.sign-up {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgb(0 0 0 / 26%) 57%,
+      rgba(0, 0, 0, 0.7) 100%
+    ),
+    url(../../public/large.jpg);
+  padding: 0 15px;
+}
+.su-back-div {
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 7px;
+  max-width: 510px;
+  width: 100%;
+  padding: 40px 3rem 3rem;
+}
+.logo {
+  width: 150px;
+  height: 42px;
+  position: absolute;
+  top: 3%;
+  left: 3%;
+}
+.form {
+  max-width: 500px;
+  width: 100%;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center !important;
+  padding-top: 9%;
+}
+.form button {
+  padding-left: 0px;
+  margin: 20px 0 0;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 15.6px;
+  font-weight: 700;
+  font-family: "montserrat";
+  text-align: center;
+  min-height: 45px;
+}
+.sec-input-div label {
+  left: 16px;
+}
+.fir-input-div button {
+  display: none;
+}
+.sign-up input {
+  background: #333;
+  width: 100%;
+    margin: 0;
+}
+.sign-up label {
+  color: #8c8c8c;
+}
+.div-img {
+  display: flex;
+  gap: 20px;
+}
+.div-img .google {
+  padding: 5px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background: white;
+}
+.sign-up h1 {
+  font-size: 32px;
+  font-weight: 500;
+  text-align: left;
+  margin-left: 6px;
+}
+.last-qsn {
+  color: #737373;
+}
+.last-qsn span {
+  margin-right: 5px;
+}
+.last-qsn > * {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 15px;
+  display: inline-block;
+}
+@media screen and (max-width: 400px) {
+  .su-back-div{
+    padding: 40px 1.5rem 3rem;
+  }
+}
