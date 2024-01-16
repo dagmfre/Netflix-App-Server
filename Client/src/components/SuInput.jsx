@@ -39,8 +39,8 @@ function SuInput() {
         >
           Email address
         </label>
-        <button type="submit" className="btn btn-lg btn-danger get-started-btn">
-          <i class="fa-solid fa-chevron-right"></i>
+        <button onClick={handleSubmit} type="submit" className="btn btn-lg btn-danger get-started-btn">
+          <i className="fa-solid fa-chevron-right"></i>
           <h6 className="get-started">Get Started</h6>
         </button>
       </form>

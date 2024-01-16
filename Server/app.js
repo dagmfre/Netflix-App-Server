@@ -77,7 +77,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/google/netflix-main-page",
+      callbackURL: "http://localhost:3000/netflix-account",
     },
     function (accessToken, refreshToken, profile, cb) {
       console.log(profile);
@@ -96,7 +96,7 @@ passport.use(
     {
       clientID: process.env.FB_APP_ID,
       clientSecret: process.env.FB_APP_SECRET,
-      callbackURL: "http://localhost:3000/auth/facebook/netflix-main-page",
+      callbackURL: "http://localhost:3000/netflix-account",
     },
     function (accessToken, refreshToken, profile, cb) {
       console.log(profile);
@@ -135,7 +135,7 @@ app.get(
 );
 
 app.get(
-  "/auth/google/netflix-main-page",
+  "/auth/google/account",
   passport.authenticate("google", { failureRedirect: "/failure" }),
   function (req, res) {
     res.sendFile(__dirname + "/success.html");
@@ -145,7 +145,7 @@ app.get(
 app.get("/auth/facebook", passport.authenticate("facebook"));
 
 app.get(
-  "/auth/facebook/netflix-main-page",
+  "/auth/facebook/account",
   passport.authenticate("facebook", { failureRedirect: "/failure" }),
   function (req, res) {
     res.sendFile(__dirname + "/success.html");

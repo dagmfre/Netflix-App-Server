@@ -1,12 +1,16 @@
 import React from "react";
 import SuInput from "./SuInput";
 import SiInput from "./SiInput";
+import { Link } from "react-router-dom";
 
 function FirstPage() {
   return (
     <div className="first-page">
       <div className="navlike">
-        <img src="logo.png" alt="" />
+        <Link to={"/"}>
+          <img src="logo.png" alt="" />
+        </Link>
+
         <SiInput />
       </div>
       <div className="input-field">
@@ -15,7 +19,7 @@ function FirstPage() {
         <h3>
           Ready to watch? Enter your email to create or restart your membership.
         </h3>
-          <SuInput />
+        <SuInput />
       </div>
     </div>
   );

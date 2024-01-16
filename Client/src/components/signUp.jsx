@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function SignUp() {
-  const [username, setEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
   const navigate = useNavigate();
@@ -22,12 +22,12 @@ function SignUp() {
     event.preventDefault();
     try {
       const response = await axios.post("http://localhost:3001/register", {
-        username: username,
+        username: email,
         password: password,
       });
       localStorage.setItem("token", response.data.token);
       if (response.status === 200) {
-        navigate("/netflix-main-page");
+        navigate("/netflix-account", { state: { data: email } });
         console.log(response);
       }
     } catch (error) {
@@ -42,16 +42,18 @@ function SignUp() {
   return (
     <div className="input-field sign-up">
       <div className="su-back-div">
-        <img src="logo.png" alt="" className="logo" />
+        <Link className="logo-cont" to={"/"}>
+          <img src="logo.png" alt="" className="logo" />
+        </Link>
         <h1>Sign Up</h1>
         <form className="form" method="POST" onSubmit={handleRegister}>
           <div className="fir-input-div">
-            <SuInput2 setEmail={handleEmail} />
+            <SuInput2 sentData={handleEmail} />
           </div>
           <div className="sec-input-div">
-            <SuInput3 setPassword={handlePassword} />
+            <SuInput3 sentData={handlePassword} />
           </div>
-          <button type="submit" class="btn btn-danger btn-lg">
+          <button type="submit" className="btn btn-danger btn-lg">
             Sign Up
           </button>
           <div className="div-img">
@@ -69,7 +71,7 @@ function SignUp() {
           <div className="last-qsn">
             <h4>
               <span>Already Have an Account?</span>
-              <Link to={"./login"}>Login</Link>
+              <Link to={"/login"}>Login</Link>
             </h4>
           </div>
           <div className="err-msg" style={{ display: err ? "" : "none" }}>

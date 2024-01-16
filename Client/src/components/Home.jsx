@@ -1,5 +1,5 @@
-import FirstPage from "./components/FirstPage";
-import OtherPages from "./components/OtherPages";
+import FirstPage from "./FirstPage";
+import OtherPages from "./OtherPages";
 
 export default function Home() {
   return (

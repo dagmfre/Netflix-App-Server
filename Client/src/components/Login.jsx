@@ -2,34 +2,33 @@ import axios from "axios";
 import { useState } from "react";
 import SuInput2 from "../components/SuInput2";
 import SuInput3 from "../components/SuInput3";
-import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
   const navigate = useNavigate();
 
   const handleEmail = (data) => {
-    setUsername(data);
+    setUsername(data.username);
   };
   const handlePassword = (data) => {
-    setPassword(data);
+    setPassword(data.password);
+    console.log(data)
   };
 
   const handleRegister = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.post("http://localhost:3001/login", {
-        username: username,
+        username: email,
         password: password,
       });
       localStorage.setItem("token", response.data.token);
       if (response.status === 200) {
-        navigate('/other-route');
+        navigate("/netflix-account", );
       }
     } catch (error) {
       console.error("Error during registration:", error);
@@ -42,7 +41,9 @@ export default function Login() {
 
   return (
     <div onSubmit={handleRegister} className="login">
-      <img src="logo.png" alt="" className="logo" />
+      <Link className="logo-cont" to={"/"}>
+        <img src="logo.png" alt="" className="logo" />
+      </Link>
       <form className="form">
         <h1>Login</h1>
         <SuInput2 sentData={handleEmail} />
@@ -50,12 +51,12 @@ export default function Login() {
         <div className="last-qsn">
           <h4>
             <span>Don't have an account?</span>
-            <Link to={"./signup"}>Sign up now</Link>
+            <Link to={"/signup"}>Sign up now</Link>
           </h4>
         </div>
         <div className="err-msg" style={{ display: err ? "" : "none" }}>
           <p>
-            <FontAwesomeIcon icon={faCircleXmark} />
+            <i className="fa-solid fa-circle-xmark"></i>
             {err}
           </p>
         </div>

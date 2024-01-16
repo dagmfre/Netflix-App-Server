@@ -1,21 +1,21 @@
-import { MyProvider } from "../context/MyContext";
 import { Route, Routes } from "react-router-dom";
 import { StyledEngineProvider } from "@mui/material/styles";
 import SignUp from "./signUp";
 import Home from "./Home";
+import Login from "./Login";
+import NetflixMainPage from "./NetflixAccount";
 
 function App() {
   return (
     <div>
-      
       <StyledEngineProvider injectFirst>
-      <MyProvider>
         <Routes>
-        <Route path="/signup" element={<Home />}></Route>
-      <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/netflix-account" element={<NetflixMainPage />}></Route>
         </Routes>
-      </MyProvider>
-    </StyledEngineProvider>
+      </StyledEngineProvider>
     </div>
   );
 }

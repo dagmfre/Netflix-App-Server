@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-function SuInput3({setPassword}) {
+function SuInput3({sentData}) {
   const [isFocused, setIsFocused] = useState(false);
   const [inputValue, setinputValue] = useState("");
 
@@ -10,7 +10,7 @@ function SuInput3({setPassword}) {
   }
   function valueHandler(e) {
     setinputValue(e.target.value);
-    setPassword(e.target.value)
+    sentData(e.target.value)
   }
   function offFocusHandler() {
     if (inputValue === "") {
@@ -37,7 +37,7 @@ function SuInput3({setPassword}) {
         <span className="span-email">Password</span>
       </label>
       <button type="submit" className="btn btn-lg btn-danger get-started-btn">
-        <span>Get Started<i class="fa-solid fa-chevron-right"></i></span> 
+        <span>Get Started<i className="fa-solid fa-chevron-right"></i></span> 
       </button>
     </div>
   );
