@@ -1,9 +1,12 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import UserAccount from "./UserAccount";
 import axios from "axios";
 
 export default function NetflixMainPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const username = location.state?.data;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -21,7 +24,9 @@ export default function NetflixMainPage() {
         console.log("thsi is therrrrrrrrrrrrr" + error + token);
       });
   }, []);
-  return <div className="net-accnt">
-    <h1>helooooooooooo</h1>
-  </div>;
+  return (
+    <div>
+      <UserAccount username={username}/>
+    </div>
+  );
 }

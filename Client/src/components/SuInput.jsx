@@ -8,7 +8,7 @@ function SuInput() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("./signup");
+    navigate("./signup", { state: { data: inputValue } });
   };
 
   function focusHandler() {
@@ -32,6 +32,7 @@ function SuInput() {
           onFocus={focusHandler}
           onChange={valueHandler}
           onBlur={offFocusHandler}
+          required
         />
         <label
           htmlFor="input"

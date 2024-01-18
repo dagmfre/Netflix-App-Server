@@ -6,29 +6,31 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function Login() {
-  const [email, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
   const navigate = useNavigate();
 
-  const handleEmail = (data) => {
+  const handleEmailUsername = (data) => {
+    setEmail(data.email);
     setUsername(data.username);
+    console.log(data);
   };
   const handlePassword = (data) => {
-    setPassword(data.password);
-    console.log(data)
+    setPassword(data);
   };
 
   const handleRegister = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.post("http://localhost:3001/login", {
-        username: email,
+        email: email,
         password: password,
       });
       localStorage.setItem("token", response.data.token);
       if (response.status === 200) {
-        navigate("/netflix-account", );
+        navigate("/netflix-account", { state: { data: username } });
       }
     } catch (error) {
       console.error("Error during registration:", error);
@@ -46,7 +48,7 @@ export default function Login() {
       </Link>
       <form className="form">
         <h1>Login</h1>
-        <SuInput2 sentData={handleEmail} />
+        <SuInput2 sentData={handleEmailUsername} />
         <SuInput3 sentData={handlePassword} />
         <div className="last-qsn">
           <h4>

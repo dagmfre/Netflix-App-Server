@@ -3,16 +3,20 @@ import axios from "axios";
 import SuInput2 from "./SuInput2";
 import SuInput3 from "./SuInput3";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function SignUp() {
-  const [email, setEmail] = useState("");
+  const location = useLocation();
+  const firstPageEmail = location.state?.data;
+  const [email, setEmail] = useState(firstPageEmail);
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
   const navigate = useNavigate();
 
-  const handleEmail = (data) => {
-    setEmail(data);
+  const handleEmailUsername = (data) => {
+    setEmail(data.email);
+    setUsername(data.username);
   };
   const handlePassword = (data) => {
     setPassword(data);
@@ -22,12 +26,12 @@ function SignUp() {
     event.preventDefault();
     try {
       const response = await axios.post("http://localhost:3001/register", {
-        username: email,
+        email: email,
         password: password,
       });
       localStorage.setItem("token", response.data.token);
       if (response.status === 200) {
-        navigate("/netflix-account", { state: { data: email } });
+        navigate("/netflix-account", { state: { data: username } });
         console.log(response);
       }
     } catch (error) {
@@ -48,7 +52,7 @@ function SignUp() {
         <h1>Sign Up</h1>
         <form className="form" method="POST" onSubmit={handleRegister}>
           <div className="fir-input-div">
-            <SuInput2 sentData={handleEmail} />
+            <SuInput2 firstPageEmail={firstPageEmail} sentData={handleEmailUsername} />
           </div>
           <div className="sec-input-div">
             <SuInput3 sentData={handlePassword} />
@@ -60,7 +64,7 @@ function SignUp() {
             <a href="http://localhost:3001/auth/google">
               <img
                 className="google"
-                src="https://img.icons8.com/color/48/google-logo.png"
+                src="google.png"
                 alt="google-logo"
               />
             </a>

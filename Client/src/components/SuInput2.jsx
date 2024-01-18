@@ -1,63 +1,82 @@
 import React from "react";
 import { useState } from "react";
 
-function SuInput2({ sentData }) {
-  const [isFocused, setIsFocused] = useState(false);
-  const [inputValue, setinputValue] = useState("");
+function SuInput2({ sentData, ...props }) {
+  const [isEmailFocused, setIsEmailFocused] = useState(false);
+  const [isUsernameFocused, setIsUsernameFocused] = useState(false);
+  const [emailInputValue, setEmailInputValue] = useState(props.firstPageEmail);
+  const [usernameInputValue, setUsernameInputValue] = useState("");
 
-  function focusHandler() {
-    setIsFocused(true);
+  function focusHandler1() {
+    setIsEmailFocused(true);
+  }
+  function focusHandler2() {
+    setIsUsernameFocused(true);
   }
   function usernameHandler(e) {
-    setinputValue(e.target.value);
-    sentData({ username: e.target.value });
+    setUsernameInputValue(e.target.value);
+    sentData({ username: e.target.value, email: emailInputValue });
   }
   function emailHandler(e) {
-    setinputValue(e.target.value);
-    sentData({ email: e.target.value });
+    setEmailInputValue(e.target.value);
+    sentData({ email: e.target.value, username: usernameInputValue });
   }
-  function offFocusHandler() {
-    if (inputValue === "") {
-      setIsFocused(!isFocused);
+  function offFocusHandler1() {
+    if (emailInputValue === "") {
+      setIsEmailFocused(!isEmailFocused);
+    }
+  }
+
+  function offFocusHandler2() {
+    if (usernameInputValue === "") {
+      setIsUsernameFocused(!isUsernameFocused);
     }
   }
 
   return (
-    <div>
-      <input
-        id="input1"
-        type="text"
-        name="username"
-        value={inputValue}
-        onFocus={focusHandler}
-        onChange={usernameHandler}
-        onBlur={offFocusHandler}
-      />
-      <label
-        htmlFor="input1"
-        className={`overlay-label ${
-          isFocused || inputValue !== "" ? "focus" : ""
-        }`}
-      >
-        <span className="span-email">Username</span>
-      </label>
-      <input
-        id="input2"
-        type="email"
-        name="username"
-        value={inputValue}
-        onFocus={focusHandler}
-        onChange={emailHandler}
-        onBlur={offFocusHandler}
-      />
-      <label
-        htmlFor="input2"
-        className={`overlay-label ${
-          isFocused || inputValue !== "" ? "focus" : ""
-        }`}
-      >
-        <span className="span-email">Email or phone number</span>
-      </label>
+    <div className="username-main-cont">
+      <div className="username-cont">
+        <input
+          id="input1"
+          type="text"
+          name="username"
+          value={usernameInputValue}
+          onFocus={focusHandler1}
+          onChange={usernameHandler}
+          onBlur={offFocusHandler1}
+          required
+        />
+        <label
+          htmlFor="input1"
+          className={`overlay-label ${
+            isEmailFocused || usernameInputValue !== "" ? "focus" : ""
+          }`}
+        >
+          <span className="span-email">Username</span>
+        </label>
+      </div>
+
+      <div className="email-cont">
+        <input
+          id="input2"
+          type="email"
+          name="email"
+          value={emailInputValue}
+          onFocus={focusHandler2}
+          onChange={emailHandler}
+          onBlur={offFocusHandler2}
+          required
+        />
+        <label
+          htmlFor="input2"
+          className={`overlay-label ${
+            isUsernameFocused || emailInputValue !== "" ? "focus" : ""
+          }`}
+        >
+          <span className="span-email">Email or phone number</span>
+        </label>
+      </div>
+
       <button type="submit" className="btn btn-lg btn-danger submit1">
         <span>
           Get Started<i className="fa-solid fa-chevron-right"></i>

@@ -206,9 +206,7 @@ function FAQ() {
             membership.
           </h3>
           <div className="faq-form-cont">
-            <form action="/" method="get">
               <SuInput4 />
-            </form>
           </div>
         </div>
       </div>

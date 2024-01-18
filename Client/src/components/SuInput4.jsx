@@ -11,7 +11,7 @@ function SuInput4() {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("./signup");
+    navigate("./signup", { state: { data: inputValue } });
   };
   function valueHandler(e) {
     setinputValue(e.target.value);
@@ -32,6 +32,7 @@ function SuInput4() {
           onChange={valueHandler}
           onBlur={offFocusHandler}
           className="input2"
+          required
         />
         <label
           htmlFor="input-2nd"

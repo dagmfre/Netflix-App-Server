@@ -45,42 +45,42 @@ main().catch((err) => console.log(err));
 
 async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/netflixDB");
-  // await mongoose.connect('mongodb+srv://dagmfre:dag%4013645440@firstcluster.rkrulns.mongodb.net/netflixDB');
 }
 
 // Creating Schema
 const userSchema = new mongoose.Schema({
+  username: String,
   email: String,
   password: String,
   googleId: String,
   secret: String,
-  username: String,
   facebookId: String,
-  secret: String,
 });
 
 // pluging in the passort-local-mongoose module
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
 
+// DB Model
 const User = mongoose.model("User", userSchema);
 
 // let passport use our cookies by serializing and deserialising
 passport.use(User.createStrategy());
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Google & FB usage codes
 passport.use(
+  "google",
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/netflix-account",
+      callbackURL: "http://localhost:3000/auth/google/netflix-account",
     },
     function (accessToken, refreshToken, profile, cb) {
       console.log(profile);
+      console.log("profile");
       User.findOrCreate(
         { googleId: profile.id, username: profile.displayName },
         function (err, user) {
@@ -96,10 +96,9 @@ passport.use(
     {
       clientID: process.env.FB_APP_ID,
       clientSecret: process.env.FB_APP_SECRET,
-      callbackURL: "http://localhost:3000/netflix-account",
+      callbackURL: "http://localhost:3000/auth/facebook/netflix-account",
     },
     function (accessToken, refreshToken, profile, cb) {
-      console.log(profile);
       User.findOrCreate(
         { facebookId: profile.id, username: profile.displayName },
         function (err, user) {
@@ -109,6 +108,34 @@ passport.use(
     }
   )
 );
+
+// Creating Routes for Google & FB authentication
+app.get(
+  "/auth/google",
+  passport.authenticate("google", {
+    scope: ["profile"],
+  })
+);
+
+app.get(
+  "/auth/google/netflix-account",
+  passport.authenticate("google", {
+    failureRedirect: "/failure",
+    successRedirect: "http://localhost:3000/auth/google/netflix-account",
+  })
+);
+
+app.get("/auth/facebook", passport.authenticate("facebook"));
+
+app.get(
+  "/auth/facebook/netflix-account",
+  passport.authenticate("facebook", {
+    failureRedirect: "/failure",
+    successRedirect: "http://localhost:3000/auth/facebook/netflix-account",
+  })
+);
+
+// Local authentication code using passport, passport-jwt, passport-local-mongoose and express-session
 
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = "Random string";
@@ -128,58 +155,33 @@ passport.use(
     }
   })
 );
-// Creating Routes
-app.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["profile"] })
-);
-
-app.get(
-  "/auth/google/account",
-  passport.authenticate("google", { failureRedirect: "/failure" }),
-  function (req, res) {
-    res.sendFile(__dirname + "/success.html");
-  }
-);
-
-app.get("/auth/facebook", passport.authenticate("facebook"));
-
-app.get(
-  "/auth/facebook/account",
-  passport.authenticate("facebook", { failureRedirect: "/failure" }),
-  function (req, res) {
-    res.sendFile(__dirname + "/success.html");
-  }
-);
-
-// Local authentication code using passport, passport-local-mongoose and express-session
 
 app.post("/register", (req, res) => {
+  console.log(req.body);
   const user = new User({
-    username: req.body.username,
+    email: req.body.email,
     password: hashSync(req.body.password, 10),
   });
   const payload = {
-    username: user.username,
+    email: user.email,
     id: user._id,
   };
   const token = jwt.sign(payload, "Random string", { expiresIn: "1d" });
 
-
   // check if user already exists
-  User.findOne({ username: req.body.username }).then((user) => {
+  User.findOne({ email: req.body.email }).then((user) => {
     // User found
     if (user) {
       return res.status(401).send({
         success: false,
         message: "User already exists.",
       });
-    } else {  
+    } else {
       const newUser = new User({
-        username: req.body.username,
+        email: req.body.email,
         password: hashSync(req.body.password, 10),
       });
-  
+
       newUser
         .save()
         .then((user) => {
@@ -189,7 +191,7 @@ app.post("/register", (req, res) => {
             token: "Bearer " + token,
             user: {
               id: user._id,
-              username: user.username,
+              email: user.email,
             },
           });
         })
@@ -201,11 +203,11 @@ app.post("/register", (req, res) => {
           });
         });
     }
-  });  
+  });
 });
 
 app.post("/login", (req, res) => {
-  User.findOne({ username: req.body.username }).then((user) => {
+  User.findOne({ email: req.body.email }).then((user) => {
     //No user found
     if (!user) {
       return res.status(401).send({
@@ -223,7 +225,7 @@ app.post("/login", (req, res) => {
     }
 
     const payload = {
-      username: user.username,
+      email: user.email,
       id: user._id,
     };
 
@@ -245,7 +247,7 @@ app.get(
       success: true,
       user: {
         id: req.user._id,
-        username: req.user.username,
+        email: req.user.email,
       },
     });
   }
