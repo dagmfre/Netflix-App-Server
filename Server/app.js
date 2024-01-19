@@ -76,7 +76,8 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/google/netflix-account",
+      callbackURL: "http://localhost:3001/auth-netflix-account",
+      userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     function (accessToken, refreshToken, profile, cb) {
       console.log(profile);
@@ -96,7 +97,8 @@ passport.use(
     {
       clientID: process.env.FB_APP_ID,
       clientSecret: process.env.FB_APP_SECRET,
-      callbackURL: "http://localhost:3000/auth/facebook/netflix-account",
+      callbackURL: "http://localhost:3001/auth-netflix-account",
+      userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     function (accessToken, refreshToken, profile, cb) {
       User.findOrCreate(
@@ -117,21 +119,34 @@ app.get(
   })
 );
 
+app.get("/success", (req, res) => {
+  const successMessage = req.query.message;
+  console.log(successMessage);
+});
+
 app.get(
-  "/auth/google/netflix-account",
+  "/auth-netflix-account",
   passport.authenticate("google", {
-    failureRedirect: "/failure",
-    successRedirect: "http://localhost:3000/auth/google/netflix-account",
+    failureRedirect: "http://localhost:3000/login",
+    successRedirect: "http://localhost:3000/auth-netflix-account",
   })
 );
+
+app.get("/check-auth-status", (req, res) => {
+  if (req.user) {
+    res.status(200).json({ message: "user Login", user: req.user });
+  } else {
+    res.status(400).json({ message: "Not Authorized" });
+  }
+});
 
 app.get("/auth/facebook", passport.authenticate("facebook"));
 
 app.get(
-  "/auth/facebook/netflix-account",
+  "/auth-netflix-account",
   passport.authenticate("facebook", {
-    failureRedirect: "/failure",
-    successRedirect: "http://localhost:3000/auth/facebook/netflix-account",
+    failureRedirect: "http://localhost:3000/login",
+    successRedirect: "http://localhost:3000/auth-netflix-account",
   })
 );
 

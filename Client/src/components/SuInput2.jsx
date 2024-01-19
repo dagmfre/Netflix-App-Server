@@ -2,15 +2,18 @@ import React from "react";
 import { useState } from "react";
 
 function SuInput2({ sentData, ...props }) {
+  console.log(props.firstPageEmail);
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isUsernameFocused, setIsUsernameFocused] = useState(false);
-  const [emailInputValue, setEmailInputValue] = useState(props.firstPageEmail);
+  const [emailInputValue, setEmailInputValue] = useState(
+    `${props.firstPageEmail ? props.firstPageEmail : ""}`
+  );
   const [usernameInputValue, setUsernameInputValue] = useState("");
 
-  function focusHandler1() {
+  function focusHandler2() {
     setIsEmailFocused(true);
   }
-  function focusHandler2() {
+  function focusHandler1() {
     setIsUsernameFocused(true);
   }
   function usernameHandler(e) {
@@ -21,13 +24,13 @@ function SuInput2({ sentData, ...props }) {
     setEmailInputValue(e.target.value);
     sentData({ email: e.target.value, username: usernameInputValue });
   }
-  function offFocusHandler1() {
+  function offFocusHandler2() {
     if (emailInputValue === "") {
       setIsEmailFocused(!isEmailFocused);
     }
   }
 
-  function offFocusHandler2() {
+  function offFocusHandler1() {
     if (usernameInputValue === "") {
       setIsUsernameFocused(!isUsernameFocused);
     }
@@ -49,7 +52,7 @@ function SuInput2({ sentData, ...props }) {
         <label
           htmlFor="input1"
           className={`overlay-label ${
-            isEmailFocused || usernameInputValue !== "" ? "focus" : ""
+            isUsernameFocused || usernameInputValue !== "" ? "focus" : ""
           }`}
         >
           <span className="span-email">Username</span>
@@ -70,7 +73,7 @@ function SuInput2({ sentData, ...props }) {
         <label
           htmlFor="input2"
           className={`overlay-label ${
-            isUsernameFocused || emailInputValue !== "" ? "focus" : ""
+            isEmailFocused || emailInputValue !== "" ? "focus" : ""
           }`}
         >
           <span className="span-email">Email or phone number</span>

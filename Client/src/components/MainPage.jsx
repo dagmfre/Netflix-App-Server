@@ -1,17 +1,15 @@
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import UserAccount from "./UserAccount";
 import axios from "axios";
 
-export default function NetflixMainPage() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const username = location.state?.data;
-  
-
+export default function MainPage() {
+    const navigate = useNavigate();
+    const location = useLocation();
   useEffect(() => {
+    const username = location.state?.data;
+
     const token = localStorage.getItem("token");
-    sessionStorage.setItem("username", username)
+    sessionStorage.setItem("username", username);
     axios
       .get("http://localhost:3001/protected", {
         headers: {
@@ -27,8 +25,8 @@ export default function NetflixMainPage() {
       });
   }, []);
   return (
-    <div>
-      <UserAccount username={username}/>
+    <div className="main-page">
+      <h1>hello</h1>
     </div>
   );
 }
