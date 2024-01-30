@@ -13,6 +13,7 @@ const FacebookStrategy = require("passport-facebook").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 const JwtStrategy = require("passport-jwt").Strategy,
   ExtractJwt = require("passport-jwt").ExtractJwt;
+const mongodbConnectionString = process.env.MONGODB_URI;
 const opts = {};
 
 // use and initializing express, express-session and passport modules
@@ -44,7 +45,7 @@ app.use(passport.session());
 main().catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/netflixDB");
+  await mongoose.connect(mongodbConnectionString);
 }
 
 // Creating Schema
@@ -80,8 +81,6 @@ passport.use(
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     function (accessToken, refreshToken, profile, cb) {
-      console.log(profile);
-      console.log("profile");
       User.findOrCreate(
         { googleId: profile.id, username: profile.displayName },
         function (err, user) {
@@ -98,7 +97,6 @@ passport.use(
       clientID: process.env.FB_APP_ID,
       clientSecret: process.env.FB_APP_SECRET,
       callbackURL: "http://localhost:3001/auth-netflix-account",
-      userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     function (accessToken, refreshToken, profile, cb) {
       User.findOrCreate(
@@ -118,11 +116,6 @@ app.get(
     scope: ["profile"],
   })
 );
-
-app.get("/success", (req, res) => {
-  const successMessage = req.query.message;
-  console.log(successMessage);
-});
 
 app.get(
   "/auth-netflix-account",
