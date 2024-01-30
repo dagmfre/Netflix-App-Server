@@ -1,23 +1,20 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function UserAccount(props) {
-  const value = sessionStorage.getItem("username");
-  console.log(value, props.username);
+  const [username, setUsername] = useState(props.username);
+  const navigate = useNavigate();
+
+  const clickHandler = () => {
+    navigate("/main-page", { state: { data: username } });
+    setUsername(props.username);
+  };
 
   return (
     <div className="user-account">
       <h2>Who's watching?</h2>
-      <Link to={"/"}>
-        <img src="avatar.png" alt="" />
-      </Link>
-      <h1 spellCheck={false} contentEditable>
-        {(props.username !== undefined && props.username !== null) ||
-        (value !== undefined && value !== null)
-          ? props.username !== undefined
-            ? props.username
-            : value
-          : "Type Your Name"}
-      </h1>
+      <img onClick={clickHandler} src="avatar.png" alt="" />
+      <h1 spellCheck={false}>{props.username}</h1>
     </div>
   );
 }
