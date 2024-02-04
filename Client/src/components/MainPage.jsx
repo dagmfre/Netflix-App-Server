@@ -8,22 +8,30 @@ import Navbar from "./Navbar";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import MovieDetail from "./MovieDetail";
 
 export default function MainPage() {
   const api_key = process.env.REACT_APP_TMDB_API_KEY;
   const location = useLocation();
   const [username, setUsername] = useState("");
+  const [isBtnClicked, setIsBtnClicked] = useState(false);
+  const [isXclicked, setIsXclicked] = useState(false);
+
+  const [title, setTitle] = useState("");
+  const [id, setID] = useState("");
+  const [description, setDescription] = useState("");
+  const [randomVideoKey, setRandomVideoKey] = useState("");
+  const [randomGenres, setRandomGenres] = useState([]);
+  const [randomLength, setRandomLength] = useState("");
+  const [randomDate, setRandomDate] = useState("");
+
   const [movieImageUrls, setMovieImageUrls] = useState([]);
   const [movieImageUrls2, setMovieImageUrls2] = useState([]);
   const [movieImageUrls3, setMovieImageUrls3] = useState([]);
+
   const [videoKeyCont, setVideoKeyCont] = useState([]);
   const [videoKeyCont2, setVideoKeyCont2] = useState([]);
   const [videoKeyCont3, setVideoKeyCont3] = useState([]);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [isHovered, setIsHovered] = useState(false);
-  const [isHovered2, setIsHovered2] = useState(false);
-  const [isHovered3, setIsHovered3] = useState(false);
   const [allowHover, setAllowHover] = useState(false);
 
   const [overviewCont, setOverviewCont] = useState("");
@@ -37,7 +45,26 @@ export default function MainPage() {
   const [dateCont, setDateCont] = useState("");
   const [dateCont2, setDateCont2] = useState("");
   const [dateCont3, setDateCont3] = useState("");
-  const [genreCont, setGenreCont] = useState("");
+
+  const [genreCont, setGenreCont] = useState([]);
+  const [genreCont2, setGenreCont2] = useState([]);
+  const [genreCont3, setGenreCont3] = useState([]);
+
+  const [titleCont, setTitleCont] = useState("");
+  const [titleCont2, setTitleCont2] = useState("");
+  const [titleCont3, setTitleCont3] = useState("");
+
+  const [selectedTitle, setSelectedTitle] = useState("");
+  const [selectedTitle2, setSelectedTitle2] = useState("");
+  const [selectedTitle3, setSelectedTitle3] = useState("");
+
+  const [idCont, setIdCont] = useState("");
+  const [idCont2, setIdCont2] = useState("");
+  const [idCont3, setIdCont3] = useState("");
+
+  const [selectedId, setSelectedId] = useState("");
+  const [selectedId2, setSelectedId2] = useState("");
+  const [selectedId3, setSelectedId3] = useState("");
 
   const [selectedKey, setSelectedKey] = useState("");
   const [selectedKey2, setSelectedKey2] = useState("");
@@ -55,7 +82,19 @@ export default function MainPage() {
   const [selectedDate2, setSelectedDate2] = useState("");
   const [selectedDate3, setSelectedDate3] = useState("");
 
-  const [selectedGenres, setSelectedGenres] = useState("");
+  const [selectedGenres, setSelectedGenres] = useState([]);
+  const [selectedGenres2, setSelectedGenres2] = useState([]);
+  const [selectedGenres3, setSelectedGenres3] = useState([]);
+
+  const [clickedID, setClickedID] = useState("");
+  const [clickedTitle, setClickedTitle] = useState("");
+  const [clickedKey, setClickedKey] = useState("");
+  const [clickedDate, setClickedDate] = useState("");
+  const [clickedLength, setClickedLength] = useState("");
+  const [clickedGenre, setClickedGenre] = useState("");
+  const [clickedOverview, setClickedOverview] = useState("");
+
+  const [isTvShowsClicked, setIsTvShowsClicked] = useState(false);
 
   const navigate = useNavigate();
   const updateSlicingRangeRef = useRef();
@@ -82,8 +121,39 @@ export default function MainPage() {
     setAllowHover(true);
   }, 5000);
 
-  const handleImageHover = (outerIndex, imageIndex) => {
+  const handleChildData = (xClickState) => {
+    console.log(xClickState);
+    if (xClickState) {
+      setIsBtnClicked(false);
+    }
+  };
+
+  const handleChildData2 = (tvShowsClickedState) => {
+    if (tvShowsClickedState) {
+      setIsTvShowsClicked(true);
+    }
+  };
+
+  const handleClick = (id, title, key, date, length, overview, genres) => {
+    setClickedID(id);
+    setClickedTitle(title);
+    setClickedKey(key);
+    setClickedDate(date);
+    setClickedLength(length);
+    setClickedOverview(overview);
+    setClickedGenre(genres);
+    setIsBtnClicked(true);
+  };
+
+  // 1111111111111111
+  const handleMouseEnter = (outerIndex, imageIndex) => {
     if (allowHover) {
+      const currentID = idCont[outerIndex][imageIndex];
+      setSelectedId(currentID);
+
+      const currentTitle = titleCont[outerIndex][imageIndex];
+      setSelectedTitle(currentTitle);
+
       const currentKey = videoKeyCont[outerIndex][imageIndex];
       setSelectedKey(currentKey);
 
@@ -91,15 +161,46 @@ export default function MainPage() {
       setSelectedOverview(currentOverview);
 
       const currentlength = lengthCont[outerIndex][imageIndex];
-      setSelectedLength(currentlength);
+      const hours = Math.floor(currentlength / 60);
+      var minutes = currentlength % 60;
+      setSelectedLength(`${hours}h ${minutes}m`);
 
       const currentDate = dateCont[outerIndex][imageIndex];
-      setSelectedDate(currentDate);
+      setSelectedDate(currentDate.slice(0, 4));
+
+      const currentGenre = genreCont[outerIndex][imageIndex];
+      const genresToAdd = currentGenre.map((genres, i) => genres);
+      const SlicedGenresToAdd = genresToAdd.slice(0, 3);
+
+      setSelectedGenres(SlicedGenresToAdd);
     }
+
+    const slickSliders = document.querySelectorAll(".slick-slider");
+    slickSliders[0].classList.add("slider-hovered");
+    const layeredSliders = document.querySelectorAll(".layered");
+    layeredSliders.forEach((slider) => {
+      slider.classList.add("layered-zindex");
+    });
   };
 
-  const handleImageHover2 = (outerIndex, imageIndex) => {
+  const handleMouseLeave = () => {
+    const slickSliders = document.querySelectorAll(".slick-slider");
+    slickSliders[0].classList.remove("slider-hovered");
+    const layeredSliders = document.querySelectorAll(".layered");
+    layeredSliders.forEach((slider) => {
+      slider.classList.remove("layered-zindex");
+    });
+  };
+
+  // 22222222222222
+  const handleMouseEnter2 = (outerIndex, imageIndex) => {
     if (allowHover) {
+      const currentID = idCont2[outerIndex][imageIndex];
+      setSelectedId2(currentID);
+
+      const currentTitle = titleCont2[outerIndex][imageIndex];
+      setSelectedTitle2(currentTitle);
+
       const currentKey2 = videoKeyCont2[outerIndex][imageIndex];
       setSelectedKey2(currentKey2);
 
@@ -107,14 +208,46 @@ export default function MainPage() {
       setSelectedOverview2(currentOverview2);
 
       const currentlength2 = lengthCont2[outerIndex][imageIndex];
-      setSelectedLength2(currentlength2);
+      const hours = Math.floor(currentlength2 / 60);
+      var minutes = currentlength2 % 60;
+      setSelectedLength2(`${hours}h ${minutes}m`);
+
+      const currentGenre = genreCont2[outerIndex][imageIndex];
+      const genresToAdd = currentGenre.map((genres, i) => genres);
+      const SlicedGenresToAdd = genresToAdd.slice(0, 3);
+
+      setSelectedGenres2(SlicedGenresToAdd);
+
       const currentDate2 = dateCont2[outerIndex][imageIndex];
-      setSelectedDate2(currentDate2);
+      setSelectedDate2(currentDate2.slice(0, 4));
     }
+
+    const slickSliders = document.querySelectorAll(".slick-slider");
+    slickSliders[1].classList.add("slider-hovered");
+    const layeredSliders = document.querySelectorAll(".layered");
+    layeredSliders.forEach((slider) => {
+      slider.classList.add("layered-zindex");
+    });
   };
 
-  const handleImageHover3 = (outerIndex, imageIndex) => {
+  const handleMouseLeave2 = () => {
+    const slickSliders = document.querySelectorAll(".slick-slider");
+    slickSliders[1].classList.remove("slider-hovered");
+    const layeredSliders = document.querySelectorAll(".layered");
+    layeredSliders.forEach((slider) => {
+      slider.classList.remove("layered-zindex");
+    });
+  };
+
+  // 333333333333333
+  const handleMouseEnter3 = (outerIndex, imageIndex) => {
     if (allowHover) {
+      const currentID = idCont3[outerIndex][imageIndex];
+      setSelectedId3(currentID);
+
+      const currentTitle = titleCont3[outerIndex][imageIndex];
+      setSelectedTitle3(currentTitle);
+
       const currentKey3 = videoKeyCont3[outerIndex][imageIndex];
       setSelectedKey3(currentKey3);
 
@@ -123,43 +256,35 @@ export default function MainPage() {
 
       const currentlength3 = lengthCont3[outerIndex][imageIndex];
       setSelectedLength3(currentlength3);
+      const hours = Math.floor(currentlength3 / 60);
+      var minutes = currentlength3 % 60;
+      setSelectedLength3(`${hours}h ${minutes}m`);
+
+      const currentGenre = genreCont3[outerIndex][imageIndex];
+      const genresToAdd = currentGenre.map((genres, i) => genres);
+      const SlicedGenresToAdd = genresToAdd.slice(0, 3);
+
+      setSelectedGenres3(SlicedGenresToAdd);
 
       const currentDate3 = dateCont3[outerIndex][imageIndex];
-      setSelectedDate3(currentDate3);
+      setSelectedDate3(currentDate3.slice(0, 4));
     }
-  };
 
-  const handleMouseEnter = () => {
-    const slickSliders = document.querySelectorAll(".slick-slider");
-    slickSliders[0].classList.add("slider-hovered");
-    const layeredSliders = document.querySelector(".layered");
-    layeredSliders.classList.add(".layered-zindex");
-  };
-
-  const handleMouseLeave = () => {
-    const slickSliders = document.querySelectorAll(".slick-slider");
-    slickSliders[0].classList.remove("slider-hovered");
-    // const layeredSliders = document.querySelector(".layered");
-    // layeredSliders.classList.remove(".layered-zindex");
-  };
-
-  const handleMouseEnter2 = () => {
-    const slickSliders = document.querySelectorAll(".slick-slider");
-    slickSliders[1].classList.add("slider-hovered");
-  };
-
-  const handleMouseLeave2 = () => {
-    const slickSliders = document.querySelectorAll(".slick-slider");
-    slickSliders[1].classList.remove("slider-hovered");
-  };
-  const handleMouseEnter3 = () => {
     const slickSliders = document.querySelectorAll(".slick-slider");
     slickSliders[2].classList.add("slider-hovered");
+    const layeredSliders = document.querySelectorAll(".layered");
+    layeredSliders.forEach((slider) => {
+      slider.classList.add("layered-zindex");
+    });
   };
 
   const handleMouseLeave3 = () => {
     const slickSliders = document.querySelectorAll(".slick-slider");
     slickSliders[2].classList.remove("slider-hovered");
+    const layeredSliders = document.querySelectorAll(".layered");
+    layeredSliders.forEach((slider) => {
+      slider.classList.remove("layered-zindex");
+    });
   };
 
   useEffect(() => {
@@ -172,7 +297,9 @@ export default function MainPage() {
     // Fetching form TMDB API
     axios
       .get(
-        `https://api.themoviedb.org/3/trending/movie/day?api_key=${api_key}&append_to_response=videos`
+        `https://api.themoviedb.org/3/trending/${
+          isTvShowsClicked ? "tv" : "movie"
+        }/day?api_key=${api_key}`  
       )
       .then((response) => {
         const randomNumber = Math.floor(Math.random() * 20);
@@ -208,13 +335,40 @@ export default function MainPage() {
 
         fetchMovieDetails()
           .then((result) => {
+            console.log(result);
+            const id = result.map((movie) => movie.data?.id);
+            const title = result.map((movie) => movie.data?.title);
             const overview = result.map((movie) => movie.data?.overview);
             const runtime = result.map((movie) => movie.data?.runtime);
             const date = result.map((movie) => movie.data?.release_date);
-            // const genres = result.map((movie) => movie?.genres);
+            const genres = result.map((movie) => movie.data?.genres);
 
             const updateSlicingRange = () => {
               if (window.innerWidth > 1141) {
+                // slicing id
+                const slicedUrlsID1 = id.slice(0, 6);
+                const slicedUrlsID2 = id.slice(7, 13);
+                const slicedUrlsID3 = id.slice(13, 19);
+
+                const IDcont = [
+                  [...slicedUrlsID1],
+                  [...slicedUrlsID2],
+                  [...slicedUrlsID3],
+                ];
+                setIdCont([...IDcont]);
+
+                // slicing title
+                const slicedUrlsTI1 = title.slice(0, 6);
+                const slicedUrlsTI2 = title.slice(7, 13);
+                const slicedUrlsTI3 = title.slice(13, 19);
+
+                const TIcont = [
+                  [...slicedUrlsTI1],
+                  [...slicedUrlsTI2],
+                  [...slicedUrlsTI3],
+                ];
+                setTitleCont([...TIcont]);
+
                 // slicing overview
                 const slicedUrlsOV1 = overview.slice(0, 6);
                 const slicedUrlsOV2 = overview.slice(7, 13);
@@ -252,17 +406,41 @@ export default function MainPage() {
                 setDateCont([...DTcont]);
 
                 // slicing genre
-                // const slicedUrlsGN1 = genres.slice(0, 6);
-                // const slicedUrlsGN2 = genres.slice(7, 13);
-                // const slicedUrlsGN3 = genres.slice(13, 19);
+                const slicedUrlsGN1 = genres.slice(0, 6);
+                const slicedUrlsGN2 = genres.slice(7, 13);
+                const slicedUrlsGN3 = genres.slice(13, 19);
 
-                // const GNcont = [
-                //   [...slicedUrlsGN1],
-                //   [...slicedUrlsGN2],
-                //   [...slicedUrlsGN3],
-                // ];
-                // setOverviewCont([...GNcont]);
+                const GNcont = [
+                  [...slicedUrlsGN1],
+                  [...slicedUrlsGN2],
+                  [...slicedUrlsGN3],
+                ];
+                setGenreCont([...GNcont]);
               } else if (window.innerWidth < 1140 && window.innerWidth > 800) {
+                // slicing id
+                const slicedUrlsID1 = id.slice(0, 4);
+                const slicedUrlsID2 = id.slice(5, 9);
+                const slicedUrlsID3 = id.slice(10, 14);
+
+                const IDcont = [
+                  [...slicedUrlsID1],
+                  [...slicedUrlsID2],
+                  [...slicedUrlsID3],
+                ];
+                setIdCont([...IDcont]);
+
+                // slicing title
+                const slicedUrlsTI1 = title.slice(0, 4);
+                const slicedUrlsTI2 = title.slice(5, 9);
+                const slicedUrlsTI3 = title.slice(10, 14);
+
+                const TIcont = [
+                  [...slicedUrlsTI1],
+                  [...slicedUrlsTI2],
+                  [...slicedUrlsTI3],
+                ];
+                setTitleCont([...TIcont]);
+
                 // slicing overview
                 const slicedUrlsOV1 = overview.slice(0, 4);
                 const slicedUrlsOV2 = overview.slice(5, 9);
@@ -300,17 +478,41 @@ export default function MainPage() {
                 setDateCont([...DTcont]);
 
                 // slicing genre
-                // const slicedUrlsGN1 = genres.slice(0, 4);
-                // const slicedUrlsGN2 = genres.slice(5, 9);
-                // const slicedUrlsGN3 = genres.slice(10, 14);
+                const slicedUrlsGN1 = genres.slice(0, 4);
+                const slicedUrlsGN2 = genres.slice(5, 9);
+                const slicedUrlsGN3 = genres.slice(10, 14);
 
-                // const GNcont = [
-                //   [...slicedUrlsGN1],
-                //   [...slicedUrlsGN2],
-                //   [...slicedUrlsGN3],
-                // ];
-                // setOverviewCont([...GNcont]);
+                const GNcont = [
+                  [...slicedUrlsGN1],
+                  [...slicedUrlsGN2],
+                  [...slicedUrlsGN3],
+                ];
+                setGenreCont([...GNcont]);
               } else if (window.innerWidth < 800 && window.innerWidth > 450) {
+                // slicing title
+                const slicedUrlsID1 = id.slice(0, 3);
+                const slicedUrlsID2 = id.slice(5, 8);
+                const slicedUrlsID3 = id.slice(10, 13);
+
+                const IDcont = [
+                  [...slicedUrlsID1],
+                  [...slicedUrlsID2],
+                  [...slicedUrlsID3],
+                ];
+                setIdCont([...IDcont]);
+
+                // slicing title
+                const slicedUrlsTI1 = title.slice(0, 3);
+                const slicedUrlsTI2 = title.slice(5, 8);
+                const slicedUrlsTI3 = title.slice(10, 13);
+
+                const TIcont = [
+                  [...slicedUrlsTI1],
+                  [...slicedUrlsTI2],
+                  [...slicedUrlsTI3],
+                ];
+                setTitleCont([...TIcont]);
+
                 // slicing overview
                 const slicedUrlsOV1 = overview.slice(0, 3);
                 const slicedUrlsOV2 = overview.slice(5, 8);
@@ -348,17 +550,41 @@ export default function MainPage() {
                 setDateCont([...DTcont]);
 
                 // slicing genre
-                // const slicedUrlsGN1 = genres.slice(0, 3);
-                // const slicedUrlsGN2 = genres.slice(5, 8);
-                // const slicedUrlsGN3 = genres.slice(10, 13);
+                const slicedUrlsGN1 = genres.slice(0, 3);
+                const slicedUrlsGN2 = genres.slice(5, 8);
+                const slicedUrlsGN3 = genres.slice(10, 13);
 
-                // const GNcont = [
-                //   [...slicedUrlsGN1],
-                //   [...slicedUrlsGN2],
-                //   [...slicedUrlsGN3],
-                // ];
-                // setOverviewCont([...GNcont]);
+                const GNcont = [
+                  [...slicedUrlsGN1],
+                  [...slicedUrlsGN2],
+                  [...slicedUrlsGN3],
+                ];
+                setGenreCont([...GNcont]);
               } else if (window.innerWidth < 450) {
+                // slicing id
+                const slicedUrlsID1 = id.slice(0, 2);
+                const slicedUrlsID2 = id.slice(5, 7);
+                const slicedUrlsID3 = id.slice(10, 12);
+
+                const IDcont = [
+                  [...slicedUrlsID1],
+                  [...slicedUrlsID2],
+                  [...slicedUrlsID3],
+                ];
+                setIdCont([...IDcont]);
+
+                // slicing title
+                const slicedUrlsTI1 = title.slice(0, 2);
+                const slicedUrlsTI2 = title.slice(5, 7);
+                const slicedUrlsTI3 = title.slice(10, 12);
+
+                const TIcont = [
+                  [...slicedUrlsTI1],
+                  [...slicedUrlsTI2],
+                  [...slicedUrlsTI3],
+                ];
+                setTitleCont([...TIcont]);
+
                 // slicing overview
                 const slicedUrlsOV1 = overview.slice(0, 2);
                 const slicedUrlsOV2 = overview.slice(5, 7);
@@ -396,16 +622,16 @@ export default function MainPage() {
                 setDateCont([...DTcont]);
 
                 // slicing genre
-                // const slicedUrlsGN1 = genres.slice(0, 2);
-                // const slicedUrlsGN2 = genres.slice(5, 7);
-                // const slicedUrlsGN3 = genres.slice(10, 12);
+                const slicedUrlsGN1 = genres.slice(0, 2);
+                const slicedUrlsGN2 = genres.slice(5, 7);
+                const slicedUrlsGN3 = genres.slice(10, 12);
 
-                // const GNcont = [
-                //   [...slicedUrlsGN1],
-                //   [...slicedUrlsGN2],
-                //   [...slicedUrlsGN3],
-                // ];
-                // setOverviewCont([...GNcont]);
+                const GNcont = [
+                  [...slicedUrlsGN1],
+                  [...slicedUrlsGN2],
+                  [...slicedUrlsGN3],
+                ];
+                setGenreCont([...GNcont]);
               }
             };
 
@@ -552,16 +778,16 @@ export default function MainPage() {
         updateSlicingRange();
         updateSlicingRangeRef.current = updateSlicingRange;
         window.addEventListener("resize", updateSlicingRange);
-        setDescription(response.data.results[randomNumber].overview);
-        setTitle(response.data.results[randomNumber].title);
 
-        // Fetching video from TMDB API then inserting video key into videojs-youtube
+        // Fetching random video from TMDB API then inserting video key into videojs-youtube
         axios
           .get(
             `https://api.themoviedb.org/3/movie/${response.data.results[randomNumber].id}/videos?api_key=${api_key}`
             // https://api.themoviedb.org/3/movie/787699?
           )
           .then((response) => {
+            setRandomVideoKey(response.data.results[0].key);
+
             // inserting video key into videojs-youtube
             if (videoNode.current && !initialized.current) {
               initialized.current = true; //prevent duplicate initialization
@@ -596,6 +822,23 @@ export default function MainPage() {
           .catch((error) => {
             console.error(error);
           });
+
+        // Fetching random movie detail
+        axios
+          .get(
+            `https://api.themoviedb.org/3/movie/${response.data.results[randomNumber].id}?api_key=${api_key}`
+          )
+          .then((rendomMovieDetailRes) => {
+            setDescription(rendomMovieDetailRes.data.overview);
+            setID(rendomMovieDetailRes.data.id);
+            setTitle(rendomMovieDetailRes.data.title);
+            setRandomDate(rendomMovieDetailRes.data.release_date.slice(0, 4));
+            setRandomGenres(rendomMovieDetailRes.data.genres.slice(0, 3));
+            const hours = Math.floor(rendomMovieDetailRes.data.runtime / 60);
+            var minutes = rendomMovieDetailRes.data.runtime % 60;
+            setRandomLength(`${hours}h ${minutes}m`);
+          })
+          .catch((err) => console.log(err));
       })
       .catch((error) => {
         console.error(error);
@@ -636,13 +879,39 @@ export default function MainPage() {
 
         fetchMovieDetails2()
           .then((result) => {
+            const id = result.map((movie) => movie.data?.id);
+            const title = result.map((movie) => movie.data?.title);
             const overview = result.map((movie) => movie.data?.overview);
             const runtime = result.map((movie) => movie.data?.runtime);
             const date = result.map((movie) => movie.data?.release_date);
-            // const genres = result.map((movie) => movie?.genres);
+            const genres = result.map((movie) => movie.data?.genres);
 
             const updateSlicingRange = () => {
               if (window.innerWidth > 1141) {
+                // slicing id
+                const slicedUrlsID1 = id.slice(0, 6);
+                const slicedUrlsID2 = id.slice(7, 13);
+                const slicedUrlsID3 = id.slice(13, 19);
+
+                const IDcont = [
+                  [...slicedUrlsID1],
+                  [...slicedUrlsID2],
+                  [...slicedUrlsID3],
+                ];
+                setIdCont2([...IDcont]);
+
+                // slicing title
+                const slicedUrlsTI1 = title.slice(0, 6);
+                const slicedUrlsTI2 = title.slice(7, 13);
+                const slicedUrlsTI3 = title.slice(13, 19);
+
+                const TIcont = [
+                  [...slicedUrlsTI1],
+                  [...slicedUrlsTI2],
+                  [...slicedUrlsTI3],
+                ];
+                setTitleCont2([...TIcont]);
+
                 // slicing overview
                 const slicedUrlsOV1 = overview.slice(0, 6);
                 const slicedUrlsOV2 = overview.slice(7, 13);
@@ -680,17 +949,41 @@ export default function MainPage() {
                 setDateCont2([...DTcont]);
 
                 // slicing genre
-                // const slicedUrlsGN1 = genres.slice(0, 6);
-                // const slicedUrlsGN2 = genres.slice(7, 13);
-                // const slicedUrlsGN3 = genres.slice(13, 19);
+                const slicedUrlsGN1 = genres.slice(0, 6);
+                const slicedUrlsGN2 = genres.slice(7, 13);
+                const slicedUrlsGN3 = genres.slice(13, 19);
 
-                // const GNcont = [
-                //   [...slicedUrlsGN1],
-                //   [...slicedUrlsGN2],
-                //   [...slicedUrlsGN3],
-                // ];
-                // setOverviewCont2([...GNcont]);
+                const GNcont = [
+                  [...slicedUrlsGN1],
+                  [...slicedUrlsGN2],
+                  [...slicedUrlsGN3],
+                ];
+                setGenreCont2([...GNcont]);
               } else if (window.innerWidth < 1140 && window.innerWidth > 800) {
+                // slicing id
+                const slicedUrlsID1 = id.slice(0, 4);
+                const slicedUrlsID2 = id.slice(5, 9);
+                const slicedUrlsID3 = id.slice(10, 14);
+
+                const IDcont = [
+                  [...slicedUrlsID1],
+                  [...slicedUrlsID2],
+                  [...slicedUrlsID3],
+                ];
+                setIdCont2([...IDcont]);
+
+                // slicing title
+                const slicedUrlsTI1 = title.slice(0, 4);
+                const slicedUrlsTI2 = title.slice(5, 9);
+                const slicedUrlsTI3 = title.slice(10, 14);
+
+                const TIcont = [
+                  [...slicedUrlsTI1],
+                  [...slicedUrlsTI2],
+                  [...slicedUrlsTI3],
+                ];
+                setTitleCont2([...TIcont]);
+
                 // slicing overview
                 const slicedUrlsOV1 = overview.slice(0, 4);
                 const slicedUrlsOV2 = overview.slice(5, 9);
@@ -728,17 +1021,41 @@ export default function MainPage() {
                 setDateCont2([...DTcont]);
 
                 // slicing genre
-                // const slicedUrlsGN1 = genres.slice(0, 4);
-                // const slicedUrlsGN2 = genres.slice(5, 9);
-                // const slicedUrlsGN3 = genres.slice(10, 14);
+                const slicedUrlsGN1 = genres.slice(0, 4);
+                const slicedUrlsGN2 = genres.slice(5, 9);
+                const slicedUrlsGN3 = genres.slice(10, 14);
 
-                // const GNcont = [
-                //   [...slicedUrlsGN1],
-                //   [...slicedUrlsGN2],
-                //   [...slicedUrlsGN3],
-                // ];
-                // setOverviewCont2([...GNcont]);
+                const GNcont = [
+                  [...slicedUrlsGN1],
+                  [...slicedUrlsGN2],
+                  [...slicedUrlsGN3],
+                ];
+                setGenreCont2([...GNcont]);
               } else if (window.innerWidth < 800 && window.innerWidth > 450) {
+                // slicing id
+                const slicedUrlsID1 = id.slice(0, 3);
+                const slicedUrlsID2 = id.slice(5, 8);
+                const slicedUrlsID3 = id.slice(10, 13);
+
+                const IDcont = [
+                  [...slicedUrlsID1],
+                  [...slicedUrlsID2],
+                  [...slicedUrlsID3],
+                ];
+                setIdCont2([...IDcont]);
+
+                // slicing title
+                const slicedUrlsTI1 = title.slice(0, 3);
+                const slicedUrlsTI2 = title.slice(5, 8);
+                const slicedUrlsTI3 = title.slice(10, 13);
+
+                const TIcont = [
+                  [...slicedUrlsTI1],
+                  [...slicedUrlsTI2],
+                  [...slicedUrlsTI3],
+                ];
+                setTitleCont2([...TIcont]);
+
                 // slicing overview
                 const slicedUrlsOV1 = overview.slice(0, 3);
                 const slicedUrlsOV2 = overview.slice(5, 8);
@@ -776,17 +1093,41 @@ export default function MainPage() {
                 setDateCont2([...DTcont]);
 
                 // slicing genre
-                // const slicedUrlsGN1 = genres.slice(0, 3);
-                // const slicedUrlsGN2 = genres.slice(5, 8);
-                // const slicedUrlsGN3 = genres.slice(10, 13);
+                const slicedUrlsGN1 = genres.slice(0, 3);
+                const slicedUrlsGN2 = genres.slice(5, 8);
+                const slicedUrlsGN3 = genres.slice(10, 13);
 
-                // const GNcont = [
-                //   [...slicedUrlsGN1],
-                //   [...slicedUrlsGN2],
-                //   [...slicedUrlsGN3],
-                // ];
-                // setOverviewCont2([...GNcont]);
+                const GNcont = [
+                  [...slicedUrlsGN1],
+                  [...slicedUrlsGN2],
+                  [...slicedUrlsGN3],
+                ];
+                setGenreCont2([...GNcont]);
               } else if (window.innerWidth < 450) {
+                // slicing id
+                const slicedUrlsID1 = id.slice(0, 2);
+                const slicedUrlsID2 = id.slice(5, 7);
+                const slicedUrlsID3 = id.slice(10, 12);
+
+                const IDcont = [
+                  [...slicedUrlsID1],
+                  [...slicedUrlsID2],
+                  [...slicedUrlsID3],
+                ];
+                setIdCont2([...IDcont]);
+
+                // slicing title
+                const slicedUrlsTI1 = title.slice(0, 2);
+                const slicedUrlsTI2 = title.slice(5, 7);
+                const slicedUrlsTI3 = title.slice(10, 12);
+
+                const TIcont = [
+                  [...slicedUrlsTI1],
+                  [...slicedUrlsTI2],
+                  [...slicedUrlsTI3],
+                ];
+                setTitleCont2([...TIcont]);
+
                 // slicing overview
                 const slicedUrlsOV1 = overview.slice(0, 2);
                 const slicedUrlsOV2 = overview.slice(5, 7);
@@ -824,16 +1165,16 @@ export default function MainPage() {
                 setDateCont2([...DTcont]);
 
                 // slicing genre
-                // const slicedUrlsGN1 = genres.slice(0, 2);
-                // const slicedUrlsGN2 = genres.slice(5, 7);
-                // const slicedUrlsGN3 = genres.slice(10, 12);
+                const slicedUrlsGN1 = genres.slice(0, 2);
+                const slicedUrlsGN2 = genres.slice(5, 7);
+                const slicedUrlsGN3 = genres.slice(10, 12);
 
-                // const GNcont = [
-                //   [...slicedUrlsGN1],
-                //   [...slicedUrlsGN2],
-                //   [...slicedUrlsGN3],
-                // ];
-                // setOverviewCont2([...GNcont]);
+                const GNcont = [
+                  [...slicedUrlsGN1],
+                  [...slicedUrlsGN2],
+                  [...slicedUrlsGN3],
+                ];
+                setGenreCont2([...GNcont]);
               }
             };
 
@@ -1021,13 +1362,39 @@ export default function MainPage() {
 
         fetchMovieDetails3()
           .then((result) => {
+            const id = result.map((movie) => movie.data?.id);
+            const title = result.map((movie) => movie.data?.title);
             const overview = result.map((movie) => movie.data?.overview);
             const runtime = result.map((movie) => movie.data?.runtime);
             const date = result.map((movie) => movie.data?.release_date);
-            // const genres = result.map((movie) => movie?.genres);
+            const genres = result.map((movie) => movie.data?.genres);
 
             const updateSlicingRange = () => {
               if (window.innerWidth > 1141) {
+                // slicing id
+                const slicedUrlsID1 = id.slice(0, 6);
+                const slicedUrlsID2 = id.slice(7, 13);
+                const slicedUrlsID3 = id.slice(13, 19);
+
+                const IDcont = [
+                  [...slicedUrlsID1],
+                  [...slicedUrlsID2],
+                  [...slicedUrlsID3],
+                ];
+                setIdCont3([...IDcont]);
+
+                // slicing title
+                const slicedUrlsTI1 = title.slice(0, 6);
+                const slicedUrlsTI2 = title.slice(7, 13);
+                const slicedUrlsTI3 = title.slice(13, 19);
+
+                const TIcont = [
+                  [...slicedUrlsTI1],
+                  [...slicedUrlsTI2],
+                  [...slicedUrlsTI3],
+                ];
+                setTitleCont3([...TIcont]);
+
                 // slicing overview
                 const slicedUrlsOV1 = overview.slice(0, 6);
                 const slicedUrlsOV2 = overview.slice(7, 13);
@@ -1065,17 +1432,41 @@ export default function MainPage() {
                 setDateCont3([...DTcont]);
 
                 // slicing genre
-                // const slicedUrlsGN1 = genres.slice(0, 6);
-                // const slicedUrlsGN2 = genres.slice(7, 13);
-                // const slicedUrlsGN3 = genres.slice(13, 19);
+                const slicedUrlsGN1 = genres.slice(0, 6);
+                const slicedUrlsGN2 = genres.slice(7, 13);
+                const slicedUrlsGN3 = genres.slice(13, 19);
 
-                // const GNcont = [
-                //   [...slicedUrlsGN1],
-                //   [...slicedUrlsGN2],
-                //   [...slicedUrlsGN3],
-                // ];
-                // setGenreCont([...GNcont]);
+                const GNcont = [
+                  [...slicedUrlsGN1],
+                  [...slicedUrlsGN2],
+                  [...slicedUrlsGN3],
+                ];
+                setGenreCont3([...GNcont]);
               } else if (window.innerWidth < 1140 && window.innerWidth > 800) {
+                // slicing id
+                const slicedUrlsID1 = id.slice(0, 4);
+                const slicedUrlsID2 = id.slice(5, 9);
+                const slicedUrlsID3 = id.slice(10, 14);
+
+                const IDcont = [
+                  [...slicedUrlsID1],
+                  [...slicedUrlsID2],
+                  [...slicedUrlsID3],
+                ];
+                setIdCont3([...IDcont]);
+
+                // slicing title
+                const slicedUrlsTI1 = title.slice(0, 4);
+                const slicedUrlsTI2 = title.slice(5, 9);
+                const slicedUrlsTI3 = title.slice(10, 14);
+
+                const TIcont = [
+                  [...slicedUrlsTI1],
+                  [...slicedUrlsTI2],
+                  [...slicedUrlsTI3],
+                ];
+                setTitleCont3([...TIcont]);
+
                 // slicing overview
                 const slicedUrlsOV1 = overview.slice(0, 4);
                 const slicedUrlsOV2 = overview.slice(5, 9);
@@ -1113,17 +1504,41 @@ export default function MainPage() {
                 setDateCont3([...DTcont]);
 
                 // slicing genre
-                // const slicedUrlsGN1 = genres.slice(0, 4);
-                // const slicedUrlsGN2 = genres.slice(5, 9);
-                // const slicedUrlsGN3 = genres.slice(10, 14);
+                const slicedUrlsGN1 = genres.slice(0, 4);
+                const slicedUrlsGN2 = genres.slice(5, 9);
+                const slicedUrlsGN3 = genres.slice(10, 14);
 
-                // const GNcont = [
-                //   [...slicedUrlsGN1],
-                //   [...slicedUrlsGN2],
-                //   [...slicedUrlsGN3],
-                // ];
-                // setOverviewCont([...GNcont]);
+                const GNcont = [
+                  [...slicedUrlsGN1],
+                  [...slicedUrlsGN2],
+                  [...slicedUrlsGN3],
+                ];
+                setGenreCont3([...GNcont]);
               } else if (window.innerWidth < 800 && window.innerWidth > 450) {
+                // slicing id
+                const slicedUrlsID1 = id.slice(0, 3);
+                const slicedUrlsID2 = id.slice(5, 8);
+                const slicedUrlsID3 = id.slice(10, 13);
+
+                const IDcont = [
+                  [...slicedUrlsID1],
+                  [...slicedUrlsID2],
+                  [...slicedUrlsID3],
+                ];
+                setIdCont3([...IDcont]);
+
+                // slicing title
+                const slicedUrlsTI1 = title.slice(0, 3);
+                const slicedUrlsTI2 = title.slice(5, 8);
+                const slicedUrlsTI3 = title.slice(10, 13);
+
+                const TIcont = [
+                  [...slicedUrlsTI1],
+                  [...slicedUrlsTI2],
+                  [...slicedUrlsTI3],
+                ];
+                setTitleCont3([...TIcont]);
+
                 // slicing overview
                 const slicedUrlsOV1 = overview.slice(0, 3);
                 const slicedUrlsOV2 = overview.slice(5, 8);
@@ -1161,17 +1576,41 @@ export default function MainPage() {
                 setDateCont3([...DTcont]);
 
                 // slicing genre
-                // const slicedUrlsGN1 = genres.slice(0, 3);
-                // const slicedUrlsGN2 = genres.slice(5, 8);
-                // const slicedUrlsGN3 = genres.slice(10, 13);
+                const slicedUrlsGN1 = genres.slice(0, 3);
+                const slicedUrlsGN2 = genres.slice(5, 8);
+                const slicedUrlsGN3 = genres.slice(10, 13);
 
-                // const GNcont = [
-                //   [...slicedUrlsGN1],
-                //   [...slicedUrlsGN2],
-                //   [...slicedUrlsGN3],
-                // ];
-                // setOverviewCont([...GNcont]);
+                const GNcont = [
+                  [...slicedUrlsGN1],
+                  [...slicedUrlsGN2],
+                  [...slicedUrlsGN3],
+                ];
+                setGenreCont3([...GNcont]);
               } else if (window.innerWidth < 450) {
+                // slicing id
+                const slicedUrlsID1 = id.slice(0, 2);
+                const slicedUrlsID2 = id.slice(5, 7);
+                const slicedUrlsID3 = id.slice(10, 12);
+
+                const IDcont = [
+                  [...slicedUrlsID1],
+                  [...slicedUrlsID2],
+                  [...slicedUrlsID3],
+                ];
+                setIdCont3([...IDcont]);
+
+                // slicing title
+                const slicedUrlsTI1 = title.slice(0, 2);
+                const slicedUrlsTI2 = title.slice(5, 7);
+                const slicedUrlsTI3 = title.slice(10, 12);
+
+                const TIcont = [
+                  [...slicedUrlsTI1],
+                  [...slicedUrlsTI2],
+                  [...slicedUrlsTI3],
+                ];
+                setTitleCont3([...TIcont]);
+
                 // slicing overview
                 const slicedUrlsOV1 = overview.slice(0, 2);
                 const slicedUrlsOV2 = overview.slice(5, 7);
@@ -1209,16 +1648,16 @@ export default function MainPage() {
                 setDateCont3([...DTcont]);
 
                 // slicing genre
-                // const slicedUrlsGN1 = genres.slice(0, 2);
-                // const slicedUrlsGN2 = genres.slice(5, 7);
-                // const slicedUrlsGN3 = genres.slice(10, 12);
+                const slicedUrlsGN1 = genres.slice(0, 2);
+                const slicedUrlsGN2 = genres.slice(5, 7);
+                const slicedUrlsGN3 = genres.slice(10, 12);
 
-                // const GNcont = [
-                //   [...slicedUrlsGN1],
-                //   [...slicedUrlsGN2],
-                //   [...slicedUrlsGN3],
-                // ];
-                // setOverviewCont([...GNcont]);
+                const GNcont = [
+                  [...slicedUrlsGN1],
+                  [...slicedUrlsGN2],
+                  [...slicedUrlsGN3],
+                ];
+                setGenreCont3([...GNcont]);
               }
             };
 
@@ -1388,7 +1827,7 @@ export default function MainPage() {
   return (
     <div className="main-page">
       <div className="main-child1">
-        <Navbar />
+        <Navbar handleChildData2={handleChildData2}/>
         <div className="cover"></div>
         <video ref={videoNode} className="video-js" />
         <div className="movie-descr-cont">
@@ -1399,7 +1838,19 @@ export default function MainPage() {
               <i class="fa-solid fa-play"></i>
               <p>Play</p>
             </div>
-            <div>
+            <div
+              onClick={() =>
+                handleClick(
+                  id,
+                  title,
+                  randomVideoKey,
+                  randomDate,
+                  randomLength,
+                  description,
+                  randomGenres
+                )
+              }
+            >
               <img src="info.png" alt="" />
               <p>More Info</p>
             </div>
@@ -1416,7 +1867,9 @@ export default function MainPage() {
               {ImageUrlsCont.map((movieImageUrl, imageIndex) => (
                 <div key={imageIndex} className="cards">
                   <div
-                    onMouseEnter={handleMouseEnter}
+                    onMouseEnter={() =>
+                      handleMouseEnter(outerIndex, imageIndex)
+                    }
                     onMouseLeave={handleMouseLeave}
                     className={`hovered-card`}
                   >
@@ -1425,6 +1878,9 @@ export default function MainPage() {
                         src={`https://image.tmdb.org/t/p/w500${movieImageUrl}`}
                         alt=""
                       />
+                      <div className="title">
+                        <h3>{selectedTitle}</h3>
+                      </div>
                     </div>
                     <div>
                       <div className="icons-cont">
@@ -1434,28 +1890,38 @@ export default function MainPage() {
                           <i class="fa-regular fa-thumbs-up"></i>
                         </div>
 
-                        <i class="fa-solid fa-circle-chevron-down"></i>
+                        <i
+                          onClick={() =>
+                            handleClick(
+                              selectedId,
+                              selectedTitle,
+                              selectedKey,
+                              selectedDate,
+                              selectedLength,
+                              selectedOverview,
+                              selectedGenres
+                            )
+                          }
+                          class="fa-solid fa-circle-chevron-down"
+                        ></i>
                       </div>
                       <div className="info-cont">
                         <div>
-                          <p>2h 19m</p>
-                          <p>2023</p>
+                          <p>{selectedLength}</p>
+                          <p>{selectedDate}</p>
                           <p>HD</p>
                         </div>
 
                         <li>
-                          <ul>Action</ul>
-                          <ul>Adventure</ul>
-                          <ul>Science Fiction</ul>{" "}
+                          {selectedGenres.map((genres, index) => (
+                            <ul key={index}>{genres.name}</ul>
+                          ))}
                         </li>
                       </div>
                     </div>
                   </div>
                   <img
                     className="main-movie-img"
-                    onMouseEnter={() =>
-                      handleImageHover(outerIndex, imageIndex)
-                    }
                     src={`https://image.tmdb.org/t/p/w500${movieImageUrl}`}
                     alt=""
                   />
@@ -1471,18 +1937,20 @@ export default function MainPage() {
               {ImageUrlsCont.map((movieImageUrl, imageIndex) => (
                 <div key={imageIndex} className="cards">
                   <div
-                    onMouseEnter={handleMouseEnter2}
+                    onMouseEnter={() =>
+                      handleMouseEnter2(outerIndex, imageIndex)
+                    }
                     onMouseLeave={handleMouseLeave2}
                     className={`hovered-card`}
                   >
                     <div>
                       <img
-                        onMouseEnter={() =>
-                          handleImageHover2(outerIndex, imageIndex)
-                        }
                         src={`https://image.tmdb.org/t/p/w500${movieImageUrl}`}
                         alt=""
                       />
+                      <div className="title">
+                        <h3>{selectedTitle2}</h3>
+                      </div>
                     </div>
                     <div>
                       <div className="icons-cont">
@@ -1492,27 +1960,37 @@ export default function MainPage() {
                           <i class="fa-regular fa-thumbs-up"></i>
                         </div>
 
-                        <i class="fa-solid fa-circle-chevron-down"></i>
+                        <i
+                          onClick={() =>
+                            handleClick(
+                              selectedId2,
+                              selectedTitle2,
+                              selectedKey2,
+                              selectedDate2,
+                              selectedLength2,
+                              selectedOverview2,
+                              selectedGenres2
+                            )
+                          }
+                          class="fa-solid fa-circle-chevron-down"
+                        ></i>
                       </div>
                       <div className="info-cont">
                         <div>
-                          <p>2h 19m</p>
-                          <p>2023</p>
+                          <p>{selectedLength2}</p>
+                          <p>{selectedDate2}</p>
                           <p>HD</p>
                         </div>
 
                         <li>
-                          <ul>Action</ul>
-                          <ul>Adventure</ul>
-                          <ul>Science Fiction</ul>{" "}
+                          {selectedGenres2.map((genres, index) => (
+                            <ul key={index}>{genres.name}</ul>
+                          ))}
                         </li>
                       </div>
                     </div>
                   </div>
                   <img
-                    onMouseEnter={() =>
-                      handleImageHover2(outerIndex, imageIndex)
-                    }
                     src={`https://image.tmdb.org/t/p/w500${movieImageUrl}`}
                     alt=""
                   />
@@ -1527,7 +2005,7 @@ export default function MainPage() {
             <div key={outerIndex} className="card-cont">
               {ImageUrlsCont.map((movieImageUrl, imageIndex) => (
                 <div
-                  onMouseEnter={handleMouseEnter3}
+                  onMouseEnter={() => handleMouseEnter3(outerIndex, imageIndex)}
                   onMouseLeave={handleMouseLeave3}
                   key={imageIndex}
                   className="cards"
@@ -1535,12 +2013,12 @@ export default function MainPage() {
                   <div className={`hovered-card `}>
                     <div>
                       <img
-                        onMouseEnter={() =>
-                          handleImageHover3(outerIndex, imageIndex)
-                        }
                         src={`https://image.tmdb.org/t/p/w500${movieImageUrl}`}
                         alt=""
                       />
+                      <div className="title">
+                        <h3>{selectedTitle3}</h3>
+                      </div>
                     </div>
                     <div>
                       <div className="icons-cont">
@@ -1550,27 +2028,37 @@ export default function MainPage() {
                           <i class="fa-regular fa-thumbs-up"></i>
                         </div>
 
-                        <i class="fa-solid fa-circle-chevron-down"></i>
+                        <i
+                          onClick={() =>
+                            handleClick(
+                              selectedId3,
+                              selectedTitle3,
+                              selectedKey3,
+                              selectedDate3,
+                              selectedLength3,
+                              selectedOverview3,
+                              selectedGenres3
+                            )
+                          }
+                          class="fa-solid fa-circle-chevron-down"
+                        ></i>
                       </div>
                       <div className="info-cont">
                         <div>
-                          <p>2h 19m</p>
-                          <p>2023</p>
+                          <p>{selectedLength3}</p>
+                          <p>{selectedDate3}</p>
                           <p>HD</p>
                         </div>
 
                         <li>
-                          <ul>Action</ul>
-                          <ul>Adventure</ul>
-                          <ul>Science Fiction</ul>{" "}
+                          {selectedGenres3.map((genres, index) => (
+                            <ul key={index}>{genres.name}</ul>
+                          ))}
                         </li>
                       </div>
                     </div>
                   </div>
                   <img
-                    onMouseEnter={() =>
-                      handleImageHover3(outerIndex, imageIndex)
-                    }
                     src={`https://image.tmdb.org/t/p/w500${movieImageUrl}`}
                     alt=""
                   />
@@ -1580,14 +2068,19 @@ export default function MainPage() {
           ))}
         </Slider>
       </div>
-      {/* <iframe
-        width="560"
-        height="315"
-        src={`https://www.youtube.com/embed/${selectedKey}?autoplay=1&mute=1&loop=1&rel=0"`}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        title="Embedded YouTube video"
-      /> */}
+      <MovieDetail
+        // selected card movie props
+        clickedID={clickedID}
+        clickedTitle={clickedTitle}
+        clickedKey={clickedKey}
+        clickedDate={clickedDate}
+        clickedLength={clickedLength}
+        clickedOverview={clickedOverview}
+        clickedGenre={clickedGenre}
+        btnClickState={isBtnClicked}
+        handleChildData={handleChildData}
+      />
     </div>
   );
 }
+  
