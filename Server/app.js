@@ -58,12 +58,28 @@ const userSchema = new mongoose.Schema({
   facebookId: String,
 });
 
+const movieListSchema = new mongoose.Schema({
+  MovieTitle: String, 
+  MovieImgURL: String,
+  MovieVideoKey: String,
+  MovieLength: String,
+  MovieDate: String,
+  MovieGenres: [
+    {
+      id: Number,
+      name: String,
+    },
+  ],
+  MovieDescription: String,
+});
+
 // pluging in the passort-local-mongoose module
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
 
 // DB Model
 const User = mongoose.model("User", userSchema);
+const MovieList = mongoose.model("MovieList", movieListSchema);
 
 // let passport use our cookies by serializing and deserialising
 passport.use(User.createStrategy());
@@ -96,7 +112,7 @@ passport.use(
     {
       clientID: process.env.FB_APP_ID,
       clientSecret: process.env.FB_APP_SECRET,
-      callbackURL: "http://localhost:3001/auth-netflix-account",
+      callbackURL: "http://localhost:3001/fb/auth-netflix-account",
     },
     function (accessToken, refreshToken, profile, cb) {
       User.findOrCreate(
@@ -125,6 +141,16 @@ app.get(
   })
 );
 
+app.get("/auth/facebook", passport.authenticate("facebook"));
+
+app.get(
+  "/fb/auth-netflix-account",
+  passport.authenticate("facebook", {
+    failureRedirect: "http://localhost:3000/login",
+    successRedirect: "http://localhost:3000/auth-netflix-account",
+  })
+);
+
 app.get("/check-auth-status", (req, res) => {
   if (req.user) {
     res.status(200).json({ message: "user Login", user: req.user });
@@ -133,15 +159,35 @@ app.get("/check-auth-status", (req, res) => {
   }
 });
 
-app.get("/auth/facebook", passport.authenticate("facebook"));
+app.post("/user-movie-list", async (req, res) => {
+  try {
+    // Create a new document based on the request data
+    const userMovieList = new MovieList(req.body);
 
-app.get(
-  "/auth-netflix-account",
-  passport.authenticate("facebook", {
-    failureRedirect: "http://localhost:3000/login",
-    successRedirect: "http://localhost:3000/auth-netflix-account",
-  })
-);
+    // Save the document to the database
+    await userMovieList.save();
+
+    console.log(req.body);
+
+    // Send a success response
+    res.status(200).json({ message: "Data saved successfully" });
+  } catch (error) {
+    // Handle errors
+    console.error("Error:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.get("/user-movie-list", async (req, res) => {
+  try {
+    const movieInfo = await MovieList.find();
+
+    res.status(200).json(movieInfo);
+  } catch (error) {
+    console.error("Error:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 // Local authentication code using passport, passport-jwt, passport-local-mongoose and express-session
 

@@ -15,7 +15,6 @@ export default function MainPage() {
   const location = useLocation();
   const [username, setUsername] = useState("");
   const [isBtnClicked, setIsBtnClicked] = useState(false);
-  const [isXclicked, setIsXclicked] = useState(false);
 
   const [title, setTitle] = useState("");
   const [id, setID] = useState("");
@@ -33,6 +32,10 @@ export default function MainPage() {
   const [videoKeyCont2, setVideoKeyCont2] = useState([]);
   const [videoKeyCont3, setVideoKeyCont3] = useState([]);
   const [allowHover, setAllowHover] = useState(false);
+
+  const [imageURLCont, setimageURLCont] = useState("");
+  const [imageURLCont2, setimageURLCont2] = useState("");
+  const [imageURLCont3, setimageURLCont3] = useState("");
 
   const [overviewCont, setOverviewCont] = useState("");
   const [overviewCont2, setOverviewCont2] = useState("");
@@ -70,6 +73,10 @@ export default function MainPage() {
   const [selectedKey2, setSelectedKey2] = useState("");
   const [selectedKey3, setSelectedKey3] = useState("");
 
+  const [selectedImageURL, setSelectedImageURL] = useState("");
+  const [selectedImageURL2, setSelectedImageURL2] = useState("");
+  const [selectedImageURL3, setSelectedImageURL3] = useState("");
+
   const [selectedOverview, setSelectedOverview] = useState("");
   const [selectedOverview2, setSelectedOverview2] = useState("");
   const [selectedOverview3, setSelectedOverview3] = useState("");
@@ -93,6 +100,15 @@ export default function MainPage() {
   const [clickedLength, setClickedLength] = useState("");
   const [clickedGenre, setClickedGenre] = useState("");
   const [clickedOverview, setClickedOverview] = useState("");
+
+  const [MovieTitle, setMovieTitle] = useState("");
+  const [MovieImgURL, setMovieImgURL] = useState("");
+  const [MovieVideoKey, setMovieVideoKey] = useState("");
+  const [MovieLength, setMovieLength] = useState("");
+  const [MovieDate, setMovieDate] = useState("");
+  const [MovieGenres, setMovieGenres] = useState([]);
+  const [MovieDescription, setMovieDescription] = useState("");
+  const [clickedIndex, setClickedIndex] = useState(null);
 
   const navigate = useNavigate();
   const updateSlicingRangeRef = useRef();
@@ -120,7 +136,6 @@ export default function MainPage() {
   }, 5000);
 
   const handleChildData = (xClickState) => {
-    console.log(xClickState);
     if (xClickState) {
       setIsBtnClicked(false);
     }
@@ -140,6 +155,9 @@ export default function MainPage() {
   // 1111111111111111
   const handleMouseEnter = (outerIndex, imageIndex) => {
     if (allowHover) {
+      const currentImgURL = imageURLCont[outerIndex][imageIndex];
+      setSelectedImageURL(currentImgURL);
+
       const currentID = idCont[outerIndex][imageIndex];
       setSelectedId(currentID);
 
@@ -187,6 +205,9 @@ export default function MainPage() {
   // 22222222222222
   const handleMouseEnter2 = (outerIndex, imageIndex) => {
     if (allowHover) {
+      const currentImgURL = imageURLCont2[outerIndex][imageIndex];
+      setSelectedImageURL2(currentImgURL);
+
       const currentID = idCont2[outerIndex][imageIndex];
       setSelectedId2(currentID);
 
@@ -234,6 +255,9 @@ export default function MainPage() {
   // 333333333333333
   const handleMouseEnter3 = (outerIndex, imageIndex) => {
     if (allowHover) {
+      const currentImgURL = imageURLCont3[outerIndex][imageIndex];
+      setSelectedImageURL3(currentImgURL);
+
       const currentID = idCont3[outerIndex][imageIndex];
       setSelectedId3(currentID);
 
@@ -323,7 +347,7 @@ export default function MainPage() {
 
         fetchMovieDetails()
           .then((result) => {
-            console.log(result);
+            const imageUrl = result.map((movie) => movie.data?.backdrop_path);
             const id = result.map((movie) => movie.data?.id);
             const title = result.map((movie) => movie.data?.title);
             const overview = result.map((movie) => movie.data?.overview);
@@ -333,6 +357,18 @@ export default function MainPage() {
 
             const updateSlicingRange = () => {
               if (window.innerWidth > 1141) {
+                // slicing image-url
+                const slicedUrlsIMG1 = imageUrl.slice(0, 6);
+                const slicedUrlsIMG2 = imageUrl.slice(7, 13);
+                const slicedUrlsIMG3 = imageUrl.slice(13, 19);
+
+                const IMGcont = [
+                  [...slicedUrlsIMG1],
+                  [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG3],
+                ];
+                setimageURLCont([...IMGcont]);
+
                 // slicing id
                 const slicedUrlsID1 = id.slice(0, 6);
                 const slicedUrlsID2 = id.slice(7, 13);
@@ -405,6 +441,18 @@ export default function MainPage() {
                 ];
                 setGenreCont([...GNcont]);
               } else if (window.innerWidth < 1140 && window.innerWidth > 800) {
+                // slicing image-url
+                const slicedUrlsIMG1 = imageUrl.slice(0, 4);
+                const slicedUrlsIMG2 = imageUrl.slice(5, 9);
+                const slicedUrlsIMG3 = imageUrl.slice(10, 14);
+
+                const IMGcont = [
+                  [...slicedUrlsIMG1],
+                  [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG3],
+                ];
+                setimageURLCont([...IMGcont]);
+
                 // slicing id
                 const slicedUrlsID1 = id.slice(0, 4);
                 const slicedUrlsID2 = id.slice(5, 9);
@@ -477,6 +525,18 @@ export default function MainPage() {
                 ];
                 setGenreCont([...GNcont]);
               } else if (window.innerWidth < 800 && window.innerWidth > 450) {
+                // slicing image-url
+                const slicedUrlsIMG1 = imageUrl.slice(0, 3);
+                const slicedUrlsIMG2 = imageUrl.slice(5, 8);
+                const slicedUrlsIMG3 = imageUrl.slice(10, 13);
+
+                const IMGcont = [
+                  [...slicedUrlsIMG1],
+                  [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG3],
+                ];
+                setimageURLCont([...IMGcont]);
+
                 // slicing title
                 const slicedUrlsID1 = id.slice(0, 3);
                 const slicedUrlsID2 = id.slice(5, 8);
@@ -549,6 +609,18 @@ export default function MainPage() {
                 ];
                 setGenreCont([...GNcont]);
               } else if (window.innerWidth < 450) {
+                // slicing image-url
+                const slicedUrlsIMG1 = imageUrl.slice(0, 2);
+                const slicedUrlsIMG2 = imageUrl.slice(5, 7);
+                const slicedUrlsIMG3 = imageUrl.slice(10, 12);
+
+                const IMGcont = [
+                  [...slicedUrlsIMG1],
+                  [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG3],
+                ];
+                setimageURLCont([...IMGcont]);
+
                 // slicing id
                 const slicedUrlsID1 = id.slice(0, 2);
                 const slicedUrlsID2 = id.slice(5, 7);
@@ -867,6 +939,7 @@ export default function MainPage() {
 
         fetchMovieDetails2()
           .then((result) => {
+            const imageUrl = result.map((movie) => movie.data?.backdrop_path);
             const id = result.map((movie) => movie.data?.id);
             const title = result.map((movie) => movie.data?.title);
             const overview = result.map((movie) => movie.data?.overview);
@@ -876,6 +949,17 @@ export default function MainPage() {
 
             const updateSlicingRange = () => {
               if (window.innerWidth > 1141) {
+                // slicing image-url
+                const slicedUrlsIMG1 = imageUrl.slice(0, 6);
+                const slicedUrlsIMG2 = imageUrl.slice(7, 13);
+                const slicedUrlsIMG3 = imageUrl.slice(13, 19);
+
+                const IMGcont = [
+                  [...slicedUrlsIMG1],
+                  [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG3],
+                ];
+                setimageURLCont2([...IMGcont]);
                 // slicing id
                 const slicedUrlsID1 = id.slice(0, 6);
                 const slicedUrlsID2 = id.slice(7, 13);
@@ -948,6 +1032,18 @@ export default function MainPage() {
                 ];
                 setGenreCont2([...GNcont]);
               } else if (window.innerWidth < 1140 && window.innerWidth > 800) {
+                // slicing image-url
+                const slicedUrlsIMG1 = imageUrl.slice(0, 4);
+                const slicedUrlsIMG2 = imageUrl.slice(5, 9);
+                const slicedUrlsIMG3 = imageUrl.slice(10, 14);
+
+                const IMGcont = [
+                  [...slicedUrlsIMG1],
+                  [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG3],
+                ];
+                setimageURLCont2([...IMGcont]);
+
                 // slicing id
                 const slicedUrlsID1 = id.slice(0, 4);
                 const slicedUrlsID2 = id.slice(5, 9);
@@ -1020,6 +1116,18 @@ export default function MainPage() {
                 ];
                 setGenreCont2([...GNcont]);
               } else if (window.innerWidth < 800 && window.innerWidth > 450) {
+                // slicing image-url
+                const slicedUrlsIMG1 = imageUrl.slice(0, 3);
+                const slicedUrlsIMG2 = imageUrl.slice(5, 8);
+                const slicedUrlsIMG3 = imageUrl.slice(10, 13);
+
+                const IMGcont = [
+                  [...slicedUrlsIMG1],
+                  [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG3],
+                ];
+                setimageURLCont2([...IMGcont]);
+
                 // slicing id
                 const slicedUrlsID1 = id.slice(0, 3);
                 const slicedUrlsID2 = id.slice(5, 8);
@@ -1092,6 +1200,18 @@ export default function MainPage() {
                 ];
                 setGenreCont2([...GNcont]);
               } else if (window.innerWidth < 450) {
+                // slicing image-url
+                const slicedUrlsIMG1 = imageUrl.slice(0, 2);
+                const slicedUrlsIMG2 = imageUrl.slice(5, 7);
+                const slicedUrlsIMG3 = imageUrl.slice(10, 12);
+
+                const IMGcont = [
+                  [...slicedUrlsIMG1],
+                  [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG3],
+                ];
+                setimageURLCont2([...IMGcont]);
+
                 // slicing id
                 const slicedUrlsID1 = id.slice(0, 2);
                 const slicedUrlsID2 = id.slice(5, 7);
@@ -1350,6 +1470,7 @@ export default function MainPage() {
 
         fetchMovieDetails3()
           .then((result) => {
+            const imageUrl = result.map((movie) => movie.data?.backdrop_path);
             const id = result.map((movie) => movie.data?.id);
             const title = result.map((movie) => movie.data?.title);
             const overview = result.map((movie) => movie.data?.overview);
@@ -1359,6 +1480,17 @@ export default function MainPage() {
 
             const updateSlicingRange = () => {
               if (window.innerWidth > 1141) {
+                // slicing image-url
+                const slicedUrlsIMG1 = imageUrl.slice(0, 6);
+                const slicedUrlsIMG2 = imageUrl.slice(7, 13);
+                const slicedUrlsIMG3 = imageUrl.slice(13, 19);
+
+                const IMGcont = [
+                  [...slicedUrlsIMG1],
+                  [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG3],
+                ];
+                setimageURLCont3([...IMGcont]);
                 // slicing id
                 const slicedUrlsID1 = id.slice(0, 6);
                 const slicedUrlsID2 = id.slice(7, 13);
@@ -1431,6 +1563,18 @@ export default function MainPage() {
                 ];
                 setGenreCont3([...GNcont]);
               } else if (window.innerWidth < 1140 && window.innerWidth > 800) {
+                // slicing image-url
+                const slicedUrlsIMG1 = imageUrl.slice(0, 4);
+                const slicedUrlsIMG2 = imageUrl.slice(5, 9);
+                const slicedUrlsIMG3 = imageUrl.slice(10, 14);
+
+                const IMGcont = [
+                  [...slicedUrlsIMG1],
+                  [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG3],
+                ];
+                setimageURLCont3([...IMGcont]);
+
                 // slicing id
                 const slicedUrlsID1 = id.slice(0, 4);
                 const slicedUrlsID2 = id.slice(5, 9);
@@ -1503,6 +1647,18 @@ export default function MainPage() {
                 ];
                 setGenreCont3([...GNcont]);
               } else if (window.innerWidth < 800 && window.innerWidth > 450) {
+                // slicing image-url
+                const slicedUrlsIMG1 = imageUrl.slice(0, 3);
+                const slicedUrlsIMG2 = imageUrl.slice(5, 8);
+                const slicedUrlsIMG3 = imageUrl.slice(10, 13);
+
+                const IMGcont = [
+                  [...slicedUrlsIMG1],
+                  [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG3],
+                ];
+                setimageURLCont3([...IMGcont]);
+
                 // slicing id
                 const slicedUrlsID1 = id.slice(0, 3);
                 const slicedUrlsID2 = id.slice(5, 8);
@@ -1575,6 +1731,18 @@ export default function MainPage() {
                 ];
                 setGenreCont3([...GNcont]);
               } else if (window.innerWidth < 450) {
+                // slicing image-url
+                const slicedUrlsIMG1 = imageUrl.slice(0, 2);
+                const slicedUrlsIMG2 = imageUrl.slice(5, 7);
+                const slicedUrlsIMG3 = imageUrl.slice(10, 12);
+
+                const IMGcont = [
+                  [...slicedUrlsIMG1],
+                  [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG3],
+                ];
+                setimageURLCont3([...IMGcont]);
+
                 // slicing id
                 const slicedUrlsID1 = id.slice(0, 2);
                 const slicedUrlsID2 = id.slice(5, 7);
@@ -1812,6 +1980,71 @@ export default function MainPage() {
     // eslint-disable-next-line
   }, []);
 
+  const handleMylistBtnClicked = async (index, number) => {
+    // Set state
+    if (number === 1) {
+      setMovieTitle(selectedTitle);
+      setMovieImgURL(selectedImageURL);
+      setMovieVideoKey(selectedKey);
+      setMovieLength(selectedLength);
+      setMovieDate(selectedDate);
+      setMovieGenres(selectedGenres);
+      setMovieDescription(selectedOverview);
+    } else if (number === 2) {
+      setMovieTitle(selectedTitle2);
+      setMovieImgURL(selectedImageURL2);
+      setMovieVideoKey(selectedKey2);
+      setMovieLength(selectedLength2);
+      setMovieDate(selectedDate2);
+      setMovieGenres(selectedGenres2);
+      setMovieDescription(selectedOverview2);
+    } else if (number === 3) {
+      setMovieTitle(selectedTitle3);
+      setMovieImgURL(selectedImageURL3);
+      setMovieVideoKey(selectedKey3);
+      setMovieLength(selectedLength3);
+      setMovieDate(selectedDate3);
+      setMovieGenres(selectedGenres3);
+      setMovieDescription(selectedOverview3);
+    }
+
+    setClickedIndex(index);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const apiUrl = "http://localhost:3001/user-movie-list";
+        const data = {
+          MovieTitle,
+          MovieImgURL,
+          MovieVideoKey,
+          MovieLength,
+          MovieDate,
+          MovieGenres,
+          MovieDescription,
+        };
+        const response = await axios.post(apiUrl, data);
+
+        console.log("Server response:", response.data);
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+    };
+
+    if (MovieTitle !== "") {
+      fetchData();
+    }
+  }, [
+    MovieTitle,
+    MovieImgURL,
+    MovieVideoKey,
+    MovieLength,
+    MovieDate,
+    MovieGenres,
+    MovieDescription,
+  ]);
+
   return (
     <div className="main-page">
       <div className="main-child1">
@@ -1874,7 +2107,23 @@ export default function MainPage() {
                       <div className="icons-cont">
                         <div>
                           <i class="fa-solid fa-circle-play"></i>
-                          <i class="fa-solid fa-circle-plus"></i>
+                          <i
+                            style={{
+                              display:
+                                clickedIndex === imageIndex ? "none" : "flex",
+                            }}
+                            onClick={() =>
+                              handleMylistBtnClicked(imageIndex, 1)
+                            }
+                            class="fa-solid fa-circle-plus"
+                          ></i>
+                          <i
+                            style={{
+                              display:
+                                clickedIndex === imageIndex ? "flex" : "none",
+                            }}
+                            class="fa-solid fa-circle-check check-icon"
+                          ></i>
                           <i class="fa-regular fa-thumbs-up"></i>
                         </div>
 
@@ -1931,7 +2180,7 @@ export default function MainPage() {
                     onMouseLeave={handleMouseLeave2}
                     className={`hovered-card`}
                   >
-                    <div>
+                    <div>  
                       <img
                         src={`https://image.tmdb.org/t/p/w500${movieImageUrl}`}
                         alt=""
@@ -1944,7 +2193,23 @@ export default function MainPage() {
                       <div className="icons-cont">
                         <div>
                           <i class="fa-solid fa-circle-play"></i>
-                          <i class="fa-solid fa-circle-plus"></i>
+                          <i
+                            style={{
+                              display:
+                                clickedIndex === imageIndex ? "none" : "flex",
+                            }}
+                            onClick={() =>
+                              handleMylistBtnClicked(imageIndex, 2)
+                            }
+                            class="fa-solid fa-circle-plus"
+                          ></i>
+                          <i
+                            style={{
+                              display:
+                                clickedIndex === imageIndex ? "flex" : "none",
+                            }}
+                            class="fa-solid fa-circle-check check-icon"
+                          ></i>
                           <i class="fa-regular fa-thumbs-up"></i>
                         </div>
 
@@ -2012,7 +2277,23 @@ export default function MainPage() {
                       <div className="icons-cont">
                         <div>
                           <i class="fa-solid fa-circle-play"></i>
-                          <i class="fa-solid fa-circle-plus"></i>
+                          <i
+                            style={{
+                              display:
+                                clickedIndex === imageIndex ? "none" : "flex",
+                            }}
+                            onClick={() =>
+                              handleMylistBtnClicked(imageIndex, 3)
+                            }
+                            class="fa-solid fa-circle-plus"
+                          ></i>
+                          <i
+                            style={{
+                              display:
+                                clickedIndex === imageIndex ? "flex" : "none",
+                            }}
+                            class="fa-solid fa-circle-check check-icon"
+                          ></i>
                           <i class="fa-regular fa-thumbs-up"></i>
                         </div>
 

@@ -46,19 +46,13 @@ export default function Navbar() {
               <div className="navlist-cont">
                 <ul className="navbar-nav">
                   <li className="nav-item">
-                    <Link className="nav-link" to="/about">
-                      Movies
-                    </Link>
+                    <Link className="nav-link">Movies</Link>
                   </li>
                   <li className="nav-item">
-                    <Link
-                      className="nav-link"  
-                    >
-                      Tv Shows
-                    </Link>
+                    <Link className="nav-link">Tv Shows</Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/contact">
+                    <Link className="nav-link" to="/my-list">
                       My List
                     </Link>
                   </li>
