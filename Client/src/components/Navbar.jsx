@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-export default function Navbar({ handleChildData2 }) {
+export default function Navbar() {
   const [isTogglerClicked, setIsTogglerClicked] = useState(false);
   const [isSearchClicked, setIsSearchClicked] = useState(false);
   const [isSearchClicked2, setIsSearch2Clicked] = useState(false);
@@ -52,7 +52,6 @@ export default function Navbar({ handleChildData2 }) {
                   </li>
                   <li className="nav-item">
                     <Link
-                      onClick={() => handleChildData2(true)}
                       className="nav-link"  
                     >
                       Tv Shows

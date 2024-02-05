@@ -94,8 +94,6 @@ export default function MainPage() {
   const [clickedGenre, setClickedGenre] = useState("");
   const [clickedOverview, setClickedOverview] = useState("");
 
-  const [isTvShowsClicked, setIsTvShowsClicked] = useState(false);
-
   const navigate = useNavigate();
   const updateSlicingRangeRef = useRef();
   const updateSlicingRangeRef2 = useRef();
@@ -125,12 +123,6 @@ export default function MainPage() {
     console.log(xClickState);
     if (xClickState) {
       setIsBtnClicked(false);
-    }
-  };
-
-  const handleChildData2 = (tvShowsClickedState) => {
-    if (tvShowsClickedState) {
-      setIsTvShowsClicked(true);
     }
   };
 
@@ -296,11 +288,7 @@ export default function MainPage() {
     }
     // Fetching form TMDB API
     axios
-      .get(
-        `https://api.themoviedb.org/3/trending/${
-          isTvShowsClicked ? "tv" : "movie"
-        }/day?api_key=${api_key}`  
-      )
+      .get(`https://api.themoviedb.org/3/trending/movie/day?api_key=${api_key}`)
       .then((response) => {
         const randomNumber = Math.floor(Math.random() * 20);
         const backdropPaths = response.data.results.map((movie) => {
@@ -1827,7 +1815,7 @@ export default function MainPage() {
   return (
     <div className="main-page">
       <div className="main-child1">
-        <Navbar handleChildData2={handleChildData2}/>
+        <Navbar />
         <div className="cover"></div>
         <video ref={videoNode} className="video-js" />
         <div className="movie-descr-cont">
@@ -2083,4 +2071,3 @@ export default function MainPage() {
     </div>
   );
 }
-  
