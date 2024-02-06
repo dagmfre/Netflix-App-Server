@@ -796,8 +796,8 @@ export default function MainPage() {
             console.error("Error fetching video details:", error);
           });
 
-        // 11111111111111111111
 
+        // image url retrieving
         const updateSlicingRange = () => {
           if (window.innerWidth > 1141) {
             // Adjust the range difference to 4 if window width is below 1141px
@@ -847,9 +847,12 @@ export default function MainPage() {
           }
         };
 
+        
         updateSlicingRange();
         updateSlicingRangeRef.current = updateSlicingRange;
         window.addEventListener("resize", updateSlicingRange);
+
+        // 11111111111111111111
 
         // Fetching random video from TMDB API then inserting video key into videojs-youtube
         axios
@@ -967,8 +970,8 @@ export default function MainPage() {
                 const slicedUrlsIMG3 = imageUrl.slice(13, 19);
 
                 const IMGcont = [
-                  [...slicedUrlsIMG1],
                   [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG1],
                   [...slicedUrlsIMG3],
                 ];
                 setimageURLCont2([...IMGcont]);
@@ -978,8 +981,8 @@ export default function MainPage() {
                 const slicedUrlsID3 = id.slice(13, 19);
 
                 const IDcont = [
-                  [...slicedUrlsID1],
                   [...slicedUrlsID2],
+                  [...slicedUrlsID1],
                   [...slicedUrlsID3],
                 ];
                 setIdCont2([...IDcont]);
@@ -990,8 +993,8 @@ export default function MainPage() {
                 const slicedUrlsTI3 = title.slice(13, 19);
 
                 const TIcont = [
-                  [...slicedUrlsTI1],
                   [...slicedUrlsTI2],
+                  [...slicedUrlsTI1],
                   [...slicedUrlsTI3],
                 ];
                 setTitleCont2([...TIcont]);
@@ -1002,8 +1005,8 @@ export default function MainPage() {
                 const slicedUrlsOV3 = overview.slice(13, 19);
 
                 const OVcont = [
-                  [...slicedUrlsOV1],
                   [...slicedUrlsOV2],
+                  [...slicedUrlsOV1],
                   [...slicedUrlsOV3],
                 ];
                 setOverviewCont2([...OVcont]);
@@ -1014,8 +1017,8 @@ export default function MainPage() {
                 const slicedUrlsLG3 = runtime.slice(13, 19);
 
                 const LGcont = [
-                  [...slicedUrlsLG1],
                   [...slicedUrlsLG2],
+                  [...slicedUrlsLG1],
                   [...slicedUrlsLG3],
                 ];
                 setLengthCont2([...LGcont]);
@@ -1026,8 +1029,8 @@ export default function MainPage() {
                 const slicedUrlsDT3 = date.slice(13, 19);
 
                 const DTcont = [
-                  [...slicedUrlsDT1],
                   [...slicedUrlsDT2],
+                  [...slicedUrlsDT1],
                   [...slicedUrlsDT3],
                 ];
                 setDateCont2([...DTcont]);
@@ -1038,8 +1041,8 @@ export default function MainPage() {
                 const slicedUrlsGN3 = genres.slice(13, 19);
 
                 const GNcont = [
-                  [...slicedUrlsGN1],
                   [...slicedUrlsGN2],
+                  [...slicedUrlsGN1],
                   [...slicedUrlsGN3],
                 ];
                 setGenreCont2([...GNcont]);
@@ -1050,8 +1053,8 @@ export default function MainPage() {
                 const slicedUrlsIMG3 = imageUrl.slice(10, 14);
 
                 const IMGcont = [
-                  [...slicedUrlsIMG1],
                   [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG1],
                   [...slicedUrlsIMG3],
                 ];
                 setimageURLCont2([...IMGcont]);
@@ -1062,8 +1065,8 @@ export default function MainPage() {
                 const slicedUrlsID3 = id.slice(10, 14);
 
                 const IDcont = [
-                  [...slicedUrlsID1],
                   [...slicedUrlsID2],
+                  [...slicedUrlsID1],
                   [...slicedUrlsID3],
                 ];
                 setIdCont2([...IDcont]);
@@ -1074,8 +1077,8 @@ export default function MainPage() {
                 const slicedUrlsTI3 = title.slice(10, 14);
 
                 const TIcont = [
-                  [...slicedUrlsTI1],
                   [...slicedUrlsTI2],
+                  [...slicedUrlsTI1],
                   [...slicedUrlsTI3],
                 ];
                 setTitleCont2([...TIcont]);
@@ -1086,8 +1089,8 @@ export default function MainPage() {
                 const slicedUrlsOV3 = overview.slice(10, 14);
 
                 const OVcont = [
-                  [...slicedUrlsOV1],
                   [...slicedUrlsOV2],
+                  [...slicedUrlsOV1],
                   [...slicedUrlsOV3],
                 ];
                 setOverviewCont2([...OVcont]);
@@ -1098,8 +1101,8 @@ export default function MainPage() {
                 const slicedUrlsLG3 = runtime.slice(10, 14);
 
                 const LGcont = [
-                  [...slicedUrlsLG1],
                   [...slicedUrlsLG2],
+                  [...slicedUrlsLG1],
                   [...slicedUrlsLG3],
                 ];
                 setLengthCont2([...LGcont]);
@@ -1110,8 +1113,8 @@ export default function MainPage() {
                 const slicedUrlsDT3 = date.slice(10, 14);
 
                 const DTcont = [
-                  [...slicedUrlsDT1],
                   [...slicedUrlsDT2],
+                  [...slicedUrlsDT1],
                   [...slicedUrlsDT3],
                 ];
                 setDateCont2([...DTcont]);
@@ -1122,8 +1125,8 @@ export default function MainPage() {
                 const slicedUrlsGN3 = genres.slice(10, 14);
 
                 const GNcont = [
-                  [...slicedUrlsGN1],
                   [...slicedUrlsGN2],
+                  [...slicedUrlsGN1],
                   [...slicedUrlsGN3],
                 ];
                 setGenreCont2([...GNcont]);
@@ -1134,8 +1137,8 @@ export default function MainPage() {
                 const slicedUrlsIMG3 = imageUrl.slice(10, 13);
 
                 const IMGcont = [
-                  [...slicedUrlsIMG1],
                   [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG1],
                   [...slicedUrlsIMG3],
                 ];
                 setimageURLCont2([...IMGcont]);
@@ -1146,8 +1149,8 @@ export default function MainPage() {
                 const slicedUrlsID3 = id.slice(10, 13);
 
                 const IDcont = [
-                  [...slicedUrlsID1],
                   [...slicedUrlsID2],
+                  [...slicedUrlsID1],
                   [...slicedUrlsID3],
                 ];
                 setIdCont2([...IDcont]);
@@ -1158,8 +1161,8 @@ export default function MainPage() {
                 const slicedUrlsTI3 = title.slice(10, 13);
 
                 const TIcont = [
-                  [...slicedUrlsTI1],
                   [...slicedUrlsTI2],
+                  [...slicedUrlsTI1],
                   [...slicedUrlsTI3],
                 ];
                 setTitleCont2([...TIcont]);
@@ -1170,8 +1173,8 @@ export default function MainPage() {
                 const slicedUrlsOV3 = overview.slice(10, 13);
 
                 const OVcont = [
-                  [...slicedUrlsOV1],
                   [...slicedUrlsOV2],
+                  [...slicedUrlsOV1],
                   [...slicedUrlsOV3],
                 ];
                 setOverviewCont2([...OVcont]);
@@ -1182,8 +1185,8 @@ export default function MainPage() {
                 const slicedUrlsLG3 = runtime.slice(10, 13);
 
                 const LGcont = [
-                  [...slicedUrlsLG1],
                   [...slicedUrlsLG2],
+                  [...slicedUrlsLG1],
                   [...slicedUrlsLG3],
                 ];
                 setLengthCont2([...LGcont]);
@@ -1194,8 +1197,8 @@ export default function MainPage() {
                 const slicedUrlsDT3 = date.slice(10, 13);
 
                 const DTcont = [
-                  [...slicedUrlsDT1],
                   [...slicedUrlsDT2],
+                  [...slicedUrlsDT1],
                   [...slicedUrlsDT3],
                 ];
                 setDateCont2([...DTcont]);
@@ -1206,8 +1209,8 @@ export default function MainPage() {
                 const slicedUrlsGN3 = genres.slice(10, 13);
 
                 const GNcont = [
-                  [...slicedUrlsGN1],
                   [...slicedUrlsGN2],
+                  [...slicedUrlsGN1],
                   [...slicedUrlsGN3],
                 ];
                 setGenreCont2([...GNcont]);
@@ -1218,8 +1221,8 @@ export default function MainPage() {
                 const slicedUrlsIMG3 = imageUrl.slice(10, 12);
 
                 const IMGcont = [
-                  [...slicedUrlsIMG1],
                   [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG1],
                   [...slicedUrlsIMG3],
                 ];
                 setimageURLCont2([...IMGcont]);
@@ -1230,8 +1233,8 @@ export default function MainPage() {
                 const slicedUrlsID3 = id.slice(10, 12);
 
                 const IDcont = [
-                  [...slicedUrlsID1],
                   [...slicedUrlsID2],
+                  [...slicedUrlsID1],
                   [...slicedUrlsID3],
                 ];
                 setIdCont2([...IDcont]);
@@ -1242,8 +1245,8 @@ export default function MainPage() {
                 const slicedUrlsTI3 = title.slice(10, 12);
 
                 const TIcont = [
-                  [...slicedUrlsTI1],
                   [...slicedUrlsTI2],
+                  [...slicedUrlsTI1],
                   [...slicedUrlsTI3],
                 ];
                 setTitleCont2([...TIcont]);
@@ -1254,8 +1257,8 @@ export default function MainPage() {
                 const slicedUrlsOV3 = overview.slice(10, 12);
 
                 const OVcont = [
-                  [...slicedUrlsOV1],
                   [...slicedUrlsOV2],
+                  [...slicedUrlsOV1],
                   [...slicedUrlsOV3],
                 ];
                 setOverviewCont2([...OVcont]);
@@ -1266,8 +1269,8 @@ export default function MainPage() {
                 const slicedUrlsLG3 = runtime.slice(10, 12);
 
                 const LGcont = [
-                  [...slicedUrlsLG1],
                   [...slicedUrlsLG2],
+                  [...slicedUrlsLG1],
                   [...slicedUrlsLG3],
                 ];
                 setLengthCont2([...LGcont]);
@@ -1278,8 +1281,8 @@ export default function MainPage() {
                 const slicedUrlsDT3 = date.slice(10, 12);
 
                 const DTcont = [
-                  [...slicedUrlsDT1],
                   [...slicedUrlsDT2],
+                  [...slicedUrlsDT1],
                   [...slicedUrlsDT3],
                 ];
                 setDateCont2([...DTcont]);
@@ -1290,8 +1293,8 @@ export default function MainPage() {
                 const slicedUrlsGN3 = genres.slice(10, 12);
 
                 const GNcont = [
-                  [...slicedUrlsGN1],
                   [...slicedUrlsGN2],
+                  [...slicedUrlsGN1],
                   [...slicedUrlsGN3],
                 ];
                 setGenreCont2([...GNcont]);
@@ -1339,8 +1342,8 @@ export default function MainPage() {
                 const slicedUrls3 = videoKeys.slice(13, 19);
 
                 const imageUrlCont = [
-                  [...slicedUrls1],
                   [...slicedUrls2],
+                  [...slicedUrls1],
                   [...slicedUrls3],
                 ];
                 setVideoKeyCont2([...imageUrlCont]);
@@ -1350,8 +1353,8 @@ export default function MainPage() {
                 const slicedUrls3 = videoKeys.slice(10, 14);
 
                 const imageUrlCont = [
-                  [...slicedUrls1],
                   [...slicedUrls2],
+                  [...slicedUrls1],
                   [...slicedUrls3],
                 ];
                 setVideoKeyCont2([...imageUrlCont]);
@@ -1361,8 +1364,8 @@ export default function MainPage() {
                 const slicedUrls3 = videoKeys.slice(10, 13);
 
                 const imageUrlCont = [
-                  [...slicedUrls1],
                   [...slicedUrls2],
+                  [...slicedUrls1],
                   [...slicedUrls3],
                 ];
                 setVideoKeyCont2([...imageUrlCont]);
@@ -1372,8 +1375,8 @@ export default function MainPage() {
                 const slicedUrls3 = videoKeys.slice(10, 12);
 
                 const imageUrlCont = [
-                  [...slicedUrls1],
                   [...slicedUrls2],
+                  [...slicedUrls1],
                   [...slicedUrls3],
                 ];
                 setVideoKeyCont2([...imageUrlCont]);
@@ -1388,8 +1391,7 @@ export default function MainPage() {
             console.error("Error fetching video details:", error);
           });
 
-        // #22222222222222222222222222
-
+          //  image url retrieving
         const updateSlicingRange2 = () => {
           if (window.innerWidth > 1141) {
             // Adjust the range difference to 4 if window width is below 1141px
@@ -1398,8 +1400,8 @@ export default function MainPage() {
             const slicedUrls3 = backdropPaths.slice(13, 19);
 
             const imageUrlCont = [
-              [...slicedUrls1],
               [...slicedUrls2],
+              [...slicedUrls1],
               [...slicedUrls3],
             ];
             setMovieImageUrls2([...imageUrlCont]);
@@ -1409,8 +1411,8 @@ export default function MainPage() {
             const slicedUrls3 = backdropPaths.slice(10, 14);
 
             const imageUrlCont = [
-              [...slicedUrls1],
               [...slicedUrls2],
+              [...slicedUrls1],
               [...slicedUrls3],
             ];
             setMovieImageUrls2([...imageUrlCont]);
@@ -1420,8 +1422,8 @@ export default function MainPage() {
             const slicedUrls3 = backdropPaths.slice(10, 13);
 
             const imageUrlCont = [
-              [...slicedUrls1],
               [...slicedUrls2],
+              [...slicedUrls1],
               [...slicedUrls3],
             ];
             setMovieImageUrls2([...imageUrlCont]);
@@ -1431,8 +1433,8 @@ export default function MainPage() {
             const slicedUrls3 = backdropPaths.slice(10, 12);
 
             const imageUrlCont = [
-              [...slicedUrls1],
               [...slicedUrls2],
+              [...slicedUrls1],
               [...slicedUrls3],
             ];
             setMovieImageUrls2([...imageUrlCont]);
@@ -1446,6 +1448,8 @@ export default function MainPage() {
       .catch((error) => {
         console.error(error);
       });
+
+      // #22222222222222222222222222
 
     axios
       .get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${api_key}`)
@@ -1498,9 +1502,9 @@ export default function MainPage() {
                 const slicedUrlsIMG3 = imageUrl.slice(13, 19);
 
                 const IMGcont = [
-                  [...slicedUrlsIMG1],
-                  [...slicedUrlsIMG2],
                   [...slicedUrlsIMG3],
+                  [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG1],
                 ];
                 setimageURLCont3([...IMGcont]);
                 // slicing id
@@ -1509,9 +1513,9 @@ export default function MainPage() {
                 const slicedUrlsID3 = id.slice(13, 19);
 
                 const IDcont = [
-                  [...slicedUrlsID1],
-                  [...slicedUrlsID2],
                   [...slicedUrlsID3],
+                  [...slicedUrlsID2],
+                  [...slicedUrlsID1],
                 ];
                 setIdCont3([...IDcont]);
 
@@ -1521,9 +1525,9 @@ export default function MainPage() {
                 const slicedUrlsTI3 = title.slice(13, 19);
 
                 const TIcont = [
-                  [...slicedUrlsTI1],
-                  [...slicedUrlsTI2],
                   [...slicedUrlsTI3],
+                  [...slicedUrlsTI2],
+                  [...slicedUrlsTI1],
                 ];
                 setTitleCont3([...TIcont]);
 
@@ -1533,9 +1537,9 @@ export default function MainPage() {
                 const slicedUrlsOV3 = overview.slice(13, 19);
 
                 const OVcont = [
-                  [...slicedUrlsOV1],
-                  [...slicedUrlsOV2],
                   [...slicedUrlsOV3],
+                  [...slicedUrlsOV2],
+                  [...slicedUrlsOV1],
                 ];
                 setOverviewCont3([...OVcont]);
 
@@ -1545,9 +1549,9 @@ export default function MainPage() {
                 const slicedUrlsLG3 = runtime.slice(13, 19);
 
                 const LGcont = [
-                  [...slicedUrlsLG1],
-                  [...slicedUrlsLG2],
                   [...slicedUrlsLG3],
+                  [...slicedUrlsLG2],
+                  [...slicedUrlsLG1],
                 ];
                 setLengthCont3([...LGcont]);
 
@@ -1557,9 +1561,9 @@ export default function MainPage() {
                 const slicedUrlsDT3 = date.slice(13, 19);
 
                 const DTcont = [
-                  [...slicedUrlsDT1],
-                  [...slicedUrlsDT2],
                   [...slicedUrlsDT3],
+                  [...slicedUrlsDT2],
+                  [...slicedUrlsDT1],
                 ];
                 setDateCont3([...DTcont]);
 
@@ -1569,9 +1573,9 @@ export default function MainPage() {
                 const slicedUrlsGN3 = genres.slice(13, 19);
 
                 const GNcont = [
-                  [...slicedUrlsGN1],
-                  [...slicedUrlsGN2],
                   [...slicedUrlsGN3],
+                  [...slicedUrlsGN2],
+                  [...slicedUrlsGN1],
                 ];
                 setGenreCont3([...GNcont]);
               } else if (window.innerWidth < 1140 && window.innerWidth > 800) {
@@ -1581,9 +1585,9 @@ export default function MainPage() {
                 const slicedUrlsIMG3 = imageUrl.slice(10, 14);
 
                 const IMGcont = [
-                  [...slicedUrlsIMG1],
-                  [...slicedUrlsIMG2],
                   [...slicedUrlsIMG3],
+                  [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG1],
                 ];
                 setimageURLCont3([...IMGcont]);
 
@@ -1593,9 +1597,9 @@ export default function MainPage() {
                 const slicedUrlsID3 = id.slice(10, 14);
 
                 const IDcont = [
-                  [...slicedUrlsID1],
-                  [...slicedUrlsID2],
                   [...slicedUrlsID3],
+                  [...slicedUrlsID2],
+                  [...slicedUrlsID1],
                 ];
                 setIdCont3([...IDcont]);
 
@@ -1605,9 +1609,9 @@ export default function MainPage() {
                 const slicedUrlsTI3 = title.slice(10, 14);
 
                 const TIcont = [
-                  [...slicedUrlsTI1],
-                  [...slicedUrlsTI2],
                   [...slicedUrlsTI3],
+                  [...slicedUrlsTI2],
+                  [...slicedUrlsTI1],
                 ];
                 setTitleCont3([...TIcont]);
 
@@ -1617,9 +1621,9 @@ export default function MainPage() {
                 const slicedUrlsOV3 = overview.slice(10, 14);
 
                 const OVcont = [
-                  [...slicedUrlsOV1],
-                  [...slicedUrlsOV2],
                   [...slicedUrlsOV3],
+                  [...slicedUrlsOV2],
+                  [...slicedUrlsOV1],
                 ];
                 setOverviewCont3([...OVcont]);
 
@@ -1629,9 +1633,9 @@ export default function MainPage() {
                 const slicedUrlsLG3 = runtime.slice(10, 14);
 
                 const LGcont = [
-                  [...slicedUrlsLG1],
-                  [...slicedUrlsLG2],
                   [...slicedUrlsLG3],
+                  [...slicedUrlsLG2],
+                  [...slicedUrlsLG1],
                 ];
                 setLengthCont3([...LGcont]);
 
@@ -1641,9 +1645,9 @@ export default function MainPage() {
                 const slicedUrlsDT3 = date.slice(10, 14);
 
                 const DTcont = [
-                  [...slicedUrlsDT1],
-                  [...slicedUrlsDT2],
                   [...slicedUrlsDT3],
+                  [...slicedUrlsDT2],
+                  [...slicedUrlsDT1],
                 ];
                 setDateCont3([...DTcont]);
 
@@ -1653,9 +1657,9 @@ export default function MainPage() {
                 const slicedUrlsGN3 = genres.slice(10, 14);
 
                 const GNcont = [
-                  [...slicedUrlsGN1],
-                  [...slicedUrlsGN2],
                   [...slicedUrlsGN3],
+                  [...slicedUrlsGN2],
+                  [...slicedUrlsGN1],
                 ];
                 setGenreCont3([...GNcont]);
               } else if (window.innerWidth < 800 && window.innerWidth > 450) {
@@ -1665,9 +1669,9 @@ export default function MainPage() {
                 const slicedUrlsIMG3 = imageUrl.slice(10, 13);
 
                 const IMGcont = [
-                  [...slicedUrlsIMG1],
-                  [...slicedUrlsIMG2],
                   [...slicedUrlsIMG3],
+                  [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG1],
                 ];
                 setimageURLCont3([...IMGcont]);
 
@@ -1677,9 +1681,9 @@ export default function MainPage() {
                 const slicedUrlsID3 = id.slice(10, 13);
 
                 const IDcont = [
-                  [...slicedUrlsID1],
-                  [...slicedUrlsID2],
                   [...slicedUrlsID3],
+                  [...slicedUrlsID2],
+                  [...slicedUrlsID1],
                 ];
                 setIdCont3([...IDcont]);
 
@@ -1689,9 +1693,9 @@ export default function MainPage() {
                 const slicedUrlsTI3 = title.slice(10, 13);
 
                 const TIcont = [
-                  [...slicedUrlsTI1],
-                  [...slicedUrlsTI2],
                   [...slicedUrlsTI3],
+                  [...slicedUrlsTI2],
+                  [...slicedUrlsTI1],
                 ];
                 setTitleCont3([...TIcont]);
 
@@ -1701,9 +1705,9 @@ export default function MainPage() {
                 const slicedUrlsOV3 = overview.slice(10, 13);
 
                 const OVcont = [
-                  [...slicedUrlsOV1],
-                  [...slicedUrlsOV2],
                   [...slicedUrlsOV3],
+                  [...slicedUrlsOV2],
+                  [...slicedUrlsOV1],
                 ];
                 setOverviewCont3([...OVcont]);
 
@@ -1713,9 +1717,9 @@ export default function MainPage() {
                 const slicedUrlsLG3 = runtime.slice(10, 13);
 
                 const LGcont = [
-                  [...slicedUrlsLG1],
-                  [...slicedUrlsLG2],
                   [...slicedUrlsLG3],
+                  [...slicedUrlsLG2],
+                  [...slicedUrlsLG1],
                 ];
                 setLengthCont3([...LGcont]);
 
@@ -1725,9 +1729,9 @@ export default function MainPage() {
                 const slicedUrlsDT3 = date.slice(10, 13);
 
                 const DTcont = [
-                  [...slicedUrlsDT1],
-                  [...slicedUrlsDT2],
                   [...slicedUrlsDT3],
+                  [...slicedUrlsDT2],
+                  [...slicedUrlsDT1],
                 ];
                 setDateCont3([...DTcont]);
 
@@ -1737,9 +1741,9 @@ export default function MainPage() {
                 const slicedUrlsGN3 = genres.slice(10, 13);
 
                 const GNcont = [
-                  [...slicedUrlsGN1],
-                  [...slicedUrlsGN2],
                   [...slicedUrlsGN3],
+                  [...slicedUrlsGN2],
+                  [...slicedUrlsGN1],
                 ];
                 setGenreCont3([...GNcont]);
               } else if (window.innerWidth < 450) {
@@ -1749,9 +1753,9 @@ export default function MainPage() {
                 const slicedUrlsIMG3 = imageUrl.slice(10, 12);
 
                 const IMGcont = [
-                  [...slicedUrlsIMG1],
-                  [...slicedUrlsIMG2],
                   [...slicedUrlsIMG3],
+                  [...slicedUrlsIMG2],
+                  [...slicedUrlsIMG1],
                 ];
                 setimageURLCont3([...IMGcont]);
 
@@ -1761,9 +1765,9 @@ export default function MainPage() {
                 const slicedUrlsID3 = id.slice(10, 12);
 
                 const IDcont = [
-                  [...slicedUrlsID1],
-                  [...slicedUrlsID2],
                   [...slicedUrlsID3],
+                  [...slicedUrlsID2],
+                  [...slicedUrlsID1],
                 ];
                 setIdCont3([...IDcont]);
 
@@ -1773,9 +1777,9 @@ export default function MainPage() {
                 const slicedUrlsTI3 = title.slice(10, 12);
 
                 const TIcont = [
-                  [...slicedUrlsTI1],
-                  [...slicedUrlsTI2],
                   [...slicedUrlsTI3],
+                  [...slicedUrlsTI2],
+                  [...slicedUrlsTI1],
                 ];
                 setTitleCont3([...TIcont]);
 
@@ -1785,9 +1789,9 @@ export default function MainPage() {
                 const slicedUrlsOV3 = overview.slice(10, 12);
 
                 const OVcont = [
-                  [...slicedUrlsOV1],
-                  [...slicedUrlsOV2],
                   [...slicedUrlsOV3],
+                  [...slicedUrlsOV2],
+                  [...slicedUrlsOV1],
                 ];
                 setOverviewCont3([...OVcont]);
 
@@ -1797,9 +1801,9 @@ export default function MainPage() {
                 const slicedUrlsLG3 = runtime.slice(10, 12);
 
                 const LGcont = [
-                  [...slicedUrlsLG1],
-                  [...slicedUrlsLG2],
                   [...slicedUrlsLG3],
+                  [...slicedUrlsLG2],
+                  [...slicedUrlsLG1],
                 ];
                 setLengthCont3([...LGcont]);
 
@@ -1809,9 +1813,9 @@ export default function MainPage() {
                 const slicedUrlsDT3 = date.slice(10, 12);
 
                 const DTcont = [
-                  [...slicedUrlsDT1],
-                  [...slicedUrlsDT2],
                   [...slicedUrlsDT3],
+                  [...slicedUrlsDT2],
+                  [...slicedUrlsDT1],
                 ];
                 setDateCont3([...DTcont]);
 
@@ -1821,9 +1825,9 @@ export default function MainPage() {
                 const slicedUrlsGN3 = genres.slice(10, 12);
 
                 const GNcont = [
-                  [...slicedUrlsGN1],
-                  [...slicedUrlsGN2],
                   [...slicedUrlsGN3],
+                  [...slicedUrlsGN2],
+                  [...slicedUrlsGN1],
                 ];
                 setGenreCont3([...GNcont]);
               }
@@ -1870,9 +1874,9 @@ export default function MainPage() {
                 const slicedUrls3 = videoKeys.slice(13, 19);
 
                 const imageUrlCont = [
-                  [...slicedUrls1],
-                  [...slicedUrls2],
                   [...slicedUrls3],
+                  [...slicedUrls2],
+                  [...slicedUrls1],
                 ];
                 setVideoKeyCont3([...imageUrlCont]);
               } else if (window.innerWidth < 1140 && window.innerWidth > 800) {
@@ -1881,9 +1885,9 @@ export default function MainPage() {
                 const slicedUrls3 = videoKeys.slice(10, 14);
 
                 const imageUrlCont = [
-                  [...slicedUrls1],
-                  [...slicedUrls2],
                   [...slicedUrls3],
+                  [...slicedUrls2],
+                  [...slicedUrls1],
                 ];
                 setVideoKeyCont3([...imageUrlCont]);
               } else if (window.innerWidth < 800 && window.innerWidth > 450) {
@@ -1892,9 +1896,9 @@ export default function MainPage() {
                 const slicedUrls3 = videoKeys.slice(10, 13);
 
                 const imageUrlCont = [
-                  [...slicedUrls1],
-                  [...slicedUrls2],
                   [...slicedUrls3],
+                  [...slicedUrls2],
+                  [...slicedUrls1],
                 ];
                 setVideoKeyCont3([...imageUrlCont]);
               } else if (window.innerWidth < 450) {
@@ -1903,9 +1907,9 @@ export default function MainPage() {
                 const slicedUrls3 = videoKeys.slice(10, 12);
 
                 const imageUrlCont = [
-                  [...slicedUrls1],
-                  [...slicedUrls2],
                   [...slicedUrls3],
+                  [...slicedUrls2],
+                  [...slicedUrls1],
                 ];
                 setVideoKeyCont3([...imageUrlCont]);
               }
@@ -1919,8 +1923,6 @@ export default function MainPage() {
             console.error("Error fetching video details:", error);
           });
 
-        // 333333333333333333333333333
-
         const updateSlicingRange3 = () => {
           if (window.innerWidth > 1141) {
             // Adjust the range difference to 4 if window width is below 1141px
@@ -1929,9 +1931,9 @@ export default function MainPage() {
             const slicedUrls3 = backdropPaths.slice(13, 19);
 
             const imageUrlCont = [
-              [...slicedUrls1],
-              [...slicedUrls2],
               [...slicedUrls3],
+              [...slicedUrls2],
+              [...slicedUrls1],
             ];
             setMovieImageUrls3([...imageUrlCont]);
           } else if (window.innerWidth < 1140 && window.innerWidth > 800) {
@@ -1940,9 +1942,9 @@ export default function MainPage() {
             const slicedUrls3 = backdropPaths.slice(10, 14);
 
             const imageUrlCont = [
-              [...slicedUrls1],
-              [...slicedUrls2],
               [...slicedUrls3],
+              [...slicedUrls2],
+              [...slicedUrls1],
             ];
             setMovieImageUrls3([...imageUrlCont]);
           } else if (window.innerWidth < 800 && window.innerWidth > 450) {
@@ -1951,9 +1953,9 @@ export default function MainPage() {
             const slicedUrls3 = backdropPaths.slice(10, 13);
 
             const imageUrlCont = [
-              [...slicedUrls1],
-              [...slicedUrls2],
               [...slicedUrls3],
+              [...slicedUrls2],
+              [...slicedUrls1],
             ];
             setMovieImageUrls3([...imageUrlCont]);
           } else if (window.innerWidth < 450) {
@@ -1962,18 +1964,21 @@ export default function MainPage() {
             const slicedUrls3 = backdropPaths.slice(10, 12);
 
             const imageUrlCont = [
-              [...slicedUrls1],
-              [...slicedUrls2],
               [...slicedUrls3],
+              [...slicedUrls2],
+              [...slicedUrls1],
             ];
             setMovieImageUrls3([...imageUrlCont]);
           }
         };
-
+        
+        // image url retrieving
         updateSlicingRange3();
         updateSlicingRangeRef3.current = updateSlicingRange3;
         window.addEventListener("resize", updateSlicingRange3);
       })
+
+      // 333333333333333333333333333
       .catch((error) => {
         console.error(error);
       });
