@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: "https://netflix-gilt-seven.vercel.app",
+    origin: "https://netflix-app-clonee.vercel.app",
   })
 );
 app.use(
@@ -136,8 +136,8 @@ app.get(
 app.get(
   "/auth-netflix-account",
   passport.authenticate("google", {
-    failureRedirect: "https://netflix-gilt-seven.vercel.app/login",
-    successRedirect: "https://netflix-gilt-seven.vercel.app/auth-netflix-account",
+    failureRedirect: "https://netflix-app-clonee.vercel.app/login",
+    successRedirect: "https://netflix-app-clonee.vercel.app/auth-netflix-account",
   })
 );
 
@@ -146,8 +146,8 @@ app.get("/auth/facebook", passport.authenticate("facebook"));
 app.get(
   "/fb/auth-netflix-account",
   passport.authenticate("facebook", {
-    failureRedirect: "https://netflix-gilt-seven.vercel.app/login",
-    successRedirect: "https://netflix-gilt-seven.vercel.app/auth-netflix-account",
+    failureRedirect: "https://netflix-app-clonee.vercel.app/login",
+    successRedirect: "https://netflix-app-clonee.vercel.app/auth-netflix-account",
   })
 );
 
