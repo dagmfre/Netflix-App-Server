@@ -8,7 +8,7 @@ export default function AuthUsersAcoount() {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get("http://localhost:3001/check-auth-status", {withCredentials: true})
+      .get("https://netflix-api-6lk8.onrender.com/check-auth-status", {withCredentials: true})
       .then((res) => {
         if (res.status === 200) {
           setUsername(res.data.user.username)
