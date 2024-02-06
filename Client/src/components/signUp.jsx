@@ -25,7 +25,7 @@ function SignUp() {
   const handleRegister = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3001/register", {
+      const response = await axios.post("https://netflix-api-6lk8.onrender.com/register", {
         email: email,
         password: password,
       });
@@ -61,14 +61,14 @@ function SignUp() {
             Sign Up
           </button>
           <div className="div-img">
-            <a href="http://localhost:3001/auth/google">
+            <a href="https://netflix-api-6lk8.onrender.com/auth/google">
               <img
                 className="google"
                 src="google.png"
                 alt="google-logo"
               />
             </a>
-            <a href="http://localhost:3001/auth/facebook">
+            <a href="https://netflix-api-6lk8.onrender.com/auth/facebook">
               <img className="fb" src="fb.png" alt="fb-logo" />
             </a>
           </div>

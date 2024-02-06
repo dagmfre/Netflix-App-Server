@@ -9,7 +9,7 @@ export default function MyList() {
     const fetchMovieListInfo = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3001/user-movie-list"
+          "https://netflix-api-6lk8.onrender.com/user-movie-list"
         );
 
         setFetchedMovieListData(response.data);
