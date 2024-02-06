@@ -93,7 +93,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3001/auth-netflix-account",
+      callbackURL: "https://netflix-api-6lk8.onrender.com/auth-netflix-account",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     function (accessToken, refreshToken, profile, cb) {
@@ -112,7 +112,7 @@ passport.use(
     {
       clientID: process.env.FB_APP_ID,
       clientSecret: process.env.FB_APP_SECRET,
-      callbackURL: "http://localhost:3001/fb/auth-netflix-account",
+      callbackURL: "https://netflix-api-6lk8.onrender.com/fb/auth-netflix-account",
     },
     function (accessToken, refreshToken, profile, cb) {
       User.findOrCreate(
