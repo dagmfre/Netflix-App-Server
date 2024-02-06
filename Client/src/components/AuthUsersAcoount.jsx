@@ -13,7 +13,7 @@ export default function AuthUsersAcoount() {
         if (res.status === 200) {
           setUsername(res.data.user.username)
         } else {
-          navigate("/login");
+          navigate("/login"); 
         }
       })
       .catch((error) => {
