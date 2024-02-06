@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:3000",
+    origin: "https://netflix-gilt-seven.vercel.app",
   })
 );
 app.use(
@@ -136,8 +136,8 @@ app.get(
 app.get(
   "/auth-netflix-account",
   passport.authenticate("google", {
-    failureRedirect: "http://localhost:3000/login",
-    successRedirect: "http://localhost:3000/auth-netflix-account",
+    failureRedirect: "https://netflix-gilt-seven.vercel.app/login",
+    successRedirect: "https://netflix-gilt-seven.vercel.app/auth-netflix-account",
   })
 );
 
@@ -146,8 +146,8 @@ app.get("/auth/facebook", passport.authenticate("facebook"));
 app.get(
   "/fb/auth-netflix-account",
   passport.authenticate("facebook", {
-    failureRedirect: "http://localhost:3000/login",
-    successRedirect: "http://localhost:3000/auth-netflix-account",
+    failureRedirect: "https://netflix-gilt-seven.vercel.app/login",
+    successRedirect: "https://netflix-gilt-seven.vercel.app/auth-netflix-account",
   })
 );
 
