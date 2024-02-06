@@ -141,6 +141,18 @@ export default function MainPage() {
     }
   };
 
+  const handlePlayClick = (number) => {
+    if (number === 0) {
+      navigate("/movie-player", { state: { data: randomVideoKey } });
+    } else if (number === 1) {
+      navigate("/movie-player", { state: { data: selectedKey } });
+    } else if (number === 2) {
+      navigate("/movie-player", { state: { data: selectedKey2 } });
+    } else if (number === 3) {
+      navigate("/movie-player", { state: { data: selectedKey3 } });
+    }
+  };
+
   const handleClick = (id, title, key, date, length, overview, genres) => {
     setClickedID(id);
     setClickedTitle(title);
@@ -2055,7 +2067,7 @@ export default function MainPage() {
           <h1>{title}</h1>
           <p className="movie-descr">{truncate(description, 150)}</p>
           <div className="descr-btn-cont">
-            <div>
+            <div onClick={() => handlePlayClick(0)}>
               <i class="fa-solid fa-play"></i>
               <p>Play</p>
             </div>
@@ -2106,7 +2118,10 @@ export default function MainPage() {
                     <div>
                       <div className="icons-cont">
                         <div>
-                          <i class="fa-solid fa-circle-play"></i>
+                          <i
+                            onClick={() => handlePlayClick(1)}
+                            class="fa-solid fa-circle-play"
+                          ></i>
                           <i
                             style={{
                               display:
@@ -2180,7 +2195,7 @@ export default function MainPage() {
                     onMouseLeave={handleMouseLeave2}
                     className={`hovered-card`}
                   >
-                    <div>  
+                    <div>
                       <img
                         src={`https://image.tmdb.org/t/p/w500${movieImageUrl}`}
                         alt=""
@@ -2192,7 +2207,10 @@ export default function MainPage() {
                     <div>
                       <div className="icons-cont">
                         <div>
-                          <i class="fa-solid fa-circle-play"></i>
+                          <i
+                            onClick={() => handlePlayClick(2)}
+                            class="fa-solid fa-circle-play"
+                          ></i>
                           <i
                             style={{
                               display:
@@ -2276,7 +2294,10 @@ export default function MainPage() {
                     <div>
                       <div className="icons-cont">
                         <div>
-                          <i class="fa-solid fa-circle-play"></i>
+                          <i
+                            onClick={() => handlePlayClick(3)}
+                            class="fa-solid fa-circle-play"
+                          ></i>
                           <i
                             style={{
                               display:

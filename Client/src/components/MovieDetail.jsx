@@ -79,7 +79,7 @@ export default function MovieDetail(props) {
               <img
                 src={`https://image.tmdb.org/t/p/w500${relatedMovies.backdrop_path}`}
                 alt=""
-              />
+              /> 
             </div>
             <div className="related-descrp-cont">
               <div className="related-info-cont">
@@ -88,7 +88,7 @@ export default function MovieDetail(props) {
                   <p className="hd">HD</p>
                 </div>
                 <div>
-                  <i class="fa-solid fa-circle-plus"></i>
+                  <i class="fa-regular fa-thumbs-up"></i>
                 </div>
               </div>
               <p>{truncate(relatedMovies.overview, 100)}</p>

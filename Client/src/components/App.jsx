@@ -7,6 +7,7 @@ import NetflixMainPage from "./NetflixAccount";
 import AuthUsersAcoount from "./AuthUsersAcoount"
 import MainPage from "./MainPage";
 import MyList from "./MyList";
+import MoviePlayer from "./MoviePlayer";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/auth-netflix-account" element={<AuthUsersAcoount />}></Route>
           <Route path="/main-page" element={<MainPage />}></Route>
           <Route path="/my-list" element={<MyList />}></Route>
+          <Route path="/movie-player" element={<MoviePlayer />}></Route>
         </Routes>
       </StyledEngineProvider>
     </div>

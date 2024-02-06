@@ -2,6 +2,7 @@ html,
 body {
   max-width: 100%;
   margin: 0;
+  background-color: black;
 }
 .grid1 {
   display: grid;
@@ -1251,7 +1252,7 @@ select:focus {
   color: white;
   font-size: 18px;
 }
-#bd .navbar-nav{
+#bd .navbar-nav {
   gap: 1rem;
   align-items: center;
 }
@@ -1930,7 +1931,7 @@ iframe {
   background-color: #121212;
 }
 .movie-list-img-cont img {
-  max-width: 100%;
+  width: 100%;
   border-radius: 5px 5px 0 0;
 }
 .movie-list-img-cont {
@@ -1997,155 +1998,182 @@ iframe {
   font-size: 16px;
   color: #77ff77;
 }
-@media screen and (max-width: 1140px) {
-  .card-cont {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  @media screen and (max-width: 800px) {
-    .card-cont {
-      grid-template-columns: repeat(3, 1fr);
-    }
-    .movie-descr-cont {
-      top: 15vw;
-      max-width: 90%;
-    }
-    .movie-descr-cont h1 {
-      font-size: 2.5rem;
-    }
-    .movie-descr-cont > :nth-child(2) {
-      max-width: 70%;
-      margin-bottom: 1rem;
-      font-size: 2.5vw;
-    }
-    .descr-btn-cont > :nth-child(1) {
-      padding: 10px 30px;
-      max-height: 55px;
-      cursor: pointer;
-    }
-    .descr-btn-cont > :nth-child(2) {
-      max-height: 55px;
-      cursor: pointer;
-    }
+.movie-player {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    @media screen and (max-width: 750px) {
-      .detail-related-cont {
+@media screen and (max-width: 1370px) {
+  .movie-list-cont {
+    grid-template: auto / 1fr 1fr 1fr;
+    padding: 6rem 2rem;
+  }
+  @media screen and (max-width: 1140px) {
+    @media screen and (max-width: 1000px) {
+      .movie-list-cont {
         grid-template: auto / 1fr 1fr;
       }
-      #bd .collapse-cont :nth-child(3) {
-        margin: 0;
+      .card-cont {
+        grid-template-columns: repeat(4, 1fr);
       }
-      .navlist-cont {
-        display: none;
-      }
-      .nav-cont :nth-child(3) {
-        display: flex;
-        margin-right: -15px;
-      }
-      @media screen and (max-width: 625px) and (min-width: 451px) {
-        .cards:nth-child(3) .hovered-card:hover,
-        .cards:nth-child(6) .hovered-card:hover,
-        .cards:nth-child(9) .hovered-card:hover {
-          left: -13vw;
-        }
-      }
-      @media screen and (max-width: 550px) {
-        .movie-descr-cont > :nth-child(2) {
-          max-width: 80%;
-          font-size: 3vw;
-        }
-        .movie-descr-cont h1 {
-          font-size: 2rem;
-          margin: 0;
-        }
-        .descr-btn-cont p {
-          white-space: nowrap;
-        }
-        .descr-btn-cont > :nth-child(1),
-        .descr-btn-cont > :nth-child(2) {
-          max-height: 40px;
+      @media screen and (max-width: 800px) {
+        .card-cont {
+          grid-template-columns: repeat(3, 1fr);
         }
         .movie-descr-cont {
+          top: 15vw;
+          max-width: 90%;
+        }
+        .movie-descr-cont h1 {
+          font-size: 2.5rem;
+        }
+        .movie-descr-cont > :nth-child(2) {
           max-width: 70%;
-          top: 13vw;
+          margin-bottom: 1rem;
+          font-size: 2.5vw;
         }
-        .detail-main {
-          grid-template: 0.2fr 1fr / 1fr;
+        .descr-btn-cont > :nth-child(1) {
+          padding: 10px 30px;
+          max-height: 55px;
+          cursor: pointer;
         }
-        .detail-descrp-cont {
-          justify-content: center;
+        .descr-btn-cont > :nth-child(2) {
+          max-height: 55px;
+          cursor: pointer;
         }
-        .title-control-cont {
-          text-align: center;
-        }
-        .control-cont {
-          justify-content: center;
-          align-items: center;
-        }
-        .detail-info-cont {
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 1rem;
-        }
-        .overview-cont p {
-          text-align: center;
-        }
-        .detail-info-cont > :nth-child(2) ul {
-          margin: 0;
-          padding: 0;
-        }
-        .detail-info-cont > :nth-child(2) {
-          gap: 15px;
-        }
-        @media screen and (max-width: 490px) {
-          @media screen and (max-width: 450px) {
-            .cards:nth-child(2) .hovered-card:hover,
-            .cards:nth-child(4) .hovered-card:hover,
-            .cards:nth-child(6) .hovered-card:hover {
-              left: -24vw;
-            }
-            .nav-child3 .search-cont {
-              display: none;
-            }
-            .detail-related-cont {
+
+        @media screen and (max-width: 750px) {
+          .detail-related-cont {
+            grid-template: auto / 1fr 1fr;
+          }
+          #bd .collapse-cont :nth-child(3) {
+            margin: 0;
+          }
+          .navlist-cont {
+            display: none;
+          }
+          .nav-cont :nth-child(3) {
+            display: flex;
+            margin-right: -15px;
+          }
+          @media screen and (max-width: 670px) {
+            .movie-list-cont {
               grid-template: auto / 1fr;
             }
-            .nav-child1 img {
-              max-width: 96px;
-            }
-            .movie-descr-cont > :nth-child(2) {
-              max-width: 100%;
-            }
-            .card-cont {
-              grid-template-columns: repeat(2, 1fr);
-            }
-            .nav-cont {
-              padding-top: 5px;
-            }
-            .descr-btn-cont {
-              flex-direction: column;
-            }
-            .movie-descr-cont {
-              text-align: center;
-            }
-            .movie-descr-cont > :nth-child(2) {
-              margin-left: auto;
-              margin-right: auto;
-            }
-            .main-child2 {
-              margin-top: 6rem;
-            }
-            @media screen and (max-width: 400px) {
-              .control-cont {
-                flex-direction: column;
+            @media screen and (max-width: 625px) and (min-width: 451px) {
+              .cards:nth-child(3) .hovered-card:hover,
+              .cards:nth-child(6) .hovered-card:hover,
+              .cards:nth-child(9) .hovered-card:hover {
+                left: -13vw;
               }
             }
-          }
-
-          .main-child2 h1:nth-child(1),
-          .main-child2 h1:nth-child(2),
-          .main-child2 h1:nth-child(3) {
-            font-size: 1.5rem;
+            @media screen and (max-width: 550px) {
+              .movie-descr-cont > :nth-child(2) {
+                max-width: 80%;
+                font-size: 3vw;
+              }
+              .movie-descr-cont h1 {
+                font-size: 2rem;
+                margin: 0;
+              }
+              .descr-btn-cont p {
+                white-space: nowrap;
+              }
+              .descr-btn-cont > :nth-child(1),
+              .descr-btn-cont > :nth-child(2) {
+                max-height: 40px;
+              }
+              .movie-descr-cont {
+                max-width: 70%;
+                top: 13vw;
+              }
+              .detail-main {
+                grid-template: 0.2fr 1fr / 1fr;
+              }
+              .detail-descrp-cont {
+                justify-content: center;
+              }
+              .title-control-cont {
+                text-align: center;
+              }
+              .control-cont {
+                justify-content: center;
+                align-items: center;
+              }
+              .detail-info-cont {
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+              }
+              .overview-cont p {
+                text-align: center;
+              }
+              .detail-info-cont > :nth-child(2) ul {
+                margin: 0;
+                padding: 0;
+              }
+              .detail-info-cont > :nth-child(2) {
+                gap: 15px;
+              }
+              @media screen and (max-width: 490px) {
+                @media screen and (max-width: 450px) {
+                  .cards:nth-child(2) .hovered-card:hover,
+                  .cards:nth-child(4) .hovered-card:hover,
+                  .cards:nth-child(6) .hovered-card:hover {
+                    left: -24vw;
+                  }
+                  .nav-child3 .search-cont {
+                    display: none;
+                  }
+                  .detail-related-cont {
+                    grid-template: auto / 1fr;
+                  }
+                  .nav-child1 img {
+                    max-width: 96px;
+                  }
+                  .movie-descr-cont > :nth-child(2) {
+                    max-width: 100%;
+                  }
+                  .card-cont {
+                    grid-template-columns: repeat(2, 1fr);
+                  }
+                  .nav-cont {
+                    padding-top: 5px;
+                  }
+                  .descr-btn-cont {
+                    flex-direction: column;
+                  }
+                  .movie-descr-cont {
+                    text-align: center;
+                  }
+                  .movie-descr-cont > :nth-child(2) {
+                    margin-left: auto;
+                    margin-right: auto;
+                  }
+                  .main-child2 {
+                    margin-top: 6rem;
+                  }
+                  @media screen and (max-width: 400px) {
+                    .control-cont {
+                      flex-direction: column;
+                    }
+                  }
+                  @media screen and (max-width: 350px) {
+                    .movie-list-cont {
+                      padding: 6rem 1rem;
+                    }
+                  }
+                }
+                .main-child2 h1:nth-child(1),
+                .main-child2 h1:nth-child(2),
+                .main-child2 h1:nth-child(3) {
+                  font-size: 1.5rem;
+                }
+              }
+            }
           }
         }
       }
