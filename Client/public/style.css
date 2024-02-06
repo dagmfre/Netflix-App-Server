@@ -2004,7 +2004,25 @@ iframe {
   justify-content: center;
   align-items: center;
 }
-
+.back-arrow-cont {
+  width: 100%;
+  padding: 5px 0 0 30px;
+  position: absolute;
+  top: 0;
+  height: 12%;
+  display: flex;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.7483368347338936) 35%,
+    rgb(255 255 255 / 0%) 100%
+  );
+}
+.back-arrow-cont i {
+  color: #c8c8c8;
+  font-size: 2rem;
+  cursor: pointer;
+}
 @media screen and (max-width: 1370px) {
   .movie-list-cont {
     grid-template: auto / 1fr 1fr 1fr;
@@ -2045,6 +2063,9 @@ iframe {
         }
 
         @media screen and (max-width: 750px) {
+          .main-child2 h1:nth-child(3){
+            top: 50%;
+          }
           .detail-related-cont {
             grid-template: auto / 1fr 1fr;
           }

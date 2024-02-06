@@ -1,14 +1,19 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useRef } from "react";
 import videojs from "video.js";
 import "videojs-youtube";
 import "video.js/dist/video-js.css";
 
 export default function MoviePlayer() {
+  const navigate = useNavigate()
   const location = useLocation();
   const videoNode = useRef(null);
   const player = useRef(null);
   const initialized = useRef(false);
+
+  const handleArrowClick = ()=> {
+    navigate("/main-page", { state: { data: "pseudo-state" } })
+  }
 
   useEffect(() => {
     if (videoNode.current && !initialized.current) {
@@ -44,6 +49,9 @@ export default function MoviePlayer() {
   return (
     <div className="movie-player">
       <video ref={videoNode} className="video-js" />
+      <div className="back-arrow-cont">
+        <i onClick={handleArrowClick} className="fa-solid fa-left-long"></i>
+      </div>
     </div>
   );
 }
