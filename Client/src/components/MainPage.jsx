@@ -108,7 +108,7 @@ export default function MainPage() {
   const [MovieDate, setMovieDate] = useState("");
   const [MovieGenres, setMovieGenres] = useState([]);
   const [MovieDescription, setMovieDescription] = useState("");
-  const [clickedIndex, setClickedIndex] = useState(null);
+  const [isPlusBtnClicked, setIsPlusBtnClicked] = useState(null);
 
   const navigate = useNavigate();
   const updateSlicingRangeRef = useRef();
@@ -796,7 +796,6 @@ export default function MainPage() {
             console.error("Error fetching video details:", error);
           });
 
-
         // image url retrieving
         const updateSlicingRange = () => {
           if (window.innerWidth > 1141) {
@@ -847,7 +846,6 @@ export default function MainPage() {
           }
         };
 
-        
         updateSlicingRange();
         updateSlicingRangeRef.current = updateSlicingRange;
         window.addEventListener("resize", updateSlicingRange);
@@ -1391,7 +1389,7 @@ export default function MainPage() {
             console.error("Error fetching video details:", error);
           });
 
-          //  image url retrieving
+        //  image url retrieving
         const updateSlicingRange2 = () => {
           if (window.innerWidth > 1141) {
             // Adjust the range difference to 4 if window width is below 1141px
@@ -1449,7 +1447,7 @@ export default function MainPage() {
         console.error(error);
       });
 
-      // #22222222222222222222222222
+    // #22222222222222222222222222
 
     axios
       .get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${api_key}`)
@@ -1971,7 +1969,7 @@ export default function MainPage() {
             setMovieImageUrls3([...imageUrlCont]);
           }
         };
-        
+
         // image url retrieving
         updateSlicingRange3();
         updateSlicingRangeRef3.current = updateSlicingRange3;
@@ -1997,7 +1995,7 @@ export default function MainPage() {
     // eslint-disable-next-line
   }, []);
 
-  const handleMylistBtnClicked = async (index, number) => {
+  const handleMylistBtnClicked = async (number) => {
     // Set state
     if (number === 1) {
       setMovieTitle(selectedTitle);
@@ -2024,8 +2022,10 @@ export default function MainPage() {
       setMovieGenres(selectedGenres3);
       setMovieDescription(selectedOverview3);
     }
-
-    setClickedIndex(index);
+    setIsPlusBtnClicked(true);
+    setTimeout(() => {
+      setIsPlusBtnClicked(false);
+    }, 500);
   };
 
   useEffect(() => {
@@ -2129,18 +2129,14 @@ export default function MainPage() {
                           ></i>
                           <i
                             style={{
-                              display:
-                                clickedIndex === imageIndex ? "none" : "flex",
+                              display: isPlusBtnClicked ? "none" : "flex",
                             }}
-                            onClick={() =>
-                              handleMylistBtnClicked(imageIndex, 1)
-                            }
+                            onClick={() => handleMylistBtnClicked(1)}
                             class="fa-solid fa-circle-plus"
                           ></i>
                           <i
                             style={{
-                              display:
-                                clickedIndex === imageIndex ? "flex" : "none",
+                              display: isPlusBtnClicked ? "flex" : "none",
                             }}
                             class="fa-solid fa-circle-check check-icon"
                           ></i>
@@ -2218,18 +2214,14 @@ export default function MainPage() {
                           ></i>
                           <i
                             style={{
-                              display:
-                                clickedIndex === imageIndex ? "none" : "flex",
+                              display: isPlusBtnClicked ? "none" : "flex",
                             }}
-                            onClick={() =>
-                              handleMylistBtnClicked(imageIndex, 2)
-                            }
+                            onClick={() => handleMylistBtnClicked(2)}
                             class="fa-solid fa-circle-plus"
                           ></i>
                           <i
                             style={{
-                              display:
-                                clickedIndex === imageIndex ? "flex" : "none",
+                              display: isPlusBtnClicked ? "flex" : "none",
                             }}
                             class="fa-solid fa-circle-check check-icon"
                           ></i>
@@ -2305,18 +2297,14 @@ export default function MainPage() {
                           ></i>
                           <i
                             style={{
-                              display:
-                                clickedIndex === imageIndex ? "none" : "flex",
+                              display: isPlusBtnClicked ? "none" : "flex",
                             }}
-                            onClick={() =>
-                              handleMylistBtnClicked(imageIndex, 3)
-                            }
+                            onClick={() => handleMylistBtnClicked(3)}
                             class="fa-solid fa-circle-plus"
                           ></i>
                           <i
                             style={{
-                              display:
-                                clickedIndex === imageIndex ? "flex" : "none",
+                              display: isPlusBtnClicked ? "flex" : "none",
                             }}
                             class="fa-solid fa-circle-check check-icon"
                           ></i>
