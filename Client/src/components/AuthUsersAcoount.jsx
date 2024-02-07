@@ -25,7 +25,7 @@ export default function AuthUsersAcoount() {
       })
       .catch((error) => {  
         navigate("/login");
-        console.log(error);
+        console.log(`the error is an internal server`);
       });
   }, []);
   return (

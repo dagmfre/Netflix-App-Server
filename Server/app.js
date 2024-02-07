@@ -153,12 +153,12 @@ app.get(
 // };
 
 app.get('/protected', (req, res) => {
-  if (req.isAuthenticated()) {
-    resstatus(200).json({ message: 'You are protected!' });
+  if (req.user) {
+    res.status(200).json({ message: 'You are protected!' });
   } else { 
     res.status(401).json({ message: 'Unauthorized' });
   }
-});
+}); 
 
 app.get("/auth/facebook", passport.authenticate("facebook"));
 
