@@ -154,8 +154,8 @@ app.get(
 
 app.get('/protected', (req, res) => {
   if (req.isAuthenticated()) {
-    res.json({ message: 'You are protected!' });
-  } else {
+    resstatus(200).json({ message: 'You are protected!' });
+  } else { 
     res.status(401).json({ message: 'Unauthorized' });
   }
 });
