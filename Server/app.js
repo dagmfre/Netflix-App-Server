@@ -127,8 +127,8 @@ passport.use(
 );
 
 // Creating Routes for Google & FB authentication
-app.get( 
-  "/auth/google", 
+app.get(
+  "/auth/google",
   passport.authenticate("google", {
     scope: ["profile"],
   })
@@ -144,16 +144,20 @@ app.get(
 );
 
 // Middleware used in protected routes to check if the user has been authenticated
-const isLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  } else {
-    res.sendStatus(401);
-  }
-};
+// const isLoggedIn = (req, res, next) => {
+//   if (req.isAuthenticated()) {
+//     return next();
+//   } else {
+//     res.sendStatus(401);
+//   }
+// };
 
-app.get('/protected', isLoggedIn, (req, res) => {
-  res.send('Authenticated!');
+app.get('/protected', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({ message: 'You are protected!' });
+  } else {
+    res.status(401).json({ message: 'Unauthorized' });
+  }
 });
 
 app.get("/auth/facebook", passport.authenticate("facebook"));
@@ -175,7 +179,7 @@ app.post("/user-movie-list", async (req, res) => {
 
     // Save the document to the database
     await userMovieList.save();
- 
+
     console.log(req.body);
 
     // Send a success response
