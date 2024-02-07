@@ -143,34 +143,25 @@ app.get(
   })
 );
 
-// Middleware used in protected routes to check if the user has been authenticated
-// const isLoggedIn = (req, res, next) => {
-//   if (req.isAuthenticated()) {
-//     return next();
-//   } else {
-//     res.sendStatus(401);
-//   }
-// };
-
-app.get('/protected', (req, res) => {
-  if (req.user) {
-    res.status(200).json({ message: 'You are protected!' });
-  } else { 
-    res.status(401).json({ message: 'Unauthorized' });
-  }
-}); 
-
 app.get("/auth/facebook", passport.authenticate("facebook"));
 
 app.get(
   "/fb/auth-netflix-account",
   passport.authenticate("facebook", {
     failureRedirect: "https://netflix-app-clonee.vercel.app/login",
+
+    successRedirect:
+      "https://netflix-app-clonee.vercel.app/auth-netflix-account",
   }),
-  function (req, res) {
-    res.redirect("/success");
-  }
 );
+
+app.get('/protected', (req, res) => {
+  if (req.user) {
+    res.status(200).json({ message: 'You are protected!' });
+  } else {
+    res.status(401).json({ message: 'User is Unauthorized' });
+  }
+});
 
 app.post("/user-movie-list", async (req, res) => {
   try {
