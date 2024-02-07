@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
+// const cors = require("cors");
 const { hashSync, compareSync } = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
@@ -24,12 +24,12 @@ app.use(
 );
 
 app.use(express.json());
-app.use(
-  cors({
-    credentials: true,
-    origin: "https://netflix-app-clonee.vercel.app",
-  })
-);
+// app.use(
+//   cors({
+//     credentials: true,
+//     origin: "https://netflix-app-clonee.vercel.app",
+//   })
+// );
 app.use(
   session({
     secret: "Our big secret!",
