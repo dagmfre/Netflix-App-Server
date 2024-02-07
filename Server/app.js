@@ -127,17 +127,8 @@ passport.use(
 );
 
 // Creating Routes for Google & FB authentication
-// Middleware used in protected routes to check if the user has been authenticated
-const isLoggedIn = (req, res, next) => {
-  if (req.user) {
-    next();
-  } else {
-    res.sendStatus(401);
-  }
-};
-
-app.get(
-  "/auth/google",
+app.get( 
+  "/auth/google", 
   passport.authenticate("google", {
     scope: ["profile"],
   })
@@ -147,11 +138,23 @@ app.get(
   "/auth-netflix-account",
   passport.authenticate("google", {
     failureRedirect: "https://netflix-app-clonee.vercel.app/login",
-  }),
-  function (req, res) {
-    res.redirect("/success");
-  }
+    successRedirect:
+      "https://netflix-app-clonee.vercel.app/auth-netflix-account",
+  })
 );
+
+// Middleware used in protected routes to check if the user has been authenticated
+const isLoggedIn = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  } else {
+    res.sendStatus(401);
+  }
+};
+
+app.get('/protected', isLoggedIn, (req, res) => {
+  res.send('Authenticated!');
+});
 
 app.get("/auth/facebook", passport.authenticate("facebook"));
 
@@ -164,10 +167,6 @@ app.get(
     res.redirect("/success");
   }
 );
-
-app.get("/success", isLoggedIn, (req, res) => {
-  res.redirect("https://netflix-app-clonee.vercel.app/auth-netflix-account")
-});
 
 app.post("/user-movie-list", async (req, res) => {
   try {
