@@ -103,7 +103,6 @@ passport.use(
           return cb(err, user);
         }
       );
-      done(null, profile);
     }
   )
 );
