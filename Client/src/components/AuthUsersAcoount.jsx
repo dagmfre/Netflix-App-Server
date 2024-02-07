@@ -8,22 +8,22 @@ export default function AuthUsersAcoount() {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get("https://netflix-api-6lk8.onrender.com/check-auth-status", {withCredentials: true})
+      .get("https://netflix-api-6lk8.onrender.com/protected", { withCredentials: true })
       .then((res) => {
-        if (res.status === 200) {
+        if (response.ok) {
           setUsername(res.data.user.username)
         } else {
-          navigate("/login"); 
+          navigate("/login");
         }
       })
-      .catch((error) => {
+      .catch((error) => {  
         navigate("/login");
         console.log(error);
       });
   }, []);
   return (
     <div>
-      <UserAccount username={username}/>
+      <UserAccount username={username} />
     </div>
   );
 }
