@@ -103,6 +103,7 @@ passport.use(
           return cb(err, user);
         }
       );
+      done(null, profile);
     }
   )
 );
@@ -112,7 +113,7 @@ passport.use(
     {
       clientID: process.env.FB_APP_ID,
       clientSecret: process.env.FB_APP_SECRET,
-      callbackURL: 
+      callbackURL:
         "https://netflix-api-6lk8.onrender.com/fb/auth-netflix-account",
     },
     function (accessToken, refreshToken, profile, cb) {
@@ -127,6 +128,15 @@ passport.use(
 );
 
 // Creating Routes for Google & FB authentication
+// Middleware used in protected routes to check if the user has been authenticated
+const isLoggedIn = (req, res, next) => {
+  if (req.user) {
+    next();
+  } else {
+    res.sendStatus(401);
+  }
+};
+
 app.get(
   "/auth/google",
   passport.authenticate("google", {
@@ -138,8 +148,10 @@ app.get(
   "/auth-netflix-account",
   passport.authenticate("google", {
     failureRedirect: "https://netflix-app-clonee.vercel.app/login",
-    successRedirect: "https://netflix-app-clonee.vercel.app/auth-netflix-account",
-  })
+  }),
+  function (req, res) {
+    res.redirect("/success");
+  }
 );
 
 app.get("/auth/facebook", passport.authenticate("facebook"));
@@ -148,17 +160,15 @@ app.get(
   "/fb/auth-netflix-account",
   passport.authenticate("facebook", {
     failureRedirect: "https://netflix-app-clonee.vercel.app/login",
-    successRedirect:
-      "https://netflix-app-clonee.vercel.app/auth-netflix-account",
-  })
+  }),
+  function (req, res) {
+    res.redirect("/success");
+  }
 );
 
-app.get("/check-auth-status", (req, res) => {
-  if (req.user) {
-    res.status(200).json({ message: "user Login", user: req.user });
-  } else {
-    res.status(400).json({ message: "Not Authorized" });
-  }
+app.get("/success", isLoggedIn, (req, res) => {
+  console.log("You are logged in");
+  res.send(`Welcome ${req.user.displayName}`);
 });
 
 app.post("/user-movie-list", async (req, res) => {
@@ -168,7 +178,7 @@ app.post("/user-movie-list", async (req, res) => {
 
     // Save the document to the database
     await userMovieList.save();
-
+ 
     console.log(req.body);
 
     // Send a success response
@@ -194,7 +204,7 @@ app.delete("/user-movie-list/:id", async (req, res) => {
     console.error("Error deleting item:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-}); 
+});
 
 app.delete("/delete-movie-list", async (req, res) => {
   try {
