@@ -23,6 +23,7 @@ export default function MainPage() {
   const [randomGenres, setRandomGenres] = useState([]);
   const [randomLength, setRandomLength] = useState("");
   const [randomDate, setRandomDate] = useState("");
+  const [randomImage, setRandomImage] = useState("");
 
   const [movieImageUrls, setMovieImageUrls] = useState([]);
   const [movieImageUrls2, setMovieImageUrls2] = useState([]);
@@ -109,6 +110,14 @@ export default function MainPage() {
   const [MovieGenres, setMovieGenres] = useState([]);
   const [MovieDescription, setMovieDescription] = useState("");
   const [isPlusBtnClicked, setIsPlusBtnClicked] = useState(null);
+  const [isRandomMoviePlusBtnClicked, setIsRandomMoviePlusBtnClicked] =
+    useState(false);
+  const [isCard1MoviePlusBtnClicked, setIsCard1MoviePlusBtnClicked] =
+    useState(false);
+  const [isCard2MoviePlusBtnClicked, setIsCard2MoviePlusBtnClicked] =
+    useState(false);
+  const [isCard3MoviePlusBtnClicked, setIsCard3MoviePlusBtnClicked] =
+    useState(false);
 
   const navigate = useNavigate();
   const updateSlicingRangeRef = useRef();
@@ -903,6 +912,7 @@ export default function MainPage() {
           )
           .then((rendomMovieDetailRes) => {
             setDescription(rendomMovieDetailRes.data.overview);
+            setRandomImage(rendomMovieDetailRes.data.backdrop_path);
             setID(rendomMovieDetailRes.data.id);
             setTitle(rendomMovieDetailRes.data.title);
             setRandomDate(rendomMovieDetailRes.data.release_date.slice(0, 4));
@@ -1995,7 +2005,7 @@ export default function MainPage() {
     // eslint-disable-next-line
   }, []);
 
-  const handleMylistBtnClicked = async (number) => {
+  const handleMylistBtnClicked = (number) => {
     // Set state
     if (number === 1) {
       setMovieTitle(selectedTitle);
@@ -2026,6 +2036,44 @@ export default function MainPage() {
     setTimeout(() => {
       setIsPlusBtnClicked(false);
     }, 500);
+  };
+
+  const plusBtnClicked = (plusBtnClickState) => {
+    console.log(plusBtnClickState);
+
+    if (plusBtnClickState && isRandomMoviePlusBtnClicked) {
+      setMovieTitle(title);
+      setMovieImgURL(randomImage);
+      setMovieVideoKey(randomVideoKey);
+      setMovieLength(randomLength);
+      setMovieDate(randomDate);
+      setMovieGenres(randomGenres);
+      setMovieDescription(description);
+    } else if (plusBtnClickState && isCard1MoviePlusBtnClicked) {
+      setMovieTitle(selectedTitle);
+      setMovieImgURL(selectedImageURL);
+      setMovieVideoKey(selectedKey);
+      setMovieLength(selectedLength);
+      setMovieDate(selectedDate);
+      setMovieGenres(selectedGenres);
+      setMovieDescription(selectedOverview);
+    } else if (plusBtnClickState && isCard2MoviePlusBtnClicked) {
+      setMovieTitle(selectedTitle2);
+      setMovieImgURL(selectedImageURL2);
+      setMovieVideoKey(selectedKey2);
+      setMovieLength(selectedLength2);
+      setMovieDate(selectedDate2);
+      setMovieGenres(selectedGenres2);
+      setMovieDescription(selectedOverview2);
+    } else if (plusBtnClickState && isCard3MoviePlusBtnClicked) {
+      setMovieTitle(selectedTitle3);
+      setMovieImgURL(selectedImageURL3);
+      setMovieVideoKey(selectedKey3);
+      setMovieLength(selectedLength3);
+      setMovieDate(selectedDate3);
+      setMovieGenres(selectedGenres3);
+      setMovieDescription(selectedOverview3);
+    }
   };
 
   useEffect(() => {
@@ -2077,7 +2125,7 @@ export default function MainPage() {
               <p>Play</p>
             </div>
             <div
-              onClick={() =>
+              onClick={() => {
                 handleClick(
                   id,
                   title,
@@ -2086,8 +2134,12 @@ export default function MainPage() {
                   randomLength,
                   description,
                   randomGenres
-                )
-              }
+                );
+                setIsRandomMoviePlusBtnClicked(true);
+                setTimeout(() => {
+                  setIsRandomMoviePlusBtnClicked(false);
+                }, 3000);
+              }}
             >
               <img src="info.png" alt="" />
               <p>More Info</p>
@@ -2144,7 +2196,7 @@ export default function MainPage() {
                         </div>
 
                         <i
-                          onClick={() =>
+                          onClick={() => {
                             handleClick(
                               selectedId,
                               selectedTitle,
@@ -2153,8 +2205,12 @@ export default function MainPage() {
                               selectedLength,
                               selectedOverview,
                               selectedGenres
-                            )
-                          }
+                            );
+                            setIsCard1MoviePlusBtnClicked(true);
+                            setTimeout(() => {
+                              setIsCard1MoviePlusBtnClicked(false);
+                            }, 3000);
+                          }}
                           class="fa-solid fa-circle-chevron-down"
                         ></i>
                       </div>
@@ -2229,7 +2285,7 @@ export default function MainPage() {
                         </div>
 
                         <i
-                          onClick={() =>
+                          onClick={() => {
                             handleClick(
                               selectedId2,
                               selectedTitle2,
@@ -2238,8 +2294,12 @@ export default function MainPage() {
                               selectedLength2,
                               selectedOverview2,
                               selectedGenres2
-                            )
-                          }
+                            );
+                            setIsCard2MoviePlusBtnClicked(true);
+                            setTimeout(() => {
+                              setIsCard2MoviePlusBtnClicked(false);
+                            }, 3000);
+                          }}
                           class="fa-solid fa-circle-chevron-down"
                         ></i>
                       </div>
@@ -2312,7 +2372,7 @@ export default function MainPage() {
                         </div>
 
                         <i
-                          onClick={() =>
+                          onClick={() => {
                             handleClick(
                               selectedId3,
                               selectedTitle3,
@@ -2321,8 +2381,12 @@ export default function MainPage() {
                               selectedLength3,
                               selectedOverview3,
                               selectedGenres3
-                            )
-                          }
+                            );
+                            setIsCard3MoviePlusBtnClicked(true);
+                            setTimeout(() => {
+                              setIsCard3MoviePlusBtnClicked(false);
+                            }, 3000);
+                          }}
                           class="fa-solid fa-circle-chevron-down"
                         ></i>
                       </div>
@@ -2362,6 +2426,7 @@ export default function MainPage() {
         clickedGenre={clickedGenre}
         btnClickState={isBtnClicked}
         handleChildData={handleChildData}
+        plusBtnClicked={plusBtnClicked}
       />
     </div>
   );

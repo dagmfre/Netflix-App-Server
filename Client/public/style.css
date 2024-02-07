@@ -1907,12 +1907,15 @@ iframe {
   cursor: pointer;
   border-radius: 50%;
   border: 2px solid #808080;
-  height: 44px;
+  height: 41px;
   font-size: 1.5rem;
-  width: 44px;
+  width: 41px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+#bd .detail-controld-cont .check-icon {
+  font-size: 1.5rem;
 }
 .detail-controld-cont {
   display: flex;
@@ -1922,7 +1925,7 @@ iframe {
   background-color: black;
   display: grid;
   grid-template: auto / repeat(4, 1fr);
-  padding: 6rem 5rem;
+  padding: 8.3rem 5rem;
   gap: 2rem;
 }
 .movie-list-card {
@@ -2023,6 +2026,54 @@ iframe {
   font-size: 2rem;
   cursor: pointer;
 }
+.movie-list-img-cont:hover .movie-list-cover,
+.movie-list-img-cont:hover .delete-icon {
+  opacity: 1;
+}
+
+.movie-list-cover {
+  opacity: 0;
+  transition: 0.3s;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    180deg,
+    rgb(0 0 0 / 77%) 0%,
+    rgb(0 0 0 / 51%) 35%,
+    rgb(255 255 255 / 0%) 100%
+  );
+}
+
+.delete-icon {
+  transition: 0.3s;
+  opacity: 0;
+  position: absolute;
+  z-index: 10;
+  font-size: 1.5rem;
+  color: #fe4e4e;
+  right: 15px;
+  cursor: pointer;
+  top: 8px;
+}
+.delete-all:hover{
+  background-color: red;
+}
+.delete-all {
+  transition: 0.5s;
+  position: absolute;
+  right: 5%;
+  z-index: 100;
+  background-color: #feafaf;
+  padding: 10px 2rem;
+  border-radius: 5px;
+  top: 10%;
+  cursor: pointer;
+}
+.delete-all p {
+  margin: 0;
+  font-weight: 600;
+}
 @media screen and (max-width: 1370px) {
   .movie-list-cont {
     grid-template: auto / 1fr 1fr 1fr;
@@ -2063,7 +2114,7 @@ iframe {
         }
 
         @media screen and (max-width: 750px) {
-          .main-child2 h1:nth-child(3){
+          .main-child2 h1:nth-child(3) {
             top: 50%;
           }
           .detail-related-cont {

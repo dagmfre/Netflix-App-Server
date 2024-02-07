@@ -59,7 +59,7 @@ const userSchema = new mongoose.Schema({
 });
 
 const movieListSchema = new mongoose.Schema({
-  MovieTitle: String, 
+  MovieTitle: String,
   MovieImgURL: String,
   MovieVideoKey: String,
   MovieLength: String,
@@ -112,7 +112,8 @@ passport.use(
     {
       clientID: process.env.FB_APP_ID,
       clientSecret: process.env.FB_APP_SECRET,
-      callbackURL: "https://netflix-api-6lk8.onrender.com/fb/auth-netflix-account",
+      callbackURL: 
+        "https://netflix-api-6lk8.onrender.com/fb/auth-netflix-account",
     },
     function (accessToken, refreshToken, profile, cb) {
       User.findOrCreate(
@@ -147,7 +148,8 @@ app.get(
   "/fb/auth-netflix-account",
   passport.authenticate("facebook", {
     failureRedirect: "https://netflix-app-clonee.vercel.app/login",
-    successRedirect: "https://netflix-app-clonee.vercel.app/auth-netflix-account",
+    successRedirect:
+      "https://netflix-app-clonee.vercel.app/auth-netflix-account",
   })
 );
 
@@ -175,6 +177,31 @@ app.post("/user-movie-list", async (req, res) => {
     // Handle errors
     console.error("Error:", error.message);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.delete("/user-movie-list/:id", async (req, res) => {
+  const movieTitle = req.params.id;
+  try {
+    const deletedItem = await MovieList.deleteOne({ MovieTitle: movieTitle });
+
+    if (!deletedItem) {
+      return res.status(404).json({ message: "Item not found" });
+    } else {
+      res.status(200).json({ message: "Item deleted successfully" });
+    }
+  } catch (error) {
+    console.error("Error deleting item:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}); 
+
+app.delete("/delete-movie-list", async (req, res) => {
+  try {
+    await MovieList.deleteMany();
+  } catch (error) {
+    console.error("Error deleting item:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
@@ -211,7 +238,6 @@ passport.use(
 );
 
 app.post("/register", (req, res) => {
-  console.log(req.body);
   const user = new User({
     email: req.body.email,
     password: hashSync(req.body.password, 10),

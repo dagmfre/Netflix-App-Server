@@ -2,8 +2,24 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
 
-export default function MyList() {
+export default function MyList(title) {
   const [fetchedMovieListDatas, setFetchedMovieListData] = useState([]);
+
+  const deleteMovieList = async (title) => {
+    try {
+      await axios.delete(`https://netflix-api-6lk8.onrender.com/user-movie-list/${title}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const deleteAllMovieList = async () => {
+    try {
+      await axios.delete(`https://netflix-api-6lk8.onrender.com/delete-movie-list`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     const fetchMovieListInfo = async () => {
@@ -25,12 +41,22 @@ export default function MyList() {
     <div>
       <Navbar />
       <div className="movie-list-cont">
+        <div onClick={deleteAllMovieList}  className="delete-all">
+          <p>Delete All</p>
+        </div>
         {fetchedMovieListDatas.length === 0 ? (
           <p className="no-movie-msg">No movies are added to your list!</p>
         ) : (
           fetchedMovieListDatas.map((fetchedMovieListData, index) => (
             <div className="movie-list-card" key={index}>
               <div className="movie-list-img-cont">
+                <i 
+                  onClick={() =>
+                    deleteMovieList(fetchedMovieListData.MovieTitle)
+                  }
+                  className="delete-icon fa-solid fa-trash-can"
+                ></i>
+                <div className="movie-list-cover"></div>
                 <img
                   src={`https://image.tmdb.org/t/p/w500${fetchedMovieListData.MovieImgURL}`}
                   alt=""

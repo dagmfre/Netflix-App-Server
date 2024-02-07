@@ -4,6 +4,7 @@ import axios from "axios";
 export default function MovieDetail(props) {
   const [relatedMoviesCont, setRelatedMoviesCont] = useState([]);
   const api_key = process.env.REACT_APP_TMDB_API_KEY;
+  const [isPlusBtnClicked, setIsPlusBtnClicked] = useState(null);
 
   const handleXclick = () => {
     props.handleChildData(true);
@@ -11,6 +12,15 @@ export default function MovieDetail(props) {
 
   const truncate = (str, n) => {
     return str.length > n ? str.slice(0, n - 1) + "..." : str;
+  };
+
+  const handlePlusBtnClick = () => {
+    props.plusBtnClicked(true);
+
+    setIsPlusBtnClicked(true);
+    setTimeout(() => {
+      setIsPlusBtnClicked(false);
+    }, 500);
   };
 
   useEffect(() => {
@@ -49,7 +59,19 @@ export default function MovieDetail(props) {
                 <p>Play</p>
               </div>
               <div className="detail-controld-cont">
-                <i className="fa-solid fa-plus"></i>
+                <i
+                  style={{
+                    display: isPlusBtnClicked ? "none" : "flex",
+                  }}
+                  onClick={handlePlusBtnClick}
+                  class="fa-solid fa-plus"
+                ></i>
+                <i
+                  style={{
+                    display: isPlusBtnClicked ? "flex" : "none",
+                  }}
+                  class="fa-solid fa-check check-icon"
+                ></i>
                 <i class="fa-regular fa-thumbs-up"></i>
               </div>
             </div>
@@ -79,7 +101,7 @@ export default function MovieDetail(props) {
               <img
                 src={`https://image.tmdb.org/t/p/w500${relatedMovies.backdrop_path}`}
                 alt=""
-              /> 
+              />
             </div>
             <div className="related-descrp-cont">
               <div className="related-info-cont">

@@ -7,7 +7,6 @@ export default function NetflixMainPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const username = location.state?.data;
-  
 
   useEffect(() => {
     const token = localStorage.getItem("token");
