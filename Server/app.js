@@ -166,8 +166,7 @@ app.get(
 );
 
 app.get("/success", isLoggedIn, (req, res) => {
-  console.log("You are logged in");
-  res.send(`Welcome ${req.user.displayName}`);
+  res.redirect("https://netflix-app-clonee.vercel.app/auth-netflix-account")
 });
 
 app.post("/user-movie-list", async (req, res) => {
