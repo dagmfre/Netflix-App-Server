@@ -156,6 +156,7 @@ app.get(
 );
 
 app.get('/protected', (req, res) => {
+  console.log(req.user);
   if (req.user) {
     res.status(200).json({ message: 'You are protected!' });
   } else {
