@@ -137,9 +137,9 @@ app.get(
 app.get(
   "/auth-netflix-account",
   passport.authenticate("google", {
-    failureRedirect: "https://netflix-api-6lk8.onrender.com/login",
+    failureRedirect: "https://netflix-app-clonee.vercel.app/login",
     successRedirect:
-      "https://netflix-api-6lk8.onrender.com/auth-netflix-account",
+      "https://netflix-app-clonee.vercel.app/auth-netflix-account",
   })
 ); 
 
@@ -159,10 +159,10 @@ app.get("/auth/facebook", passport.authenticate("facebook"));
 app.get(
   "/fb/auth-netflix-account",
   passport.authenticate("facebook", {
-    failureRedirect: "https://netflix-api-6lk8.onrender.com/login",
+    failureRedirect: "https://netflix-app-clonee.vercel.app/login",
  
     successRedirect:
-      "https://netflix-api-6lk8.onrender.com/auth-netflix-account",
+      "https://netflix-app-clonee.vercel.app/auth-netflix-account",
   }),
 );
 
