@@ -14,6 +14,7 @@ const findOrCreate = require("mongoose-findorcreate");
 const JwtStrategy = require("passport-jwt").Strategy,
   ExtractJwt = require("passport-jwt").ExtractJwt;
 const mongodbConnectionString = process.env.MONGODB_URI;
+const path = require('path');
 const opts = {};
 
 // use and initializing express, express-session and passport modules
