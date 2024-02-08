@@ -144,10 +144,10 @@ app.get(
 );
 
 app.get('/check-user-auth', (req, res) => {
+  console.log("yesss");
+  console.log(req.user);
+  console.log(req.isAuthenticated());
   if (req.user) {
-    console.log("yesss");
-    console.log(req.user);
-    console.log(req.isAuthenticated());
     res.status(200).json({ user: req.user });
   } else {
     console.log("noooooo");
