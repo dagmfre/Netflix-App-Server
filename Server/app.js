@@ -141,13 +141,14 @@ app.get(
     successRedirect:
       "https://netflix-app-clonee.vercel.app/auth-netflix-account",
   })
-); 
+);
 
 app.get('/check-user-auth', (req, res) => {
   if (req.user) {
     console.log("yesss");
-
-    res.status(200).json({user: req.user});
+    console.log(req.user);
+    console.log(req.isAuthenticated());
+    res.status(200).json({ user: req.user });
   } else {
     console.log("noooooo");
     res.status(401).json({ message: 'User is Unauthorized' });
@@ -160,7 +161,7 @@ app.get(
   "/fb/auth-netflix-account",
   passport.authenticate("facebook", {
     failureRedirect: "https://netflix-app-clonee.vercel.app/login",
- 
+
     successRedirect:
       "https://netflix-app-clonee.vercel.app/auth-netflix-account",
   }),
