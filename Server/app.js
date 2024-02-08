@@ -30,11 +30,18 @@ app.use(
     origin: "https://netflix-clone-app-tpuy.onrender.com",
   })
 );
+
 app.use(
   session({
     secret: "Our big secret!",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    proxy: true,
+    cookie: {
+      sameSite: "none",
+      secure: true,
+      httpOnly
+    },
   })
 );
 
