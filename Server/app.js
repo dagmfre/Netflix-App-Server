@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: "https://netflix-clone-app-tpuy.onrender.com",
+    origin: "https://netflix-app-clonee.vercel.app",
   })
 );
 
@@ -143,20 +143,16 @@ app.get(
 app.get(
   "/auth-netflix-account",
   passport.authenticate("google", {
-    failureRedirect: "https://netflix-clone-app-tpuy.onrender.com/login",
+    failureRedirect: "https://netflix-app-clonee.vercel.app/login",
     successRedirect:
-      "https://netflix-clone-app-tpuy.onrender.com/auth-netflix-account",
+      "https://netflix-app-clonee.vercel.app/auth-netflix-account",
   })
 );
 
 app.get('/check-user-auth', (req, res) => {
-  console.log("yesss");
-  console.log(req.user);
-  console.log(req.isAuthenticated());
   if (req.user) {
     res.status(200).json({ user: req.user });
   } else {
-    console.log("noooooo");
     res.status(401).json({ message: 'User is Unauthorized' });
   }
 });
@@ -166,10 +162,10 @@ app.get("/auth/facebook", passport.authenticate("facebook"));
 app.get(
   "/fb/auth-netflix-account",
   passport.authenticate("facebook", {
-    failureRedirect: "https://netflix-clone-app-tpuy.onrender.com/login",
+    failureRedirect: "https://netflix-app-clonee.vercel.app/login",
 
     successRedirect:
-      "https://netflix-clone-app-tpuy.onrender.com/auth-netflix-account",
+      "https://netflix-app-clonee.vercel.app/auth-netflix-account",
   }),
 );
 
@@ -181,13 +177,10 @@ app.post("/user-movie-list", async (req, res) => {
     // Save the document to the database
     await userMovieList.save();
 
-    console.log(req.body);
-
     // Send a success response
     res.status(200).json({ message: "Data saved successfully" });
   } catch (error) {
     // Handle errors
-    console.error("Error:", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
