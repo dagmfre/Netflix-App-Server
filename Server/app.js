@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: "https://netflix-app-clonee.vercel.app",
+    origin: "https://netflix-clone-app-tpuy.onrender.com",
   })
 );
 app.use(
@@ -137,9 +137,9 @@ app.get(
 app.get(
   "/auth-netflix-account",
   passport.authenticate("google", {
-    failureRedirect: "https://netflix-app-clonee.vercel.app/login",
+    failureRedirect: "https://netflix-clone-app-tpuy.onrender.com/login",
     successRedirect:
-      "https://netflix-app-clonee.vercel.app/auth-netflix-account",
+      "https://netflix-clone-app-tpuy.onrender.com/auth-netflix-account",
   })
 );
 
@@ -160,10 +160,10 @@ app.get("/auth/facebook", passport.authenticate("facebook"));
 app.get(
   "/fb/auth-netflix-account",
   passport.authenticate("facebook", {
-    failureRedirect: "https://netflix-app-clonee.vercel.app/login",
+    failureRedirect: "https://netflix-clone-app-tpuy.onrender.com/login",
 
     successRedirect:
-      "https://netflix-app-clonee.vercel.app/auth-netflix-account",
+      "https://netflix-clone-app-tpuy.onrender.com/auth-netflix-account",
   }),
 );
 
