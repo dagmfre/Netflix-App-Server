@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: "https://netflix-app-clonee.vercel.app",
+    origin: "https://netflix-api-6lk8.onrender.com",
   })
 );
 app.use(
@@ -137,9 +137,9 @@ app.get(
 app.get(
   "/auth-netflix-account",
   passport.authenticate("google", {
-    failureRedirect: "https://netflix-app-clonee.vercel.app/login",
+    failureRedirect: "https://netflix-api-6lk8.onrender.com/login",
     successRedirect:
-      "https://netflix-app-clonee.vercel.app/auth-netflix-account",
+      "https://netflix-api-6lk8.onrender.com/auth-netflix-account",
   })
 );
 
@@ -148,17 +148,20 @@ app.get("/auth/facebook", passport.authenticate("facebook"));
 app.get(
   "/fb/auth-netflix-account",
   passport.authenticate("facebook", {
-    failureRedirect: "https://netflix-app-clonee.vercel.app/login",
-
+    failureRedirect: "https://netflix-api-6lk8.onrender.com/login",
+ 
     successRedirect:
-      "https://netflix-app-clonee.vercel.app/auth-netflix-account",
+      "https://netflix-api-6lk8.onrender.com/auth-netflix-account",
   }),
 );
 
-app.get('/protected', (req, res) => {
-  if (req.isAuthenticated()) {
-    res.status(200).json({ message: 'You are protected!' });
+app.get('/check-user-auth', (req, res) => {
+  if (req.user) {
+    console.log("yesss");
+
+    res.status(200).json({user: req.user});
   } else {
+    console.log("noooooo");
     res.status(401).json({ message: 'User is Unauthorized' });
   }
 });

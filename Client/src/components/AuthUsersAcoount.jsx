@@ -7,25 +7,20 @@ export default function AuthUsersAcoount() {
   const [username, setUsername] = useState("")
   const navigate = useNavigate();
   useEffect(() => {
-    axios
-      .get("https://netflix-api-6lk8.onrender.com/protected", { withCredentials: true })
+    axios 
+      .get("https://netflix-api-6lk8.onrender.com/check-user-auth", { withCredentials: true })
       .then((res) => {
-        console.log(res) 
         if (res.status === 200) {
+          console.log(res) 
           setUsername(res.data.user.username);
         } else {
           navigate("/login");
+          console.log("no waaaayyy");
         } 
-        
-        // if (res.ok) {
-        //   setUsername(res.data.user.username)
-        // } else {
-        //   navigate("/login");
-        // }
       })
-      .catch((error) => {  
+      .catch((error) => { 
         navigate("/login");
-        console.log(`the error is an internal server`);
+        console.log(error);
       });
   }, []);
   return (
