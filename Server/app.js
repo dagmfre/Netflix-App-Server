@@ -14,7 +14,6 @@ const findOrCreate = require("mongoose-findorcreate");
 const JwtStrategy = require("passport-jwt").Strategy,
   ExtractJwt = require("passport-jwt").ExtractJwt;
 const mongodbConnectionString = process.env.MONGODB_URI;
-const path = require('path');
 const opts = {};
 
 // use and initializing express, express-session and passport modules
@@ -126,10 +125,6 @@ passport.use(
     }
   )
 );
-
-app.get('/*', function (req, res) {
-  const index = path.join(__dirname, '/', '../build', 'index.html' );
-});
 
 // Creating Routes for Google & FB authentication
 app.get(
