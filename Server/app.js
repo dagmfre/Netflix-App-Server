@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: "https://netflix-api-6lk8.onrender.com",
+    origin: "https://netflix-app-clonee.vercel.app",
   })
 );
 app.use(
@@ -141,7 +141,18 @@ app.get(
     successRedirect:
       "https://netflix-api-6lk8.onrender.com/auth-netflix-account",
   })
-);
+); 
+
+app.get('/check-user-auth', (req, res) => {
+  if (req.user) {
+    console.log("yesss");
+
+    res.status(200).json({user: req.user});
+  } else {
+    console.log("noooooo");
+    res.status(401).json({ message: 'User is Unauthorized' });
+  }
+});
 
 app.get("/auth/facebook", passport.authenticate("facebook"));
 
@@ -154,17 +165,6 @@ app.get(
       "https://netflix-api-6lk8.onrender.com/auth-netflix-account",
   }),
 );
-
-app.get('/check-user-auth', (req, res) => {
-  if (req.user) {
-    console.log("yesss");
-
-    res.status(200).json({user: req.user});
-  } else {
-    console.log("noooooo");
-    res.status(401).json({ message: 'User is Unauthorized' });
-  }
-});
 
 app.post("/user-movie-list", async (req, res) => {
   try {
