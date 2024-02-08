@@ -1,21 +1,31 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "./Navbar";
 
 export default function MyList(title) {
+  const navigate = useNavigate();
   const [fetchedMovieListDatas, setFetchedMovieListData] = useState([]);
 
   const deleteMovieList = async (title) => {
     try {
-      await axios.delete(`https://netflix-api-6lk8.onrender.com/user-movie-list/${title}`);
+      await axios.delete(
+        `https://netflix-api-6lk8.onrender.com/user-movie-list/${title}`
+      );
     } catch (err) {
       console.log(err);
     }
   };
 
+  const handlePlayClick = (key) => {
+    navigate("/movie-player", { state: { data: key } });
+  };
+
   const deleteAllMovieList = async () => {
     try {
-      await axios.delete(`https://netflix-api-6lk8.onrender.com/delete-movie-list`);
+      await axios.delete(
+        `https://netflix-api-6lk8.onrender.com/delete-movie-list`
+      );
     } catch (err) {
       console.log(err);
     }
@@ -41,7 +51,7 @@ export default function MyList(title) {
     <div>
       <Navbar />
       <div className="movie-list-cont">
-        <div onClick={deleteAllMovieList}  className="delete-all">
+        <div onClick={deleteAllMovieList} className="delete-all">
           <p>Delete All</p>
         </div>
         {fetchedMovieListDatas.length === 0 ? (
@@ -50,7 +60,7 @@ export default function MyList(title) {
           fetchedMovieListDatas.map((fetchedMovieListData, index) => (
             <div className="movie-list-card" key={index}>
               <div className="movie-list-img-cont">
-                <i 
+                <i
                   onClick={() =>
                     deleteMovieList(fetchedMovieListData.MovieTitle)
                   }
@@ -64,7 +74,12 @@ export default function MyList(title) {
                 <h1>{fetchedMovieListData.MovieTitle}</h1>
               </div>
               <div className="movie-list-descrp-cont">
-                <div className="play-btn">
+                <div
+                  onClick={() =>
+                    handlePlayClick(fetchedMovieListData.MovieVideoKey)
+                  }
+                  className="play-btn"
+                >
                   <i class="fa-solid fa-play"></i>
                   <p>Play</p>
                 </div>
