@@ -2039,8 +2039,6 @@ export default function MainPage() {
   };
 
   const plusBtnClicked = (plusBtnClickState) => {
-    console.log(plusBtnClickState);
-
     if (plusBtnClickState && isRandomMoviePlusBtnClicked) {
       setMovieTitle(title);
       setMovieImgURL(randomImage);

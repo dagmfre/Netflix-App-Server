@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 
 function SuInput2({ sentData, ...props }) {
-  console.log(props.firstPageEmail);
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isUsernameFocused, setIsUsernameFocused] = useState(false);
   const [emailInputValue, setEmailInputValue] = useState(

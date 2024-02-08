@@ -32,7 +32,6 @@ function SignUp() {
       localStorage.setItem("token", response.data.token);
       if (response.status === 200) {
         navigate("/netflix-account", { state: { data: username } });
-        console.log(response);
       }
     } catch (error) {
       console.error("Error during registration:", error);

@@ -22,7 +22,7 @@ export default function NetflixMainPage() {
       })
       .catch((error) => {
         navigate("/login");
-        console.log("thsi is therrrrrrrrrrrrr" + error + token);
+        console.log("Unauthorized user, This is the error" + error);
       });
   }, []);
   return (

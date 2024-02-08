@@ -11,11 +11,10 @@ export default function AuthUsersAcoount() {
       .get("https://netflix-api-6lk8.onrender.com/check-user-auth", { withCredentials: true })
       .then((res) => {
         if (res.status === 200) {
-          console.log(res) 
           setUsername(res.data.user.username);
         } else {
           navigate("/login");
-          console.log("no waaaayyy");
+          console.log("User unauthorized!");
         } 
       })
       .catch((error) => { 

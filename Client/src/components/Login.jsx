@@ -15,7 +15,6 @@ export default function Login() {
   const handleEmailUsername = (data) => {
     setEmail(data.email);
     setUsername(data.username);
-    console.log(data);
   };
   const handlePassword = (data) => {
     setPassword(data);
