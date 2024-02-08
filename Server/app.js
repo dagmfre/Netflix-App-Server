@@ -128,7 +128,7 @@ passport.use(
 );
 
 app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname+'/Client/build/index.html'));
+  res.sendFile(path.join(__dirname+'../Client/build/index.html'));
 });
 
 // Creating Routes for Google & FB authentication
