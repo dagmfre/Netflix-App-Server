@@ -1683,6 +1683,7 @@ iframe {
   padding: 0px 25px;
 }
 .detail-main {
+  background-color: black;
   max-width: 955px;
   width: 100%;
   height: 540px;
@@ -1925,7 +1926,7 @@ iframe {
   background-color: black;
   display: grid;
   grid-template: auto / repeat(4, 1fr);
-  padding: 8.3rem 5rem;
+  padding: 8.3rem 5rem !important;
   gap: 2rem;
 }
 .movie-list-card {
@@ -2088,6 +2089,9 @@ iframe {
         grid-template: auto / 1fr 1fr;
       }
       @media screen and (max-width: 800px) {
+        .no-movie-msg{
+          white-space: inherit;
+        }
         .card-cont {
           grid-template-columns: repeat(3, 1fr);
         }
