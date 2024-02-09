@@ -60,8 +60,8 @@ export default function MovieDetail(props) {
           <div className="title-control-cont">
             <h1>{props.clickedTitle}</h1>
             <div className="control-cont">
-              <div className="play-btn">
-                <i onClick={playClickHandler} class="fa-solid fa-play"></i>
+              <div onClick={playClickHandler} className="play-btn">
+                <i class="fa-solid fa-play"></i>
                 <p>Play</p>
               </div>
               <div className="detail-controld-cont">
