@@ -2138,7 +2138,7 @@ iframe {
               .cards:nth-child(3) .hovered-card:hover,
               .cards:nth-child(6) .hovered-card:hover,
               .cards:nth-child(9) .hovered-card:hover {
-                left: -13vw;
+                left: -25vw;
               }
             }
             @media screen and (max-width: 550px) {
