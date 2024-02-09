@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
-  const navigate = useNavigate
+  const navigate = useNavigate;
   const [isTogglerClicked, setIsTogglerClicked] = useState(false);
   const [isSearchClicked, setIsSearchClicked] = useState(false);
   const [isSearchClicked2, setIsSearch2Clicked] = useState(false);
@@ -17,11 +17,11 @@ export default function Navbar() {
   };
   const searchClickHandler2 = () => {
     setIsSearch2Clicked(!isSearchClicked2);
-  }; 
+  };
 
-  const handleNavlink = () =>{
-    navigate("/main-page", {state : {data : "pseudo-data"}})
-  }
+  const handleNavlink = () => {
+    navigate("/main-page", { state: { data: "pseudo-data" } });
+  };
 
   const windowWidthHandler = () => {
     if (window.innerWidth < 750) {
@@ -52,13 +52,19 @@ export default function Navbar() {
               <div className="navlist-cont">
                 <ul className="navbar-nav">
                   <li className="nav-item">
-                    <Link className="nav-link">Movies</Link>
+                    <Link onClick={handleNavlink} className="nav-link">
+                      Movies
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link">Tv Shows</Link>
+                    <Link onClick={handleNavlink} className="nav-link">
+                      Tv Shows
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link">My List</Link>
+                    <Link className="nav-link" to="/my-list">
+                      My List
+                    </Link>
                   </li>
                 </ul>
               </div>
