@@ -74,9 +74,9 @@ export default function Navbar() {
                 type="search"
               />
             </div>
-            <Link to="/movies">Movies</Link>
-            <Link to="/tv-shows">Tv Shows</Link>
-            <Link to="/my-lists">My List</Link>
+            <Link to="/main-page">Movies</Link>
+            <Link to="/main-page">Tv Shows</Link>
+            <Link to="/my-list">My List</Link>
           </div>
           <div>
             <div className="nav-child3">
