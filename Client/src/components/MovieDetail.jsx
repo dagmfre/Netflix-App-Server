@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function MovieDetail(props) {
+  const navigate = useNavigate();
   const [relatedMoviesCont, setRelatedMoviesCont] = useState([]);
   const api_key = process.env.REACT_APP_TMDB_API_KEY;
   const [isPlusBtnClicked, setIsPlusBtnClicked] = useState(null);
@@ -12,6 +14,10 @@ export default function MovieDetail(props) {
 
   const truncate = (str, n) => {
     return str.length > n ? str.slice(0, n - 1) + "..." : str;
+  };
+
+  const playClickHandler = () => {
+    navigate("/movie-player", { state: { data: props.clickedKey } });
   };
 
   const handlePlusBtnClick = () => {
@@ -55,7 +61,7 @@ export default function MovieDetail(props) {
             <h1>{props.clickedTitle}</h1>
             <div className="control-cont">
               <div className="play-btn">
-                <i class="fa-solid fa-play"></i>
+                <i onClick={playClickHandler} class="fa-solid fa-play"></i>
                 <p>Play</p>
               </div>
               <div className="detail-controld-cont">
