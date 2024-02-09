@@ -52,12 +52,20 @@ export default function Navbar() {
               <div className="navlist-cont">
                 <ul className="navbar-nav">
                   <li className="nav-item">
-                    <Link onClick={handleNavlink} className="nav-link">
+                    <Link
+                      to="/main-page"
+                      onClick={handleNavlink}
+                      className="nav-link"
+                    >
                       Movies
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link onClick={handleNavlink} className="nav-link">
+                    <Link
+                      to="/main-page"
+                      onClick={handleNavlink}
+                      className="nav-link"
+                    >
                       Tv Shows
                     </Link>
                   </li>
@@ -84,8 +92,12 @@ export default function Navbar() {
                 type="search"
               />
             </div>
-            <Link onClick={handleNavlink}>Movies</Link>
-            <Link onClick={handleNavlink}>Tv Shows</Link>
+            <Link to="/main-page" onClick={handleNavlink}>
+              Movies
+            </Link>
+            <Link to="/main-page" onClick={handleNavlink}>
+              Tv Shows
+            </Link>
             <Link to="/my-list">My List</Link>
           </div>
           <div>
