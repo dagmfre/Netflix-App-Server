@@ -2056,7 +2056,7 @@ iframe {
   cursor: pointer;
   top: 8px;
 }
-.delete-all:hover{
+.delete-all:hover {
   background-color: red;
 }
 .delete-all {
@@ -2080,12 +2080,12 @@ iframe {
     padding: 6rem 2rem;
   }
   @media screen and (max-width: 1140px) {
+    .card-cont {
+      grid-template-columns: repeat(4, 1fr);
+    }
     @media screen and (max-width: 1000px) {
       .movie-list-cont {
         grid-template: auto / 1fr 1fr;
-      }
-      .card-cont {
-        grid-template-columns: repeat(4, 1fr);
       }
       @media screen and (max-width: 800px) {
         .card-cont {
