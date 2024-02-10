@@ -52,22 +52,20 @@ export default function Navbar() {
               <div className="navlist-cont">
                 <ul className="navbar-nav">
                   <li className="nav-item">
-                    <Link
-                      to="/main-page"
+                    <a
                       onClick={handleNavlink}
                       className="nav-link"
                     >
                       Movies
-                    </Link>
+                    </a>
                   </li>
                   <li className="nav-item">
-                    <Link
-                      to="/main-page"
+                    <a
                       onClick={handleNavlink}
                       className="nav-link"
                     >
                       Tv Shows
-                    </Link>
+                    </a>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" to="/my-list">
