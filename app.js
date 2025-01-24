@@ -105,7 +105,7 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL:
-        "https://netflix-app-server.up.railway.app/auth-netflix-account",
+        "https://netflix-clonee-api.vercel.app/auth-netflix-account",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     function (accessToken, refreshToken, profile, cb) {
@@ -125,7 +125,7 @@ passport.use(
       clientID: process.env.FB_APP_ID,
       clientSecret: process.env.FB_APP_SECRET,
       callbackURL:
-        "https://netflix-app-server.up.railway.app/fb/auth-netflix-account",
+        "https://netflix-clonee-api.vercel.app/fb/auth-netflix-account",
     },
     function (accessToken, refreshToken, profile, cb) {
       User.findOrCreate(
